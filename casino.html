@@ -333,6 +333,42 @@
       text-transform: uppercase;
     }
 
+    .casino-controls {
+      margin-top: 14px;
+      display: grid;
+      gap: 8px;
+      justify-items: center;
+    }
+
+    .btn-roll {
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      padding: 10px 18px;
+      background: linear-gradient(120deg, rgba(232, 199, 106, 0.22), rgba(216, 75, 75, 0.2));
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-roll:hover {
+      transform: translateY(-2px);
+      border-color: #fff1c0;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .btn-roll:active {
+      transform: translateY(0);
+    }
+
+    .roll-meta {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+
     .casino-floor {
       position: relative;
       padding: 22px;
@@ -548,7 +584,7 @@
     }
 
     .die.drop::after {
-      content: "✕";
+      content: "X";
       position: absolute;
       inset: 0;
       display: grid;
@@ -608,7 +644,7 @@
       --die-edge: #c39bff;
     }
 
-    /* Color por número (todos los iguales comparten color) */
+    /* Color por nÃƒÆ’Ã‚Âºmero (todos los iguales comparten color) */
     .die.n1 {
       --die-face: #2b1218;
       --die-edge: #ff8e8e;
@@ -940,33 +976,32 @@
       }
 
       .casino-set li {
-        grid-template-columns: 1fr auto;
-        grid-template-areas:
-          "label label"
-          "dice dice"
-          "equals total";
-        white-space: normal;
-        overflow: visible;
-        gap: 6px;
+        grid-template-columns: auto 1fr auto auto;
+        white-space: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        gap: 8px;
       }
 
       .casino-set li::before {
-        grid-area: label;
+        grid-area: auto;
       }
 
       .casino-set .dice-row {
-        grid-area: dice;
-        flex-wrap: wrap;
+        grid-area: auto;
+        flex-wrap: nowrap;
+        min-width: max-content;
       }
 
       .casino-set .equals {
-        grid-area: equals;
-        justify-self: start;
+        grid-area: auto;
+        justify-self: auto;
       }
 
       .casino-set .hex {
-        grid-area: total;
-        justify-self: end;
+        grid-area: auto;
+        justify-self: auto;
         width: 56px;
         height: 36px;
         font-size: 14px;
@@ -1010,587 +1045,175 @@
         <ul>
           <li><a href="index.html">Inicio</a></li>
           <li><a href="resources.html">Recursos</a></li>
-          <li><a href="guide.html">Guía</a></li>
+          <li><a href="guide.html">GuÃƒÆ’Ã‚Â­a</a></li>
           <li><a href="casino.html">Casino</a></li>
           <li><a href="weapons.html">Armas</a></li>
-          <li><a href="razas.html">Razas (<span class="race-count" data-fallback="52"></span>)</a></li><li><a href="clases/index.html">Clases</a></li>
+          <li><a href="razas.html">Razas (52)</a></li><li><a href="clases/index.html">Clases</a></li>
         </ul>
       </div>
     </div>
  
-    <section class="panel" id="casino">
+        <section class="panel" id="casino">
       <div class="casino-banner">
         <h2>Casa de stats</h2>
         <p>4d6, descarta el menor y suma; repite 6 veces para un set. Dos sets listos para jugar.</p>
-        <div class="casino-marquee">High rollers | 4d6 | drop lowest | tirada rapida | sin scripts</div>
+        <div class="casino-marquee">High rollers | 4d6 | drop lowest | tirada real</div>
+        <div class="casino-controls">
+          <button class="btn-roll" id="roll-btn" type="button">Tirar de nuevo</button>
+          <p class="roll-meta" id="roll-meta" aria-live="polite"></p>
+        </div>
       </div>
       <div class="casino-floor">
-        <div class="casino-roulette">
-          <div class="casino-variant is-flash" style="--delay: 0s;">
-            <div class="casino">
-          <div class="casino-set">
-            <div class="casino-set__title">
-              <h4>Set 1</h4>
-              <span class="set-total" aria-label="Total del set 1">72</span>
-            </div>
-            <ol>
-              <li>
-                <div class="dice-row">
-                  <span class="die tone-amber n5">5</span>
-                  <span class="die tone-rose n5">5</span>
-                  <span class="die tone-cyan n4">4</span>
-                  <span class="die drop tone-lime n3">3</span>
-                </div>
-                <span class="equals">=</span>
-                <span class="hex">14</span>
-              </li>
-              <li>
-                <div class="dice-row">
-                  <span class="die tone-cyan n6">6</span>
-                  <span class="die tone-amber n4">4</span>
-                  <span class="die tone-violet n3">3</span>
-                  <span class="die drop tone-rose n1">1</span>
-                </div>
-                <span class="equals">=</span>
-                <span class="hex">13</span>
-              </li>
-              <li>
-                <div class="dice-row">
-                  <span class="die tone-amber n5">5</span>
-                  <span class="die tone-cyan n2">2</span>
-                  <span class="die tone-lime n2">2</span>
-                  <span class="die drop tone-violet n1">1</span>
-                </div>
-                <span class="equals">=</span>
-                <span class="hex">9</span>
-              </li>
-              <li>
-                <div class="dice-row">
-                  <span class="die tone-cyan n6">6</span>
-                  <span class="die tone-amber n4">4</span>
-                  <span class="die tone-lime n3">3</span>
-                  <span class="die drop tone-rose n2">2</span>
-                </div>
-                <span class="equals">=</span>
-                <span class="hex">13</span>
-              </li>
-              <li>
-                <div class="dice-row">
-                  <span class="die tone-violet n6">6</span>
-                  <span class="die tone-cyan n3">3</span>
-                  <span class="die tone-amber n2">2</span>
-                  <span class="die drop tone-rose n1">1</span>
-                </div>
-                <span class="equals">=</span>
-                <span class="hex">11</span>
-              </li>
-              <li>
-                <div class="dice-row">
-                  <span class="die tone-amber n5">5</span>
-                  <span class="die tone-rose n5">5</span>
-                  <span class="die tone-cyan n2">2</span>
-                  <span class="die drop tone-violet n1">1</span>
-                </div>
-                <span class="equals">=</span>
-                <span class="hex">12</span>
-              </li>
-            </ol>
-          </div>
-          <div class="casino-set">
-            <div class="casino-set__title">
-              <h4>Set 2</h4>
-              <span class="set-total" aria-label="Total del set 2">75</span>
-            </div>
-            <ol>
-              <li>
-                <div class="dice-row">
-                  <span class="die tone-amber n5">5</span>
-                  <span class="die tone-cyan n4">4</span>
-                  <span class="die tone-violet n3">3</span>
-                  <span class="die drop tone-rose n1">1</span>
-                </div>
-                <span class="equals">=</span>
-                <span class="hex">12</span>
-              </li>
-              <li>
-                <div class="dice-row">
-                  <span class="die tone-cyan n6">6</span>
-                  <span class="die tone-amber n5">5</span>
-                  <span class="die tone-lime n2">2</span>
-                  <span class="die drop tone-rose n2">2</span>
-                </div>
-                <span class="equals">=</span>
-                <span class="hex">13</span>
-              </li>
-              <li>
-                <div class="dice-row">
-                  <span class="die tone-amber n5">5</span>
-                  <span class="die tone-cyan n4">4</span>
-                  <span class="die tone-violet n4">4</span>
-                  <span class="die drop tone-lime n1">1</span>
-                </div>
-                <span class="equals">=</span>
-                <span class="hex">13</span>
-              </li>
-              <li>
-                <div class="dice-row">
-                  <span class="die tone-cyan n6">6</span>
-                  <span class="die tone-amber n4">4</span>
-                  <span class="die tone-violet n2">2</span>
-                  <span class="die drop tone-lime n2">2</span>
-                </div>
-                <span class="equals">=</span>
-                <span class="hex">12</span>
-              </li>
-              <li>
-                <div class="dice-row">
-                  <span class="die tone-amber n5">5</span>
-                  <span class="die tone-rose n5">5</span>
-                  <span class="die tone-cyan n4">4</span>
-                  <span class="die drop tone-violet n3">3</span>
-                </div>
-                <span class="equals">=</span>
-                <span class="hex">14</span>
-              </li>
-              <li>
-                <div class="dice-row">
-                  <span class="die tone-cyan n4">4</span>
-                  <span class="die tone-amber n4">4</span>
-                  <span class="die tone-violet n3">3</span>
-                  <span class="die drop tone-rose n1">1</span>
-                </div>
-                <span class="equals">=</span>
-                <span class="hex">11</span>
-              </li>
-            </ol>
-          </div>
-            </div>
-          </div>
-          <div class="casino-variant is-flash" style="--delay: 0.3s;">
-            <div class="casino">
-              <div class="casino-set">
-                <div class="casino-set__title">
-                  <h4>Set 1</h4>
-                  <span class="set-total" aria-label="Total del set 1">70</span>
-                </div>
-                <ol>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n5">5</span>
-                      <span class="die drop tone-rose n3">3</span>
-                      <span class="die tone-cyan n6">6</span>
-                      <span class="die tone-lime n4">4</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">15</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n5">5</span>
-                      <span class="die tone-rose n6">6</span>
-                      <span class="die drop tone-cyan n1">1</span>
-                      <span class="die tone-lime n5">5</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">16</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n2">2</span>
-                      <span class="die tone-rose n4">4</span>
-                      <span class="die tone-cyan n2">2</span>
-                      <span class="die drop tone-lime n1">1</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">8</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n2">2</span>
-                      <span class="die tone-rose n6">6</span>
-                      <span class="die tone-cyan n2">2</span>
-                      <span class="die drop tone-lime n1">1</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">10</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n6">6</span>
-                      <span class="die drop tone-rose n3">3</span>
-                      <span class="die tone-cyan n5">5</span>
-                      <span class="die tone-lime n3">3</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">14</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die drop tone-amber n2">2</span>
-                      <span class="die tone-rose n3">3</span>
-                      <span class="die tone-cyan n2">2</span>
-                      <span class="die tone-lime n2">2</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">7</span>
-                  </li>
-                </ol>
-              </div>
-              <div class="casino-set">
-                <div class="casino-set__title">
-                  <h4>Set 2</h4>
-                  <span class="set-total" aria-label="Total del set 2">73</span>
-                </div>
-                <ol>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n2">2</span>
-                      <span class="die tone-rose n2">2</span>
-                      <span class="die tone-cyan n2">2</span>
-                      <span class="die drop tone-lime n1">1</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">6</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die drop tone-amber n2">2</span>
-                      <span class="die tone-rose n5">5</span>
-                      <span class="die tone-cyan n4">4</span>
-                      <span class="die tone-lime n5">5</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">14</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n3">3</span>
-                      <span class="die drop tone-rose n1">1</span>
-                      <span class="die tone-cyan n4">4</span>
-                      <span class="die tone-lime n6">6</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">13</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die drop tone-amber n1">1</span>
-                      <span class="die tone-rose n5">5</span>
-                      <span class="die tone-cyan n2">2</span>
-                      <span class="die tone-lime n6">6</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">13</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n2">2</span>
-                      <span class="die tone-rose n6">6</span>
-                      <span class="die tone-cyan n5">5</span>
-                      <span class="die drop tone-lime n1">1</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">13</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die drop tone-amber n4">4</span>
-                      <span class="die tone-rose n5">5</span>
-                      <span class="die tone-cyan n5">5</span>
-                      <span class="die tone-lime n4">4</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">14</span>
-                  </li>
-                </ol>
-              </div>
-            </div>
-          </div>
-          <div class="casino-variant is-flash" style="--delay: 0.6s;">
-            <div class="casino">
-              <div class="casino-set">
-                <div class="casino-set__title">
-                  <h4>Set 1</h4>
-                  <span class="set-total" aria-label="Total del set 1">67</span>
-                </div>
-                <ol>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n4">4</span>
-                      <span class="die tone-rose n3">3</span>
-                      <span class="die drop tone-cyan n1">1</span>
-                      <span class="die tone-lime n3">3</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">10</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n3">3</span>
-                      <span class="die tone-rose n6">6</span>
-                      <span class="die tone-cyan n3">3</span>
-                      <span class="die drop tone-lime n2">2</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">12</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die drop tone-amber n3">3</span>
-                      <span class="die tone-rose n6">6</span>
-                      <span class="die tone-cyan n4">4</span>
-                      <span class="die tone-lime n4">4</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">14</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n6">6</span>
-                      <span class="die tone-rose n4">4</span>
-                      <span class="die drop tone-cyan n3">3</span>
-                      <span class="die tone-lime n5">5</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">15</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n4">4</span>
-                      <span class="die drop tone-rose n1">1</span>
-                      <span class="die tone-cyan n1">1</span>
-                      <span class="die tone-lime n1">1</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">6</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n3">3</span>
-                      <span class="die drop tone-rose n2">2</span>
-                      <span class="die tone-cyan n3">3</span>
-                      <span class="die tone-lime n4">4</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">10</span>
-                  </li>
-                </ol>
-              </div>
-              <div class="casino-set">
-                <div class="casino-set__title">
-                  <h4>Set 2</h4>
-                  <span class="set-total" aria-label="Total del set 2">70</span>
-                </div>
-                <ol>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n4">4</span>
-                      <span class="die drop tone-rose n1">1</span>
-                      <span class="die tone-cyan n1">1</span>
-                      <span class="die tone-lime n4">4</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">9</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die drop tone-amber n2">2</span>
-                      <span class="die tone-rose n2">2</span>
-                      <span class="die tone-cyan n2">2</span>
-                      <span class="die tone-lime n3">3</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">7</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n6">6</span>
-                      <span class="die drop tone-rose n2">2</span>
-                      <span class="die tone-cyan n2">2</span>
-                      <span class="die tone-lime n4">4</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">12</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n4">4</span>
-                      <span class="die tone-rose n5">5</span>
-                      <span class="die drop tone-cyan n1">1</span>
-                      <span class="die tone-lime n5">5</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">14</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die drop tone-amber n1">1</span>
-                      <span class="die tone-rose n6">6</span>
-                      <span class="die tone-cyan n3">3</span>
-                      <span class="die tone-lime n6">6</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">15</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n5">5</span>
-                      <span class="die tone-rose n5">5</span>
-                      <span class="die tone-cyan n3">3</span>
-                      <span class="die drop tone-lime n2">2</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">13</span>
-                  </li>
-                </ol>
-              </div>
-            </div>
-          </div>
-          <div class="casino-variant is-final" style="--delay: 0.9s;">
-            <div class="casino">
-              <div class="casino-set">
-                <div class="casino-set__title">
-                  <h4>Set 1</h4>
-                  <span class="set-total" aria-label="Total del set 1">68</span>
-                </div>
-                <ol>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n4">4</span>
-                      <span class="die tone-rose n3">3</span>
-                      <span class="die tone-cyan n6">6</span>
-                      <span class="die drop tone-lime n2">2</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">13</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n4">4</span>
-                      <span class="die tone-rose n3">3</span>
-                      <span class="die tone-cyan n3">3</span>
-                      <span class="die drop tone-lime n1">1</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">10</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n2">2</span>
-                      <span class="die drop tone-rose n1">1</span>
-                      <span class="die tone-cyan n1">1</span>
-                      <span class="die tone-lime n3">3</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">6</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n6">6</span>
-                      <span class="die tone-rose n2">2</span>
-                      <span class="die drop tone-cyan n1">1</span>
-                      <span class="die tone-lime n3">3</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">11</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n6">6</span>
-                      <span class="die drop tone-rose n2">2</span>
-                      <span class="die tone-cyan n6">6</span>
-                      <span class="die tone-lime n5">5</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">17</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n2">2</span>
-                      <span class="die drop tone-rose n1">1</span>
-                      <span class="die tone-cyan n5">5</span>
-                      <span class="die tone-lime n4">4</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">11</span>
-                  </li>
-                </ol>
-              </div>
-              <div class="casino-set">
-                <div class="casino-set__title">
-                  <h4>Set 2</h4>
-                  <span class="set-total" aria-label="Total del set 2">73</span>
-                </div>
-                <ol>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n3">3</span>
-                      <span class="die tone-rose n4">4</span>
-                      <span class="die tone-cyan n5">5</span>
-                      <span class="die drop tone-lime n1">1</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">12</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n5">5</span>
-                      <span class="die tone-rose n4">4</span>
-                      <span class="die tone-cyan n6">6</span>
-                      <span class="die drop tone-lime n1">1</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">15</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die drop tone-amber n1">1</span>
-                      <span class="die tone-rose n1">1</span>
-                      <span class="die tone-cyan n4">4</span>
-                      <span class="die tone-lime n2">2</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">7</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n2">2</span>
-                      <span class="die drop tone-rose n1">1</span>
-                      <span class="die tone-cyan n2">2</span>
-                      <span class="die tone-lime n6">6</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">10</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n3">3</span>
-                      <span class="die tone-rose n5">5</span>
-                      <span class="die drop tone-cyan n1">1</span>
-                      <span class="die tone-lime n6">6</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">14</span>
-                  </li>
-                  <li>
-                    <div class="dice-row">
-                      <span class="die tone-amber n4">4</span>
-                      <span class="die tone-rose n5">5</span>
-                      <span class="die drop tone-cyan n2">2</span>
-                      <span class="die tone-lime n6">6</span>
-                    </div>
-                    <span class="equals">=</span>
-                    <span class="hex">15</span>
-                  </li>
-                </ol>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="casino-roulette" id="casino-roulette" aria-live="polite"></div>
+        <noscript>
+          <p class="dealer-note">Activa JavaScript para generar tiradas aleatorias reales.</p>
+        </noscript>
         <p class="dealer-note">Juego limpio de casa: resultados cerrados, asigna y reparte a gusto de la mesa.</p>
       </div>
     </section>
+    <script>
+      (function () {
+        var rouletteEl = document.getElementById('casino-roulette');
+        var rollBtn = document.getElementById('roll-btn');
+        var metaEl = document.getElementById('roll-meta');
+
+        if (!rouletteEl || !rollBtn || !metaEl) {
+          return;
+        }
+
+        var TONES = ['tone-amber', 'tone-rose', 'tone-cyan', 'tone-lime'];
+        var FLASH_STEPS = 3;
+        var VARIANT_DELAY = 0.24;
+        var SET_COUNT = 2;
+        var ROLLS_PER_SET = 6;
+        var hasCrypto = typeof crypto !== 'undefined' && typeof crypto.getRandomValues === 'function';
+
+        function randomInt(maxExclusive) {
+          if (!hasCrypto) {
+            return Math.floor(Math.random() * maxExclusive);
+          }
+
+          var maxUint32 = 4294967296;
+          var limit = maxUint32 - (maxUint32 % maxExclusive);
+          var bytes = new Uint32Array(1);
+
+          do {
+            crypto.getRandomValues(bytes);
+          } while (bytes[0] >= limit);
+
+          return bytes[0] % maxExclusive;
+        }
+
+        function rollDie() {
+          return randomInt(6) + 1;
+        }
+
+        function rollStat() {
+          var dice = [rollDie(), rollDie(), rollDie(), rollDie()];
+          var dropIndex = 0;
+          var i;
+
+          for (i = 1; i < dice.length; i += 1) {
+            if (dice[i] < dice[dropIndex]) {
+              dropIndex = i;
+            }
+          }
+
+          return {
+            dice: dice,
+            dropIndex: dropIndex,
+            total: dice[0] + dice[1] + dice[2] + dice[3] - dice[dropIndex]
+          };
+        }
+
+        function rollSet() {
+          var rolls = [];
+          var total = 0;
+          var i;
+          var stat;
+
+          for (i = 0; i < ROLLS_PER_SET; i += 1) {
+            stat = rollStat();
+            total += stat.total;
+            rolls.push(stat);
+          }
+
+          return {
+            total: total,
+            rolls: rolls
+          };
+        }
+
+        function buildSetMarkup(setData, setNumber) {
+          var rows = setData.rolls.map(function (roll) {
+            var diceMarkup = roll.dice.map(function (dieValue, index) {
+              var dropClass = index === roll.dropIndex ? ' drop' : '';
+              var toneClass = TONES[index % TONES.length];
+              return '<span class="die' + dropClass + ' ' + toneClass + ' n' + dieValue + '">' + dieValue + '</span>';
+            }).join('');
+
+            return '<li>' +
+              '<div class="dice-row">' + diceMarkup + '</div>' +
+              '<span class="equals">=</span>' +
+              '<span class="hex">' + roll.total + '</span>' +
+            '</li>';
+          }).join('');
+
+          return '<div class="casino-set">' +
+            '<div class="casino-set__title">' +
+              '<h4>Set ' + setNumber + '</h4>' +
+              '<span class="set-total" aria-label="Total del set ' + setNumber + '">' + setData.total + '</span>' +
+            '</div>' +
+            '<ol>' + rows + '</ol>' +
+          '</div>';
+        }
+
+        function buildVariantMarkup(sets, delay, isFinal) {
+          var variantClass = isFinal ? 'casino-variant is-final' : 'casino-variant is-flash';
+          var setsMarkup = sets.map(function (setData, idx) {
+            return buildSetMarkup(setData, idx + 1);
+          }).join('');
+
+          return '<div class="' + variantClass + '" style="--delay: ' + delay + 's;">' +
+            '<div class="casino">' + setsMarkup + '</div>' +
+          '</div>';
+        }
+
+        function rollSets() {
+          var sets = [];
+          var i;
+          for (i = 0; i < SET_COUNT; i += 1) {
+            sets.push(rollSet());
+          }
+          return sets;
+        }
+
+        function renderRoll() {
+          var variantsMarkup = '';
+          var i;
+          var finalSets;
+
+          for (i = 0; i < FLASH_STEPS; i += 1) {
+            variantsMarkup += buildVariantMarkup(rollSets(), i * VARIANT_DELAY, false);
+          }
+
+          finalSets = rollSets();
+          variantsMarkup += buildVariantMarkup(finalSets, FLASH_STEPS * VARIANT_DELAY, true);
+          rouletteEl.innerHTML = variantsMarkup;
+
+          metaEl.textContent = 'Ultima tirada: ' + new Date().toLocaleTimeString('es-ES') +
+            ' | Set 1: ' + finalSets[0].total +
+            ' | Set 2: ' + finalSets[1].total;
+        }
+
+        rollBtn.addEventListener('click', renderRoll);
+        renderRoll();
+      })();
+    </script>
   </div>
 </body>
 
 </html>
+
+
+

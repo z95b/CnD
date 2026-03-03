@@ -1,7 +1,3 @@
----
-layout: null
-render_with_liquid: true
----
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -89,13 +85,6 @@ render_with_liquid: true
       margin: 0 auto;
       padding: 56px 24px 28px;
     }
-    .hero-card {
-      padding: 28px;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      box-shadow: var(--glow);
-      background: linear-gradient(140deg, rgba(255, 255, 255, 0.05), rgba(159, 224, 194, 0.12));
-    }
     .eyebrow {
       margin: 0 0 12px;
       text-transform: uppercase;
@@ -112,11 +101,11 @@ render_with_liquid: true
       overflow: hidden;
     }
     .class-grid {
-      width: 92%;
+      width: 96%;
       margin: 20px auto 0;
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 18px;
+      gap: 22px;
       align-items: start;
     }
     .class-grid .class-group { margin-top: 0; }
@@ -125,16 +114,12 @@ render_with_liquid: true
       width: 100%;
     }
     .group-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
       margin: 0;
-      padding: 22px 24px;
+      padding: 18px 16px;
       cursor: pointer;
       list-style: none;
       background: rgba(255, 255, 255, 0.03);
+      position: relative;
     }
     .group-head::-webkit-details-marker { display: none; }
     .group-head::marker { content: ""; }
@@ -143,25 +128,63 @@ render_with_liquid: true
       font-size: 24px;
       line-height: 1;
       color: var(--accent);
-      flex: 0 0 auto;
+      position: absolute;
+      top: 10px;
+      right: 12px;
     }
     .class-group[open] .group-head::after { content: "-"; }
-    .group-head h3 { margin: 0; }
-    .group-head h3 { font-size: 24px; }
+    .class-group:not([open]) .group-head {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 300px;
+      padding: 20px 14px;
+    }
+    .class-group[open] .group-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 20px 24px;
+    }
     .group-title {
       display: flex;
       align-items: center;
       gap: 12px;
       min-width: 0;
     }
+    .class-group:not([open]) .group-title {
+      width: 100%;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+    }
+    .class-group[open] .group-title {
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+    .group-head h3 { margin: 0; }
+    .class-group:not([open]) .group-head h3 {
+      font-size: 34px;
+      line-height: 1.1;
+    }
+    .class-group[open] .group-head h3 { font-size: 24px; }
     .class-logo {
       width: 92px;
       height: 92px;
-      border-radius: 50%;
+      aspect-ratio: 1 / 1;
+      border-radius: 14px;
       border: 1px solid rgba(255, 255, 255, 0.2);
       background: rgba(255, 255, 255, 0.06);
       object-fit: cover;
       flex: 0 0 auto;
+    }
+    .class-group:not([open]) .class-logo {
+      width: 92%;
+      max-width: 280px;
+      height: auto;
     }
     .class-logo-placeholder {
       display: inline-flex;
@@ -175,6 +198,9 @@ render_with_liquid: true
     .group-body {
       padding: 14px 20px 20px;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .class-group[open] .group-body {
+      min-height: calc(100vh + 120px);
     }
     .doc-grid {
       display: grid;
@@ -209,6 +235,7 @@ render_with_liquid: true
       white-space: nowrap;
     }
     .pill.glow { border-color: var(--accent-2); box-shadow: 0 0 18px rgba(247, 197, 216, 0.4); }
+    .pill.fullscreen-mobile { display: none; }
     .doc-preview {
       width: 100%;
       height: 56vh;
@@ -227,6 +254,10 @@ render_with_liquid: true
       display: block;
       background: transparent;
     }
+    .class-group[open] .doc-preview {
+      height: 105vh;
+      min-height: 860px;
+    }
     .doc-preview-fallback {
       padding: 12px;
       color: var(--muted);
@@ -242,11 +273,6 @@ render_with_liquid: true
       color: var(--muted);
     }
 
-    .liquid-fallback.liquid-hide { display: none; }
-    .liquid-content { display: none; }
-    .liquid-content.liquid-ready { display: grid; }
-    .liquid-content.liquid-ready.liquid-empty { display: block; }
-
     @media (max-width: 600px) {
       .nav { padding: 10px 16px; }
       .nav a { padding: 8px 12px; font-size: 12px; }
@@ -256,12 +282,35 @@ render_with_liquid: true
       .class-grid {
         width: 100%;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
+        gap: 14px;
       }
-      .group-head { padding: 14px 12px; }
-      .group-head h3 { font-size: 18px; }
-      .class-logo { width: 56px; height: 56px; }
+      .class-group:not([open]) .group-head {
+        min-height: 230px;
+        padding: 14px 8px;
+      }
+      .class-group:not([open]) .group-head h3 {
+        font-size: 24px;
+        line-height: 1.1;
+      }
+      .class-group:not([open]) .class-logo {
+        width: 94%;
+        max-width: 160px;
+      }
+      .class-group[open] .group-head { padding: 14px 12px; }
+      .class-group[open] .group-head h3 { font-size: 18px; }
+      .class-group[open] .class-logo {
+        width: 56px;
+        height: 56px;
+      }
+      .class-group[open] .group-body {
+        min-height: auto;
+      }
+      .class-group[open] .doc-preview {
+        height: 92vh;
+        min-height: 540px;
+      }
       .class-logo-placeholder { font-size: 20px; }
+      .pill.fullscreen-mobile { display: inline-flex; }
     }
 
     .race-count { position: relative; display: inline-block; min-width: 1.5ch; }
@@ -277,21 +326,19 @@ render_with_liquid: true
         <li><a href="../guide.html">Guia</a></li>
         <li><a href="../casino.html">Casino</a></li>
         <li><a href="../weapons.html">Armas</a></li>
-        <li><a href="../razas.html">Razas (<span class="race-count"></span>)</a></li>
+        <li><a href="../razas.html">Razas (52)</a></li>
         <li><a href="index.html">Clases</a></li>
       </ul>
     </div>
   </div>
 
   <header class="hero">
-    <div class="hero-card">
-      <p class="eyebrow">Clases</p>
-      <h1>Documentos por clase</h1>
-      <p>Se muestran automaticamente todos los PDF dentro de subcarpetas de <strong>/clases</strong>.</p>
-    </div>
+    <p class="eyebrow">Clases</p>
+    <h1>Documentos por clase</h1>
+    <p>Se muestran automaticamente todos los PDF dentro de subcarpetas de <strong>/clases</strong>.</p>
   </header>
 
-  <main id="clases-fallback" class="class-grid liquid-fallback {% if true %}liquid-hide{% endif %}">
+  <main id="clases" class="class-grid">
     <details class="class-group">
       <summary class="group-head">
         <div class="group-title">
@@ -305,6 +352,7 @@ render_with_liquid: true
             <h4 class="doc-name">dnd</h4>
             <div class="doc-actions">
               <a class="pill glow" href="./B%C3%81RBARO/dnd.pdf" target="_blank" rel="noopener">Abrir PDF</a>
+              <a class="pill fullscreen-mobile" href="./B%C3%81RBARO/dnd.pdf#view=FitH" target="_blank" rel="noopener">Pantalla completa</a>
               <a class="pill" href="./B%C3%81RBARO/dnd.pdf" download>Descargar</a>
             </div>
             <div class="doc-preview">
@@ -334,6 +382,7 @@ render_with_liquid: true
             <h4 class="doc-name">dnd</h4>
             <div class="doc-actions">
               <a class="pill glow" href="./GUERRERO/dnd.pdf" target="_blank" rel="noopener">Abrir PDF</a>
+              <a class="pill fullscreen-mobile" href="./GUERRERO/dnd.pdf#view=FitH" target="_blank" rel="noopener">Pantalla completa</a>
               <a class="pill" href="./GUERRERO/dnd.pdf" download>Descargar</a>
             </div>
             <div class="doc-preview">
@@ -350,6 +399,7 @@ render_with_liquid: true
             <h4 class="doc-name">dndcopy</h4>
             <div class="doc-actions">
               <a class="pill glow" href="./GUERRERO/dndcopy.pdf" target="_blank" rel="noopener">Abrir PDF</a>
+              <a class="pill fullscreen-mobile" href="./GUERRERO/dndcopy.pdf#view=FitH" target="_blank" rel="noopener">Pantalla completa</a>
               <a class="pill" href="./GUERRERO/dndcopy.pdf" download>Descargar</a>
             </div>
             <div class="doc-preview">
@@ -366,80 +416,7 @@ render_with_liquid: true
       </div>
     </details>
   </main>
-
-  {% assign total_pdfs = 0 %}
-  {% capture folder_names_raw %}{% endcapture %}
-  {% for file in site.static_files %}
-    {% assign parts = file.path | split: "/" %}
-    {% assign ext = file.extname | downcase %}
-    {% if ext == ".pdf" and parts.size > 3 and parts[1] == "clases" %}
-      {% assign total_pdfs = total_pdfs | plus: 1 %}
-      {% capture folder_names_raw %}{{ folder_names_raw }}{{ parts[2] }}||{% endcapture %}
-    {% endif %}
-  {% endfor %}
-  {% assign folders = folder_names_raw | split: "||" | uniq | sort %}
-
-  {% if total_pdfs > 0 %}
-    <main id="clases" class="class-grid liquid-content {% if true %}liquid-ready{% endif %}">
-      {% for folder in folders %}
-        {% if folder != "" %}
-          {% assign class_logo = "" %}
-          {% for file in site.static_files %}
-            {% assign parts = file.path | split: "/" %}
-            {% assign ext = file.extname | downcase %}
-            {% if class_logo == "" and parts.size > 3 and parts[1] == "clases" and parts[2] == folder and (ext == ".png" or ext == ".jpg" or ext == ".jpeg" or ext == ".webp" or ext == ".svg") %}
-              {% assign class_logo = file.path | relative_url %}
-            {% endif %}
-          {% endfor %}
-
-          <details class="class-group">
-            <summary class="group-head">
-              <div class="group-title">
-                {% if class_logo != "" %}
-                  <img class="class-logo" src="{{ class_logo }}" alt="Logo {{ folder }}">
-                {% else %}
-                  <span class="class-logo class-logo-placeholder" aria-hidden="true">{{ folder | slice: 0, 1 }}</span>
-                {% endif %}
-                <h3>{{ folder }}</h3>
-              </div>
-            </summary>
-            <div class="group-body">
-              <div class="doc-grid">
-                {% for file in site.static_files %}
-                  {% assign parts = file.path | split: "/" %}
-                  {% assign ext = file.extname | downcase %}
-                  {% if ext == ".pdf" and parts.size > 3 and parts[1] == "clases" and parts[2] == folder %}
-                    {% assign file_url = file.path | relative_url %}
-                    {% assign file_title = file.name | remove: file.extname | replace: "_", " " | replace: "-", " " %}
-                    <article class="doc-card">
-                      <h4 class="doc-name">{{ file_title }}</h4>
-                      <div class="doc-actions">
-                        <a class="pill glow" href="{{ file_url }}" target="_blank" rel="noopener">Abrir PDF</a>
-                        <a class="pill" href="{{ file_url }}" download>Descargar</a>
-                      </div>
-                      <div class="doc-preview">
-                        <object data="{{ file_url }}" type="application/pdf">
-                          <iframe src="{{ file_url }}" title="Vista previa PDF {{ file_title }}" loading="lazy"></iframe>
-                          <div class="doc-preview-fallback">
-                            <p>Tu navegador no puede mostrar PDF.</p>
-                            <p><a href="{{ file_url }}">Abrir documento</a></p>
-                          </div>
-                        </object>
-                      </div>
-                    </article>
-                  {% endif %}
-                {% endfor %}
-              </div>
-            </div>
-          </details>
-        {% endif %}
-      {% endfor %}
-    </main>
-  {% else %}
-    <p class="empty-state liquid-content liquid-empty {% if true %}liquid-ready{% endif %}">
-      No hay PDFs en subcarpetas de <strong>/clases</strong>. Crea carpetas como <strong>/clases/BARBARO</strong> o <strong>/clases/GUERRERO</strong> y agrega tus archivos.
-    </p>
-  {% endif %}
 </body>
 </html>
+
 
