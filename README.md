@@ -20,6 +20,10 @@ Sitio estático en modo oscuro (verde/rosa pastel) dividido en varias páginas l
 
 ## Fondo en carrusel
 - El fondo comun usa `shared-background.css` sin JavaScript y cambia por orientacion de pantalla.
-- Horizontal: `carrusel/horizontal/1.png` a `carrusel/horizontal/100.png` (pantalla apaisada).
-- Vertical: `carrusel/vertical/1.png` a `carrusel/vertical/100.png` (pantalla vertical).
-- Si falta una imagen (por ejemplo `17.png`), se mantiene la ultima imagen valida y no se acorta la duracion total del carrusel.
+- Horizontal: usa las imagenes numeradas existentes en `carrusel/horizontal/`.
+- Vertical: usa las imagenes numeradas existentes en `carrusel/vertical/`.
+- Al terminar la ultima imagen, el carrusel vuelve a empezar automaticamente y se mantiene en bucle continuo.
+- Si falta una imagen (por ejemplo `17.png`), se omite automaticamente en la secuencia.
+
+## Clases
+- `clases/index.html` detecta automaticamente las carpetas dentro de `clases/` y sus PDF al compilar en GitHub Pages (Liquid/Jekyll, sin JavaScript en cliente).

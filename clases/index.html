@@ -1,3 +1,6 @@
+---
+layout: null
+---
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -130,7 +133,7 @@
       color: var(--accent);
       position: absolute;
       top: 10px;
-      right: 12px;
+      right: 12px; 
     }
     .class-group[open] .group-head::after { content: "-"; }
     .class-group:not([open]) .group-head {
@@ -333,90 +336,93 @@
   </div>
 
   <header class="hero">
-    <p class="eyebrow">Clases</p>
-    <h1>Documentos por clase</h1>
-    <p>Se muestran automaticamente todos los PDF dentro de subcarpetas de <strong>/clases</strong>.</p>
+    <h1>Clases</h1>
   </header>
 
-  <main id="clases" class="class-grid">
-    <details class="class-group">
-      <summary class="group-head">
-        <div class="group-title">
-          <span class="class-logo class-logo-placeholder" aria-hidden="true">B</span>
-          <h3>BARBARO</h3>
-        </div>
-      </summary>
-      <div class="group-body">
-        <div class="doc-grid">
-          <article class="doc-card">
-            <h4 class="doc-name">dnd</h4>
-            <div class="doc-actions">
-              <a class="pill glow" href="./B%C3%81RBARO/dnd.pdf" target="_blank" rel="noopener">Abrir PDF</a>
-              <a class="pill fullscreen-mobile" href="./B%C3%81RBARO/dnd.pdf#view=FitH" target="_blank" rel="noopener">Pantalla completa</a>
-              <a class="pill" href="./B%C3%81RBARO/dnd.pdf" download>Descargar</a>
-            </div>
-            <div class="doc-preview">
-              <object data="./B%C3%81RBARO/dnd.pdf" type="application/pdf">
-                <iframe src="./B%C3%81RBARO/dnd.pdf" title="Vista previa PDF BARBARO" loading="lazy"></iframe>
-                <div class="doc-preview-fallback">
-                  <p>Tu navegador no puede mostrar PDF.</p>
-                  <p><a href="./B%C3%81RBARO/dnd.pdf">Abrir documento</a></p>
-                </div>
-              </object>
-            </div>
-          </article>
-        </div>
-      </div>
-    </details>
+  {% assign class_static_files = site.static_files | sort: "path" %}
+  {% assign class_dirs_pipe = "" %}
+  {% for file in class_static_files %}
+    {% assign parts = file.path | split: "/" %}
+    {% if parts.size >= 4 and parts[1] == "clases" %}
+      {% assign folder = parts[2] %}
+      {% capture token %}|||{{ folder }}|||{% endcapture %}
+      {% unless class_dirs_pipe contains token %}
+        {% capture class_dirs_pipe %}{{ class_dirs_pipe }}{{ token }}{% endcapture %}
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
+  {% assign class_dirs = class_dirs_pipe | split: "|||" | sort %}
 
-    <details class="class-group">
-      <summary class="group-head">
-        <div class="group-title">
-          <img class="class-logo" src="./GUERRERO/image.png" alt="Logo GUERRERO">
-          <h3>GUERRERO</h3>
-        </div>
-      </summary>
-      <div class="group-body">
-        <div class="doc-grid">
-          <article class="doc-card">
-            <h4 class="doc-name">dnd</h4>
-            <div class="doc-actions">
-              <a class="pill glow" href="./GUERRERO/dnd.pdf" target="_blank" rel="noopener">Abrir PDF</a>
-              <a class="pill fullscreen-mobile" href="./GUERRERO/dnd.pdf#view=FitH" target="_blank" rel="noopener">Pantalla completa</a>
-              <a class="pill" href="./GUERRERO/dnd.pdf" download>Descargar</a>
+  <main id="clases" class="class-grid">
+    {% assign has_classes = false %}
+    {% for class_name in class_dirs %}
+      {% if class_name != "" %}
+        {% assign has_classes = true %}
+        {% assign logo_path = "" %}
+        {% for file in class_static_files %}
+          {% assign parts = file.path | split: "/" %}
+          {% if parts.size >= 4 and parts[1] == "clases" and parts[2] == class_name %}
+            {% assign file_name_down = parts[3] | downcase %}
+            {% if file_name_down == "image.png" or file_name_down == "image.jpg" or file_name_down == "image.jpeg" or file_name_down == "image.webp" %}
+              {% assign logo_path = file.path | relative_url %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        <details class="class-group">
+          <summary class="group-head">
+            <div class="group-title">
+              {% if logo_path != "" %}
+                <img class="class-logo" src="{{ logo_path }}" alt="Logo {{ class_name }}">
+              {% else %}
+                <span class="class-logo class-logo-placeholder" aria-hidden="true">{{ class_name | slice: 0, 1 | upcase }}</span>
+              {% endif %}
+              <h3>{{ class_name }}</h3>
             </div>
-            <div class="doc-preview">
-              <object data="./GUERRERO/dnd.pdf" type="application/pdf">
-                <iframe src="./GUERRERO/dnd.pdf" title="Vista previa PDF GUERRERO" loading="lazy"></iframe>
-                <div class="doc-preview-fallback">
-                  <p>Tu navegador no puede mostrar PDF.</p>
-                  <p><a href="./GUERRERO/dnd.pdf">Abrir documento</a></p>
-                </div>
-              </object>
+          </summary>
+          <div class="group-body">
+            <div class="doc-grid">
+              {% assign has_docs = false %}
+              {% for file in class_static_files %}
+                {% assign parts = file.path | split: "/" %}
+                {% if parts.size >= 4 and parts[1] == "clases" and parts[2] == class_name %}
+                  {% assign file_name = parts[3] %}
+                  {% assign ext = file_name | split: "." | last | downcase %}
+                  {% if ext == "pdf" %}
+                    {% assign has_docs = true %}
+                    {% assign pdf_url = file.path | relative_url %}
+                    {% assign doc_name = file_name | replace: ".pdf", "" | replace: ".PDF", "" %}
+                    <article class="doc-card">
+                      <h4 class="doc-name">{{ doc_name }}</h4>
+                      <div class="doc-actions">
+                        <a class="pill glow" href="{{ pdf_url }}" target="_blank" rel="noopener">Abrir PDF</a>
+                        <a class="pill fullscreen-mobile" href="{{ pdf_url }}#view=FitH" target="_blank" rel="noopener">Pantalla completa</a>
+                        <a class="pill" href="{{ pdf_url }}" download>Descargar</a>
+                      </div>
+                      <div class="doc-preview">
+                        <object data="{{ pdf_url }}" type="application/pdf">
+                          <iframe src="{{ pdf_url }}" title="Vista previa PDF {{ class_name }} {{ doc_name }}" loading="lazy"></iframe>
+                          <div class="doc-preview-fallback">
+                            <p>Tu navegador no puede mostrar PDF.</p>
+                            <p><a href="{{ pdf_url }}">Abrir documento</a></p>
+                          </div>
+                        </object>
+                      </div>
+                    </article>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+              {% unless has_docs %}
+                <div class="empty-state">No hay PDFs en esta carpeta de clase.</div>
+              {% endunless %}
             </div>
-          </article>
-          <article class="doc-card">
-            <h4 class="doc-name">dndcopy</h4>
-            <div class="doc-actions">
-              <a class="pill glow" href="./GUERRERO/dndcopy.pdf" target="_blank" rel="noopener">Abrir PDF</a>
-              <a class="pill fullscreen-mobile" href="./GUERRERO/dndcopy.pdf#view=FitH" target="_blank" rel="noopener">Pantalla completa</a>
-              <a class="pill" href="./GUERRERO/dndcopy.pdf" download>Descargar</a>
-            </div>
-            <div class="doc-preview">
-              <object data="./GUERRERO/dndcopy.pdf" type="application/pdf">
-                <iframe src="./GUERRERO/dndcopy.pdf" title="Vista previa PDF GUERRERO dndcopy" loading="lazy"></iframe>
-                <div class="doc-preview-fallback">
-                  <p>Tu navegador no puede mostrar PDF.</p>
-                  <p><a href="./GUERRERO/dndcopy.pdf">Abrir documento</a></p>
-                </div>
-              </object>
-            </div>
-          </article>
-        </div>
-      </div>
-    </details>
+          </div>
+        </details>
+      {% endif %}
+    {% endfor %}
+    {% unless has_classes %}
+      <div class="empty-state">No hay carpetas de clases disponibles.</div>
+    {% endunless %}
   </main>
 </body>
 </html>
-
 
