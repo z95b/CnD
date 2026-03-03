@@ -1,0 +1,29 @@
+{
+    "raceName": "Drow",
+    "raceDescription": "Provenientes del Underdark, los elfos oscuros son la definición de rudeza y suavidad fusionadas en una sola imagen. A diferencia de sus primos lejanos de la superficie, los Drow son más toscos, más directos en sus palabras y menos dispuestos a tener tantas formalidades. Sus habilidades destacan en el uso de la magia 'negra' o 'de mala reputación', y su buen manejo en la oscuridad es constante pues se crían en el oscuro Underdark.",
+    "bonusRules": "",
+    "movementSpeed": "6",
+    "lifeSpan": "700-1000",
+    "attributes": {
+        "Fuerza": "+1",
+        "Inteligencia": "+2"
+    },
+    "sizes": [
+        3,
+        4
+    ],
+    "abilities": [
+        {
+            "name": "Visión en la Oscuridad",
+            "description": "Puedes ver en la oscuridad total hasta 60 pies como si fuera luz tenue."
+        },
+        {
+            "name": "Magia feérica",
+            "description": "A Nivel 1 obtienes el truco Luces Danzantes. A nivel 3 Obtienes el conjuro Fuego Feérico. A Nivel 5 Obtienes el conjuro Oscuridad. Puedes usar ambos conjuros 1 vez por Descanso Largo sin usar espacios de conjuro"
+        },
+        {
+            "name": "Criatura de penumbra",
+            "description": "Meditar en la oscuridad durante 4h seguidas otorga los mismos beneficios que un Descanso Largo y otorga +5 en tiradas de Percepción y Perspicacia durante 6H"
+        }
+    ]
+}

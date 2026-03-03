@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ruleta — Neto por casilla + controles +/− en todas las apuestas</title>
+<style>
+  :root{
+    --felt:#0e7a3e; --felt2:#096232; --line:#e6c769; --text:#f7f7f7;
+    --pos:#18e07a; --neg:#ff4d4f; --shadow:0 2px 8px rgba(0,0,0,.35);
+  }
+  html,body{margin:0;background:#062a17;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial}
+  .wrap{max-width:1200px;margin:auto;padding:18px}
+  h1{margin:0 0 10px;font-size:18px}
+  .panel{background:#07381d;border:2px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--shadow);margin-bottom:14px}
+
+  .badges{display:flex;gap:10px;flex-wrap:wrap}
+  .badge{border:1px solid var(--line);background:#054722;border-radius:999px;padding:6px 12px;font-size:12px;white-space:nowrap}
+
+  /* Mesa */
+  .tableArea{display:grid;grid-template-columns:120px 1fr 80px;gap:10px}
+  .zeroCol{display:grid}
+  .zeroCell{
+    display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;
+    background:linear-gradient(#1aa94f,#0f8b4b); border:2px solid var(--line); border-radius:12px; min-height:268px; position:relative;
+  }
+
+  .board{display:grid;grid-template-rows:repeat(3, 84px) 46px 46px;gap:8px}
+  .row{display:grid;grid-template-columns:repeat(12,1fr);gap:8px}
+  .cell{
+    position:relative;background:linear-gradient(var(--felt),var(--felt2));border:2px solid var(--line);border-radius:12px;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px;
+  }
+  .disc{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-weight:800;border:2px solid #111;box-shadow:inset 0 2px 4px rgba(0,0,0,.35)}
+  .red{background:#d62828}.black{background:#111}.green{background:#19b357}
+  .num{font-size:16px;color:#fff;text-shadow:0 1px 1px #000}
+  .stake{font-size:12px;opacity:.9}
+  .net{font-size:12px;font-weight:800}
+  .pos{color:var(--pos)} .neg{color:var(--neg)}
+
+  /* Controles +/− al pasar el ratón */
+  .pmWrap{position:absolute;inset:6px auto auto 6px;display:flex;gap:6px;opacity:0;transition:.15s;pointer-events:none}
+  .cell:hover .pmWrap, .bet:hover .pmWrap, .zeroCell:hover .pmWrap{opacity:1;pointer-events:auto}
+  .pm{background:#000c;color:#fff;border:1px solid #fff3;border-radius:8px;width:32px;height:28px;display:grid;place-items:center;cursor:pointer}
+
+  /* Docenas (banda debajo de 3x12) */
+  .dozens{display:grid;grid-template-columns:repeat(12,1fr);gap:8px}
+  .bet{position:relative;background:linear-gradient(var(--felt),var(--felt2));border:2px solid var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700}
+  .label{font-size:13px}
+  .bet .stake{position:absolute;bottom:6px;font-size:12px}
+
+  /* Exteriores (banda inferior) */
+  .outside{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+
+  /* 2 a 1 (columnas) a la derecha */
+  .twoto1{display:grid;grid-template-rows:repeat(3, 84px);gap:8px}
+  .colBet{position:relative;background:linear-gradient(var(--felt),var(--felt2));border:2px solid var(--line);border-radius:12px;display:grid;place-items:center;font-weight:800}
+
+  .hint{font-size:12px;opacity:.75}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Ruleta europea — Neto por casilla con +/− en plenos, docenas, columnas y apuestas exteriores</h1>
+  <div class="panel">
+    <div class="badges">
+      <div class="badge">Total apostado: <span id="stakeTotal">0,00 €</span></div>
+      <div class="badge">Media (EV): <span id="ev">0,00 €</span></div>
+      <div class="badge">Cobertura: <span id="coverage">0</span>/37</div>
+      <div class="badge hint">Pleno 35:1 · Docena/Columna 2:1 · Exteriores 1:1</div>
+    </div>
+  </div>
+
+  <div class="panel" style="background:linear-gradient(#0e7a3e,#096232)">
+    <div class="tableArea">
+      <!-- 0 -->
+      <div class="zeroCol">
+        <div class="zeroCell cell" data-type="pleno" data-n="0">
+          <div class="pmWrap"><button class="pm" data-d="-">−</button><button class="pm" data-d="+">+</button></div>
+          <div class="disc green"><div class="num">0</div></div>
+          <div class="stake" data-stake>0,00 €</div>
+          <div class="net" data-net>0,00 €</div>
+        </div>
+      </div>
+
+      <!-- 3 x 12 -->
+      <div class="board">
+        <div class="row" id="rowTop"></div>
+        <div class="row" id="rowMid"></div>
+        <div class="row" id="rowBot"></div>
+
+        <!-- Docenas -->
+        <div class="dozens">
+          <div class="bet" data-type="dozen" data-k="d1" style="grid-column:1 / span 4">
+            <div class="pmWrap"><button class="pm" data-d="-">−</button><button class="pm" data-d="+">+</button></div>
+            <div class="label">1 ST 12</div>
+            <div class="stake" data-stake>0,00 €</div>
+          </div>
+          <div class="bet" data-type="dozen" data-k="d2" style="grid-column:5 / span 4">
+            <div class="pmWrap"><button class="pm" data-d="-">−</button><button class="pm" data-d="+">+</button></div>
+            <div class="label">2 ND 12</div>
+            <div class="stake" data-stake>0,00 €</div>
+          </div>
+          <div class="bet" data-type="dozen" data-k="d3" style="grid-column:9 / span 4">
+            <div class="pmWrap"><button class="pm" data-d="-">−</button><button class="pm" data-d="+">+</button></div>
+            <div class="label">3 RD 12</div>
+            <div class="stake" data-stake>0,00 €</div>
+          </div>
+        </div>
+
+        <!-- Exteriores -->
+        <div class="outside" style="grid-column:1 / -1">
+          <div class="bet" data-type="outside" data-k="low"><div class="pmWrap"><button class="pm" data-d="-">−</button><button class="pm" data-d="+">+</button></div><div class="label">1 to 18</div><div class="stake" data-stake>0,00 €</div></div>
+          <div class="bet" data-type="outside" data-k="even"><div class="pmWrap"><button class="pm" data-d="-">−</button><button class="pm" data-d="+">+</button></div><div class="label">EVEN</div><div class="stake" data-stake>0,00 €</div></div>
+          <div class="bet" data-type="outside" data-k="red"><div class="pmWrap"><button class="pm" data-d="-">−</button><button class="pm" data-d="+">+</button></div><div class="label">RED</div><div class="stake" data-stake>0,00 €</div></div>
+          <div class="bet" data-type="outside" data-k="black"><div class="pmWrap"><button class="pm" data-d="-">−</button><button class="pm" data-d="+">+</button></div><div class="label">BLACK</div><div class="stake" data-stake>0,00 €</div></div>
+          <div class="bet" data-type="outside" data-k="odd"><div class="pmWrap"><button class="pm" data-d="-">−</button><button class="pm" data-d="+">+</button></div><div class="label">ODD</div><div class="stake" data-stake>0,00 €</div></div>
+          <div class="bet" data-type="outside" data-k="high"><div class="pmWrap"><button class="pm" data-d="-">−</button><button class="pm" data-d="+">+</button></div><div class="label">19 to 36</div><div class="stake" data-stake>0,00 €</div></div>
+        </div>
+      </div>
+
+      <!-- 2 a 1 (columnas) -->
+      <div class="twoto1">
+        <div class="colBet bet" data-type="column" data-k="c3"><div class="pmWrap"><button class="pm" data-d="-">−</button><button class="pm" data-d="+">+</button></div><div>2 to 1</div><div class="stake" data-stake>0,00 €</div></div>
+        <div class="colBet bet" data-type="column" data-k="c2"><div class="pmWrap"><button class="pm" data-d="-">−</button><button class="pm" data-d="+">+</button></div><div>2 to 1</div><div class="stake" data-stake>0,00 €</div></div>
+        <div class="colBet bet" data-type="column" data-k="c1"><div class="pmWrap"><button class="pm" data-d="-">−</button><button class="pm" data-d="+">+</button></div><div>2 to 1</div><div class="stake" data-stake>0,00 €</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Disposición europea
+  const row1 = [1,4,7,10,13,16,19,22,25,28,31,34];   // bottom (columna 1)
+  const row2 = [2,5,8,11,14,17,20,23,26,29,32,35];   // middle (columna 2)
+  const row3 = [3,6,9,12,15,18,21,24,27,30,33,36];   // top    (columna 3)
+  const red = new Set([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]);
+
+  // Estado de apuestas
+  const pleno = Array(37).fill(0);
+  const dozen = { d1:0, d2:0, d3:0 };             // 1–12, 13–24, 25–36
+  const column = { c1:0, c2:0, c3:0 };            // filas bottom/middle/top (2 a 1)
+  const outside = { low:0, high:0, even:0, odd:0, red:0, black:0 }; // 1:1
+
+  // Crear celdas 1..36
+  const rowTop = document.getElementById('rowTop');
+  const rowMid = document.getElementById('rowMid');
+  const rowBot = document.getElementById('rowBot');
+
+  function makeCell(n){
+    const cell = document.createElement('div');
+    cell.className='cell';
+    cell.dataset.type='pleno';
+    cell.dataset.n=n;
+
+    const pm = document.createElement('div');
+    pm.className='pmWrap';
+    pm.innerHTML = `<button class="pm" data-d="-">−</button><button class="pm" data-d="+">+</button>`;
+
+    const disc = document.createElement('div');
+    disc.className='disc ' + (red.has(n)?'red':'black');
+    disc.innerHTML = `<div class="num">${n}</div>`;
+
+    const stake = document.createElement('div');
+    stake.className='stake'; stake.setAttribute('data-stake',''); stake.textContent='0,00 €';
+
+    const net = document.createElement('div');
+    net.className='net'; net.setAttribute('data-net',''); net.textContent='0,00 €';
+
+    cell.appendChild(pm); cell.appendChild(disc); cell.appendChild(stake); cell.appendChild(net);
+    return cell;
+  }
+  row3.forEach(n=>rowTop.appendChild(makeCell(n)));
+  row2.forEach(n=>rowMid.appendChild(makeCell(n)));
+  row1.forEach(n=>rowBot.appendChild(makeCell(n)));
+
+  // Utilidades
+  const fmt = v => v.toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';
+  const stakeTotalEl = document.getElementById('stakeTotal');
+  const evEl = document.getElementById('ev');
+  const covEl = document.getElementById('coverage');
+
+  function inD1(n){return n>=1&&n<=12}
+  function inD2(n){return n>=13&&n<=24}
+  function inD3(n){return n>=25&&n<=36}
+  function inC1(n){return row1.includes(n)} // bottom
+  function inC2(n){return row2.includes(n)} // middle
+  function inC3(n){return row3.includes(n)} // top
+
+  function isLow(n){return n>=1&&n<=18}
+  function isHigh(n){return n>=19&&n<=36}
+  function isEven(n){return n!==0 && n%2===0}
+  function isOdd(n){return n%2===1}
+  function isRed(n){return red.has(n)}
+  function isBlack(n){return n!==0 && !red.has(n)}
+
+  function totalStake(){
+    let t = 0;
+    for(let i=0;i<=36;i++) t+=pleno[i];
+    t += dozen.d1+dozen.d2+dozen.d3;
+    t += column.c1+column.c2+column.c3;
+    t += outside.low+outside.high+outside.even+outside.odd+outside.red+outside.black;
+    return t;
+  }
+
+  // Neto para n
+  function netFor(n){
+    let net = 0;
+
+    // Plenos (35:1)
+    for(let i=0;i<=36;i++){
+      const p = pleno[i]; if(!p) continue;
+      net += (i===n ? 35*p : -p);
+    }
+
+    // Docenas (2:1)
+    if(inD1(n)) net += 2*dozen.d1; else net -= dozen.d1;
+    if(inD2(n)) net += 2*dozen.d2; else net -= dozen.d2;
+    if(inD3(n)) net += 2*dozen.d3; else net -= dozen.d3;
+
+    // Columnas (filas visuales) (2:1)
+    if(inC1(n)) net += 2*column.c1; else net -= column.c1;
+    if(inC2(n)) net += 2*column.c2; else net -= column.c2;
+    if(inC3(n)) net += 2*column.c3; else net -= column.c3;
+
+    // Exteriores (1:1)
+    if(isLow(n))  net += 1*outside.low;  else net -= outside.low;
+    if(isHigh(n)) net += 1*outside.high; else net -= outside.high;
+    if(isEven(n)) net += 1*outside.even; else net -= outside.even;
+    if(isOdd(n))  net += 1*outside.odd;  else net -= outside.odd;
+    if(isRed(n))  net += 1*outside.red;  else net -= outside.red;
+    if(isBlack(n))net += 1*outside.black;else net -= outside.black;
+
+    return net;
+  }
+
+  function repaint(){
+    // Pintar stakes + netos en plenos (incluye 0)
+    document.querySelectorAll('.cell[data-type="pleno"]').forEach(cell=>{
+      const n = parseInt(cell.dataset.n);
+      cell.querySelector('[data-stake]').textContent = fmt(pleno[n]||0);
+      const net = netFor(n);
+      const netEl = cell.querySelector('[data-net]');
+      netEl.textContent = fmt(net);
+      netEl.classList.toggle('pos', net>0);
+      netEl.classList.toggle('neg', net<0);
+    });
+
+    // Pintar stakes de docenas/columnas/exteriores
+    document.querySelectorAll('.bet[data-type="dozen"]').forEach(el=>{
+      const k = el.dataset.k; el.querySelector('[data-stake]').textContent = fmt(dozen[k]||0);
+    });
+    document.querySelectorAll('.bet[data-type="column"]').forEach(el=>{
+      const k = el.dataset.k; el.querySelector('[data-stake]').textContent = fmt(column[k]||0);
+    });
+    document.querySelectorAll('.bet[data-type="outside"]').forEach(el=>{
+      const k = el.dataset.k; el.querySelector('[data-stake]').textContent = fmt(outside[k]||0);
+    });
+
+    // Totales / EV / Cobertura
+    const t = totalStake(); stakeTotalEl.textContent = fmt(t);
+    let sum=0, cover=0;
+    for(let n=0;n<=36;n++){
+      const net = netFor(n);
+      sum += net;
+      if(net>-t) cover++;
+    }
+    evEl.textContent = fmt(sum/37);
+    covEl.textContent = cover.toString();
+  }
+
+  // Delegación de clicks en +/−
+  document.body.addEventListener('click', (e)=>{
+    const btn = e.target.closest('.pm'); if(!btn) return;
+    const host = e.target.closest('[data-type]');
+    const type = host.dataset.type;
+    const delta = btn.dataset.d==='+' ? 1 : -1;
+
+    function adj(v){ return Math.max(0, v + delta); }
+
+    if(type==='pleno'){
+      const n = parseInt(host.dataset.n);
+      pleno[n] = adj(pleno[n]||0);
+    }else if(type==='dozen'){
+      const k = host.dataset.k; dozen[k] = adj(dozen[k]||0);
+    }else if(type==='column'){
+      const k = host.dataset.k; column[k] = adj(column[k]||0);
+    }else if(type==='outside'){
+      const k = host.dataset.k; outside[k] = adj(outside[k]||0);
+    }
+    repaint();
+  });
+
+  repaint();
+})();
+</script>
+</body>
+</html>

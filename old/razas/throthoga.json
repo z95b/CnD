@@ -1,0 +1,29 @@
+{
+    "raceName": "Throthogas",
+    "raceDescription": "Los Throthogas son una raza longeva, con algunos ejemplares alcanzando los 300 años sin problemas. Tienen una característica única: crecen muy ligeramente con cada año que pasa. Sus fuertes armaduras naturales y su gran fuerza física los hacen adversarios temibles si se les enfada, pero suelen ser poco agresivos si no se les provoca.",
+    "bonusRules": "+2 en Constitución, +1 en Fuerza.",
+    "movementSpeed": "5",
+    "lifeSpan": "200-300",
+    "attributes": {
+        "Fuerza": "+1",
+        "Constitución": "+2"
+    },
+    "sizes": [
+        3,
+        4
+    ],
+    "abilities": [
+        {
+            "name": "Caparazón Blindado",
+            "description": "Siempre que no lleves armadura, cuando un enemigo impacte con un ataque sobre ti, este se tambaleará y tendrá desventaja en su próximo ataque. Solo 1 vez por enemigo cada ronda. Además, tu armadura base aumenta a 15 pero solo puede beneficiarse de un máximo de Destreza de +2 (15 + 2 = 17)"
+        },
+        {
+            "name": "Intuición Natural",
+            "description": "Obtienes competencia en una de las siguientes habilidades a elección: Naturaleza, Supervivencia, Medicina o Trato con Animales."
+        },
+        {
+            "name": "Escondite amurallado",
+            "description": "Al meterte dentro de tu caparazón te haces resistente al daño Perforante y Cortante. No puedes emplear reacciones estando dentro de tu Caparazón, tu visión se reduce muchísimo y requieres de una acción adicional para salir de tu Caparazón"
+        }
+    ]
+}

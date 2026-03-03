@@ -1,0 +1,445 @@
+---
+layout: null
+render_with_liquid: true
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ciutadella &amp; Dragons - Clases</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Cinzel:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared-background.css">
+  <style>
+    :root {
+      --bg: #090c13;
+      --panel: rgba(13, 18, 28, 0.78);
+      --panel-strong: rgba(12, 16, 24, 0.92);
+      --text: #eaf2ed;
+      --muted: #a8c1b7;
+      --accent: #9fe0c2;
+      --accent-2: #f7c5d8;
+      --border: rgba(255, 255, 255, 0.12);
+      --glow: 0 10px 60px rgba(159, 224, 194, 0.32);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", "Helvetica Neue", sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(159, 224, 194, 0.12), transparent 30%),
+        radial-gradient(circle at 80% 10%, rgba(247, 197, 216, 0.1), transparent 35%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent-2); text-decoration: none; }
+    h1, h2, h3 {
+      margin: 0 0 0.4em;
+      color: #fefefe;
+      letter-spacing: 0.02em;
+      font-family: "Cinzel", "Space Grotesk", serif;
+    }
+    p { margin: 0 0 1em; color: var(--muted); }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      padding: 12px 24px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(90deg, rgba(7, 11, 23, 0.95), rgba(7, 11, 23, 0.85));
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .nav ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .nav a {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.03);
+      transition: transform 0.2s ease, border-color 0.3s ease;
+    }
+    .nav a:hover { border-color: var(--accent-2); transform: translateY(-2px); }
+
+    header.hero {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 56px 24px 28px;
+    }
+    .hero-card {
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--glow);
+      background: linear-gradient(140deg, rgba(255, 255, 255, 0.05), rgba(159, 224, 194, 0.12));
+    }
+    .eyebrow {
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 12px;
+      color: var(--accent-2);
+    }
+
+    .class-group {
+      margin-top: 24px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--panel);
+      overflow: hidden;
+    }
+    .class-grid {
+      width: 92%;
+      margin: 20px auto 0;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+    .class-grid .class-group { margin-top: 0; }
+    .class-grid .class-group[open] {
+      grid-column: 1 / -1;
+      width: 100%;
+    }
+    .group-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 0;
+      padding: 22px 24px;
+      cursor: pointer;
+      list-style: none;
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .group-head::-webkit-details-marker { display: none; }
+    .group-head::marker { content: ""; }
+    .group-head::after {
+      content: "+";
+      font-size: 24px;
+      line-height: 1;
+      color: var(--accent);
+      flex: 0 0 auto;
+    }
+    .class-group[open] .group-head::after { content: "-"; }
+    .group-head h3 { margin: 0; }
+    .group-head h3 { font-size: 24px; }
+    .group-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .class-logo {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.06);
+      object-fit: cover;
+      flex: 0 0 auto;
+    }
+    .class-logo-placeholder {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+    }
+    .group-body {
+      padding: 14px 20px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .doc-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+    .doc-card {
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--panel-strong);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+    }
+    .doc-name {
+      margin: 0 0 10px;
+      font-size: 18px;
+      line-height: 1.3;
+      word-break: break-word;
+    }
+    .doc-actions { display: inline-flex; gap: 10px; flex-wrap: wrap; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-weight: 600;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .pill.glow { border-color: var(--accent-2); box-shadow: 0 0 18px rgba(247, 197, 216, 0.4); }
+    .doc-preview {
+      width: 100%;
+      height: 56vh;
+      min-height: 340px;
+      margin-top: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(5, 8, 13, 0.8);
+    }
+    .doc-preview object,
+    .doc-preview iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+      background: transparent;
+    }
+    .doc-preview-fallback {
+      padding: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .empty-state {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border: 1px dashed var(--border);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+    }
+
+    .liquid-fallback.liquid-hide { display: none; }
+    .liquid-content { display: none; }
+    .liquid-content.liquid-ready { display: grid; }
+    .liquid-content.liquid-ready.liquid-empty { display: block; }
+
+    @media (max-width: 600px) {
+      .nav { padding: 10px 16px; }
+      .nav a { padding: 8px 12px; font-size: 12px; }
+      header.hero { padding-left: 18px; padding-right: 18px; }
+      .doc-grid { grid-template-columns: 1fr; }
+      .doc-preview { height: 48vh; min-height: 280px; }
+      .class-grid {
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .group-head { padding: 14px 12px; }
+      .group-head h3 { font-size: 18px; }
+      .class-logo { width: 56px; height: 56px; }
+      .class-logo-placeholder { font-size: 20px; }
+    }
+
+    .race-count { position: relative; display: inline-block; min-width: 1.5ch; }
+    .race-count::after { content: 52; }
+  </style>
+</head>
+<body>
+  <div class="nav">
+    <div class="nav-inner">
+      <ul>
+        <li><a href="../index.html">Inicio</a></li>
+        <li><a href="../resources.html">Recursos</a></li>
+        <li><a href="../guide.html">Guia</a></li>
+        <li><a href="../casino.html">Casino</a></li>
+        <li><a href="../weapons.html">Armas</a></li>
+        <li><a href="../razas.html">Razas (<span class="race-count"></span>)</a></li>
+        <li><a href="index.html">Clases</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-card">
+      <p class="eyebrow">Clases</p>
+      <h1>Documentos por clase</h1>
+      <p>Se muestran automaticamente todos los PDF dentro de subcarpetas de <strong>/clases</strong>.</p>
+    </div>
+  </header>
+
+  <main id="clases-fallback" class="class-grid liquid-fallback {% if true %}liquid-hide{% endif %}">
+    <details class="class-group">
+      <summary class="group-head">
+        <div class="group-title">
+          <span class="class-logo class-logo-placeholder" aria-hidden="true">B</span>
+          <h3>BARBARO</h3>
+        </div>
+      </summary>
+      <div class="group-body">
+        <div class="doc-grid">
+          <article class="doc-card">
+            <h4 class="doc-name">dnd</h4>
+            <div class="doc-actions">
+              <a class="pill glow" href="./B%C3%81RBARO/dnd.pdf" target="_blank" rel="noopener">Abrir PDF</a>
+              <a class="pill" href="./B%C3%81RBARO/dnd.pdf" download>Descargar</a>
+            </div>
+            <div class="doc-preview">
+              <object data="./B%C3%81RBARO/dnd.pdf" type="application/pdf">
+                <iframe src="./B%C3%81RBARO/dnd.pdf" title="Vista previa PDF BARBARO" loading="lazy"></iframe>
+                <div class="doc-preview-fallback">
+                  <p>Tu navegador no puede mostrar PDF.</p>
+                  <p><a href="./B%C3%81RBARO/dnd.pdf">Abrir documento</a></p>
+                </div>
+              </object>
+            </div>
+          </article>
+        </div>
+      </div>
+    </details>
+
+    <details class="class-group">
+      <summary class="group-head">
+        <div class="group-title">
+          <img class="class-logo" src="./GUERRERO/image.png" alt="Logo GUERRERO">
+          <h3>GUERRERO</h3>
+        </div>
+      </summary>
+      <div class="group-body">
+        <div class="doc-grid">
+          <article class="doc-card">
+            <h4 class="doc-name">dnd</h4>
+            <div class="doc-actions">
+              <a class="pill glow" href="./GUERRERO/dnd.pdf" target="_blank" rel="noopener">Abrir PDF</a>
+              <a class="pill" href="./GUERRERO/dnd.pdf" download>Descargar</a>
+            </div>
+            <div class="doc-preview">
+              <object data="./GUERRERO/dnd.pdf" type="application/pdf">
+                <iframe src="./GUERRERO/dnd.pdf" title="Vista previa PDF GUERRERO" loading="lazy"></iframe>
+                <div class="doc-preview-fallback">
+                  <p>Tu navegador no puede mostrar PDF.</p>
+                  <p><a href="./GUERRERO/dnd.pdf">Abrir documento</a></p>
+                </div>
+              </object>
+            </div>
+          </article>
+          <article class="doc-card">
+            <h4 class="doc-name">dndcopy</h4>
+            <div class="doc-actions">
+              <a class="pill glow" href="./GUERRERO/dndcopy.pdf" target="_blank" rel="noopener">Abrir PDF</a>
+              <a class="pill" href="./GUERRERO/dndcopy.pdf" download>Descargar</a>
+            </div>
+            <div class="doc-preview">
+              <object data="./GUERRERO/dndcopy.pdf" type="application/pdf">
+                <iframe src="./GUERRERO/dndcopy.pdf" title="Vista previa PDF GUERRERO dndcopy" loading="lazy"></iframe>
+                <div class="doc-preview-fallback">
+                  <p>Tu navegador no puede mostrar PDF.</p>
+                  <p><a href="./GUERRERO/dndcopy.pdf">Abrir documento</a></p>
+                </div>
+              </object>
+            </div>
+          </article>
+        </div>
+      </div>
+    </details>
+  </main>
+
+  {% assign total_pdfs = 0 %}
+  {% capture folder_names_raw %}{% endcapture %}
+  {% for file in site.static_files %}
+    {% assign parts = file.path | split: "/" %}
+    {% assign ext = file.extname | downcase %}
+    {% if ext == ".pdf" and parts.size > 3 and parts[1] == "clases" %}
+      {% assign total_pdfs = total_pdfs | plus: 1 %}
+      {% capture folder_names_raw %}{{ folder_names_raw }}{{ parts[2] }}||{% endcapture %}
+    {% endif %}
+  {% endfor %}
+  {% assign folders = folder_names_raw | split: "||" | uniq | sort %}
+
+  {% if total_pdfs > 0 %}
+    <main id="clases" class="class-grid liquid-content {% if true %}liquid-ready{% endif %}">
+      {% for folder in folders %}
+        {% if folder != "" %}
+          {% assign class_logo = "" %}
+          {% for file in site.static_files %}
+            {% assign parts = file.path | split: "/" %}
+            {% assign ext = file.extname | downcase %}
+            {% if class_logo == "" and parts.size > 3 and parts[1] == "clases" and parts[2] == folder and (ext == ".png" or ext == ".jpg" or ext == ".jpeg" or ext == ".webp" or ext == ".svg") %}
+              {% assign class_logo = file.path | relative_url %}
+            {% endif %}
+          {% endfor %}
+
+          <details class="class-group">
+            <summary class="group-head">
+              <div class="group-title">
+                {% if class_logo != "" %}
+                  <img class="class-logo" src="{{ class_logo }}" alt="Logo {{ folder }}">
+                {% else %}
+                  <span class="class-logo class-logo-placeholder" aria-hidden="true">{{ folder | slice: 0, 1 }}</span>
+                {% endif %}
+                <h3>{{ folder }}</h3>
+              </div>
+            </summary>
+            <div class="group-body">
+              <div class="doc-grid">
+                {% for file in site.static_files %}
+                  {% assign parts = file.path | split: "/" %}
+                  {% assign ext = file.extname | downcase %}
+                  {% if ext == ".pdf" and parts.size > 3 and parts[1] == "clases" and parts[2] == folder %}
+                    {% assign file_url = file.path | relative_url %}
+                    {% assign file_title = file.name | remove: file.extname | replace: "_", " " | replace: "-", " " %}
+                    <article class="doc-card">
+                      <h4 class="doc-name">{{ file_title }}</h4>
+                      <div class="doc-actions">
+                        <a class="pill glow" href="{{ file_url }}" target="_blank" rel="noopener">Abrir PDF</a>
+                        <a class="pill" href="{{ file_url }}" download>Descargar</a>
+                      </div>
+                      <div class="doc-preview">
+                        <object data="{{ file_url }}" type="application/pdf">
+                          <iframe src="{{ file_url }}" title="Vista previa PDF {{ file_title }}" loading="lazy"></iframe>
+                          <div class="doc-preview-fallback">
+                            <p>Tu navegador no puede mostrar PDF.</p>
+                            <p><a href="{{ file_url }}">Abrir documento</a></p>
+                          </div>
+                        </object>
+                      </div>
+                    </article>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </details>
+        {% endif %}
+      {% endfor %}
+    </main>
+  {% else %}
+    <p class="empty-state liquid-content liquid-empty {% if true %}liquid-ready{% endif %}">
+      No hay PDFs en subcarpetas de <strong>/clases</strong>. Crea carpetas como <strong>/clases/BARBARO</strong> o <strong>/clases/GUERRERO</strong> y agrega tus archivos.
+    </p>
+  {% endif %}
+</body>
+</html>
+

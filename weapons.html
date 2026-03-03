@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ciutadella &amp; Dragons - Armas</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Cinzel:wght@600&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="shared-background.css"/>
+<style>
+    :root {
+      --bg: #060911;
+      --panel: rgba(11, 15, 24, 0.82);
+      --card: rgba(15, 22, 35, 0.92);
+      --text: #f3f6f9;
+      --muted: #a9b6c6;
+      --accent: #8ee0c0;
+      --accent-2: #f7c5d8;
+      --accent-3: #9ab4ff;
+      --border: rgba(255,255,255,0.12);
+      --shadow: 0 18px 50px rgba(0,0,0,0.55);
+    
+      --race-total: 52;
+      --variant-total: 5;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Space Grotesk','Helvetica Neue',sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent-2); text-decoration: none; }
+    h1,h2,h3,h4 { font-family: 'Cinzel','Space Grotesk',serif; letter-spacing: 0.02em; color: #fff; margin: 0 0 0.4em; }
+    p { margin: 0 0 1em; color: var(--muted); }
+    .page { position: relative; overflow: hidden; }
+    .bg-ornament { position: fixed; inset: 0; background: radial-gradient(circle at 20% 20%, rgba(159,224,194,0.16), transparent 34%), radial-gradient(circle at 80% 12%, rgba(247,197,216,0.12), transparent 32%), radial-gradient(circle at 50% 80%, rgba(154,180,255,0.1), transparent 30%), linear-gradient(120deg, rgba(255,255,255,0.02), rgba(255,255,255,0)); filter: blur(70px); opacity: 0.9; pointer-events: none; z-index: 0; }
+    .geo-layer { position: fixed; inset: -8%; pointer-events: none; z-index: 1; opacity: 0.55; }
+    .geo { position: absolute; filter: drop-shadow(0 14px 28px rgba(0,0,0,0.45)); }
+    .geo.ring { width: 360px; height: 360px; border-radius: 50%; border: 1px dashed rgba(247,197,216,0.35); box-shadow: 0 0 0 14px rgba(255,255,255,0.02); }
+    .geo.diamond { width: 220px; height: 220px; border-radius: 18px; border: 1px solid rgba(142,224,192,0.35); background: linear-gradient(135deg, rgba(142,224,192,0.2), rgba(154,180,255,0.18)); transform: rotate(45deg); }
+    .geo.hex { width: 240px; height: 240px; background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(142,224,192,0.08)); border: 1px solid rgba(255,255,255,0.14); clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%); }
+    .geo.d1 { top: 12%; left: 8%; }
+    .geo.d2 { bottom: 14%; right: -4%; width: 180px; height: 180px; opacity: 0.7; }
+    .geo.r1 { top: -6%; right: 18%; }
+    .geo.h1 { bottom: 10%; left: 16%; }
+    header.hero { position: relative; padding: 64px 24px 44px; max-width: 1200px; margin: 0 auto; z-index: 2; }
+    .nav { position: sticky; top: 0; z-index: 3; background: linear-gradient(90deg, rgba(7,11,23,0.95), rgba(7,11,23,0.85)); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 12px 24px; box-shadow: 0 12px 28px rgba(0,0,0,0.45); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .nav ul { list-style: none; display: flex; gap: 12px; margin: 0; padding: 0; flex-wrap: wrap; }
+    .nav a { padding: 10px 14px; border: 1px solid var(--border); border-radius: 999px; color: var(--text); background: rgba(255,255,255,0.04); letter-spacing: 0.05em; transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.2s ease; }
+    .nav a:hover { border-color: var(--accent-2); box-shadow: 0 10px 24px rgba(0,0,0,0.35); transform: translateY(-2px); }
+    .hero-card { background: linear-gradient(135deg, rgba(142,224,192,0.12), rgba(154,180,255,0.08), rgba(7,11,23,0.9)); padding: 32px; border-radius: 22px; border: 1px solid var(--border); box-shadow: var(--shadow); position: relative; overflow: hidden; }
+    .hero-card::after { content: ""; position: absolute; inset: 14px; border-radius: 18px; border: 1px dashed rgba(255,255,255,0.16); opacity: 0.6; pointer-events: none; }
+    .eyebrow { text-transform: uppercase; letter-spacing: 0.22em; color: var(--accent); font-size: 12px; margin: 0 0 12px; }
+    .hero-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 24px; }
+    .stat { padding: 14px; border-radius: 14px; border: 1px solid var(--border); background: linear-gradient(120deg, rgba(255,255,255,0.05), rgba(142,224,192,0.08)); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02); }
+    .stat strong { display: block; font-size: 32px; color: var(--accent); text-shadow: 0 6px 18px rgba(0,0,0,0.35); }
+    .panel { max-width: 1200px; margin: 0 auto; padding: 32px 24px; position: relative; z-index: 2; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid var(--border); color: #fff; font-weight: 700; font-size: 13px; white-space: normal; letter-spacing: 0.04em; max-width: 100%; overflow-wrap: anywhere; }
+    .pill.kind { background: rgba(154,180,255,0.12); border-color: rgba(154,180,255,0.4); color: #e1e7ff; }
+    .pill.cost { background: rgba(142,224,192,0.12); border-color: rgba(142,224,192,0.4); color: #dff7ed; }
+    .controls { background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(154,180,255,0.05)); border: 1px solid var(--border); border-radius: 18px; padding: 18px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03); display: grid; gap: 16px; }
+    .search-box { display: grid; gap: 8px; }
+    .search-box label { font-weight: 700; letter-spacing: 0.06em; font-size: 13px; color: #fff; }
+    .search-input { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .search-input input { flex: 1 1 240px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: #fff; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02); }
+    .search-hint { font-size: 12px; color: var(--muted); }
+    .chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { border: 1px solid var(--border); border-radius: 12px; padding: 8px 12px; display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.03); color: #fff; cursor: pointer; letter-spacing: 0.04em; }
+    .chip input { accent-color: #9ab4ff; }
+    .filters { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); align-items: start; }
+    .filters h4 { margin: 0 0 6px; font-size: 15px; letter-spacing: 0.05em; color: #fff; }
+    .cards { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+    .card { position: relative; padding: 16px; border-radius: 16px; background: linear-gradient(150deg, rgba(11,17,26,0.95), rgba(15,22,35,0.95)); border: 1px solid var(--border); box-shadow: var(--shadow); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto auto; grid-template-areas: "thumb info" "stats stats"; gap: 12px; min-height: 180px; order: var(--order-dmg, 0); }
+    .weapon-thumb { grid-area: thumb; position: relative; width: 100%; aspect-ratio: 1 / 1; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(142,224,192,0.08)); box-shadow: 0 10px 24px rgba(0,0,0,0.4); }
+    .weapon-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+    .card-body { display: contents; }
+    .card-info { grid-area: info; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+    .card-head { display: flex; justify-content: flex-start; gap: 8px; align-items: center; flex-wrap: wrap; }
+    dl { display: grid; gap: 6px; margin: 0; grid-area: stats; min-width: 0; }
+    dl div { display: grid; grid-template-columns: minmax(92px, auto) 1fr; gap: 8px; align-items: center; padding: 8px 10px; border-radius: 10px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); }
+    dt { font-weight: 700; letter-spacing: 0.05em; color: #fff; }
+    dd { margin: 0; color: var(--muted); font-weight: 600; }
+    .card:target { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(142,224,192,0.6), 0 16px 40px rgba(0,0,0,0.6); }
+    .armory:has(#orden-precio:checked) .card { order: var(--order-price, 0); }
+    .armory:has(#tipo-simple:checked) .card:not([data-clase="simple"]) { display: none; }
+    .armory:has(#tipo-marcial:checked) .card:not([data-clase="marcial"]) { display: none; }
+    .armory:has(#tipo-cuerpo:checked) .card:not([data-rango="cuerpo"]) { display: none; }
+    .armory:has(#tipo-distancia:checked) .card:not([data-rango="distancia"]) { display: none; }
+    footer { text-align: center; padding: 26px; color: var(--muted); }
+    @media (max-width: 700px) { .hero-card, .panel { padding: 24px 18px; } }
+    @media (max-width: 640px) {
+      .card {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+      .pill {
+        white-space: normal;
+      }
+      dl div {
+        grid-template-columns: 1fr;
+        text-align: left;
+      }
+      dt, dd {
+        overflow-wrap: anywhere;
+      }
+    }
+      /* Contadores de razas (sin scripts) */
+    .race-count, .variant-count { position: relative; display: inline-block; min-width: 1.5ch; }
+    .race-count::after { content: var(--race-total, attr(data-fallback)); }
+    .variant-count::after { content: var(--variant-total, attr(data-fallback)); }</style>
+</head>
+<body>
+<div class="page">
+<div class="bg-carousel" aria-hidden="true"></div><div class="bg-ornament"></div><div class="geo-layer"><span class="geo diamond d1"></span><span class="geo diamond d2"></span><span class="geo ring r1"></span><span class="geo hex h1"></span></div><div class="nav"><div class="nav-inner"><ul>
+<li><a href="index.html">Inicio</a></li>
+<li><a href="resources.html">Recursos</a></li>
+<li><a href="guide.html">Guía</a></li>
+<li><a href="casino.html">Casino</a></li>
+<li><a href="razas.html">Razas (<span class="race-count" data-fallback="52"></span>)</a></li><li><a href="clases/index.html">Clases</a></li>
+<li><a href="weapons.html">Armas</a></li>
+</ul></div></div><header class="hero"><div class="hero-card"><p class="eyebrow">Arsenal</p><h1>Cartas de armas</h1><p>Listado completo desde CSV, ordenable por Daño o precio y filtrable por tipo.</p><div class="hero-grid">
+<div class="stat"><strong>37</strong><span>armas totales</span></div>
+<div class="stat"><strong>4</strong><span>tipos base</span></div>
+<div class="stat"><strong>0</strong><span>scripts</span></div>
+</div>
+</div></header><section class="panel armory" id="armas"><div class="controls">
+<div class="search-box"><label for="buscar">Buscador</label><div class="search-input"><input id="buscar" list="lista-armas" placeholder="Escribe un arma o usa la lista sugerida" type="search"/></div><p class="search-hint">Selecciona desde la lista para autocompletar y usa los filtros para ordenar o filtrar el grid.</p><datalist id="lista-armas">
+<option value="Clava"></option>
+<option value="Daga"></option>
+<option value="Gran clava"></option>
+<option value="Hacha de mano"></option>
+<option value="Jabalina"></option>
+<option value="Martillo ligero"></option>
+<option value="Maza"></option>
+<option value="Bastón"></option>
+<option value="Hoz"></option>
+<option value="Lanza"></option>
+<option value="Ballesta ligera"></option>
+<option value="Dardo"></option>
+<option value="Arco corto"></option>
+<option value="Honda"></option>
+<option value="Hacha de guerra"></option>
+<option value="Mangual"></option>
+<option value="Alabarda"></option>
+<option value="Gran hacha"></option>
+<option value="Espadón"></option>
+<option value="Halberd"></option>
+<option value="Lanza de caballería"></option>
+<option value="Espada larga"></option>
+<option value="Maul"></option>
+<option value="Estrella matutina"></option>
+<option value="Pica"></option>
+<option value="Rapier"></option>
+<option value="Cimitarra"></option>
+<option value="Espada corta"></option>
+<option value="Tridente"></option>
+<option value="Piqueta de guerra"></option>
+<option value="Martillo de guerra"></option>
+<option value="Látigo"></option>
+<option value="Cerbatana"></option>
+<option value="Ballesta de mano"></option>
+<option value="Ballesta pesada"></option>
+<option value="Arco largo"></option>
+<option value="Red"></option>
+</datalist></div>
+<div class="filters">
+<div>
+<h4>Orden</h4>
+<div class="chip-group">
+<label class="chip"><input checked="" id="orden-dano" name="orden" type="radio"/> Daño ↑</label>
+<label class="chip"><input id="orden-precio" name="orden" type="radio"/> Precio ↑</label>
+</div>
+</div>
+<div>
+<h4>Tipo</h4>
+<div class="chip-group">
+<label class="chip"><input checked="" id="tipo-todo" name="tipo" type="radio"/> Todos</label>
+<label class="chip"><input id="tipo-simple" name="tipo" type="radio"/> Simple</label>
+<label class="chip"><input id="tipo-marcial" name="tipo" type="radio"/> Marcial</label>
+<label class="chip"><input id="tipo-cuerpo" name="tipo" type="radio"/> Cuerpo a cuerpo</label>
+<label class="chip"><input id="tipo-distancia" name="tipo" type="radio"/> A distancia</label>
+</div>
+</div>
+</div>
+</div>
+<div class="cards">
+<article class="card" data-clase="simple" data-id="1" data-rango="cuerpo" id="clava" style="--order-dmg:3; --order-price:2;"><div class="weapon-thumb"><img alt="Clava" src="armas/1.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Simple cuerpo a cuerpo</span><span class="pill cost">0.1 gp</span></div><h3>Clava</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d6</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Ralentizar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="simple" data-id="2" data-rango="cuerpo" id="daga" style="--order-dmg:4; --order-price:10;"><div class="weapon-thumb"><img alt="Daga" src="armas/2.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Simple cuerpo a cuerpo</span><span class="pill cost">2 gp</span></div><h3>Daga</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d6</dd></div>
+<div><dt>Característica</dt><dd>FUE/DES</dd></div>
+<div><dt>Maestría</dt><dd>Corte rápido</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="simple" data-id="3" data-rango="cuerpo" id="gran-clava" style="--order-dmg:19; --order-price:4;"><div class="weapon-thumb"><img alt="Gran clava" src="armas/3.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Simple cuerpo a cuerpo</span><span class="pill cost">0.2 gp</span></div><h3>Gran clava</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d8</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Empujar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="simple" data-id="4" data-rango="cuerpo" id="hacha-de-mano" style="--order-dmg:5; --order-price:13;"><div class="weapon-thumb"><img alt="Hacha de mano" src="armas/4.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Simple cuerpo a cuerpo</span><span class="pill cost">5 gp</span></div><h3>Hacha de mano</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d6</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Desconcertar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="simple" data-id="5" data-rango="cuerpo" id="jabalina" style="--order-dmg:6; --order-price:6;"><div class="weapon-thumb"><img alt="Jabalina" src="armas/5.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Simple cuerpo a cuerpo</span><span class="pill cost">0.5 gp</span></div><h3>Jabalina</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d6</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Ralentizar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="simple" data-id="6" data-rango="cuerpo" id="martillo-ligero" style="--order-dmg:7; --order-price:11;"><div class="weapon-thumb"><img alt="Martillo ligero" src="armas/6.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Simple cuerpo a cuerpo</span><span class="pill cost">2 gp</span></div><h3>Martillo ligero</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d6</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Corte rápido</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="simple" data-id="7" data-rango="cuerpo" id="maza" style="--order-dmg:8; --order-price:14;"><div class="weapon-thumb"><img alt="Maza" src="armas/7.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Simple cuerpo a cuerpo</span><span class="pill cost">5 gp</span></div><h3>Maza</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d6</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Aturdir</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="simple" data-id="8" data-rango="cuerpo" id="baston" style="--order-dmg:9; --order-price:5;"><div class="weapon-thumb"><img alt="Bastón" src="armas/8.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Simple cuerpo a cuerpo</span><span class="pill cost">0.2 gp</span></div><h3>Bastón</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d6</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Derribar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="simple" data-id="9" data-rango="cuerpo" id="hoz" style="--order-dmg:10; --order-price:7;"><div class="weapon-thumb"><img alt="Hoz" src="armas/9.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Simple cuerpo a cuerpo</span><span class="pill cost">1 gp</span></div><h3>Hoz</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d6</dd></div>
+<div><dt>Característica</dt><dd>FUE/DES</dd></div>
+<div><dt>Maestría</dt><dd>Corte rápido</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="simple" data-id="10" data-rango="cuerpo" id="lanza" style="--order-dmg:11; --order-price:8;"><div class="weapon-thumb"><img alt="Lanza" src="armas/10.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Simple cuerpo a cuerpo</span><span class="pill cost">1 gp</span></div><h3>Lanza</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d6</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Versátil</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="simple" data-id="11" data-rango="distancia" id="ballesta-ligera" style="--order-dmg:20; --order-price:29;"><div class="weapon-thumb"><img alt="Ballesta ligera" src="armas/11.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Simple a distancia</span><span class="pill cost">25 gp</span></div><h3>Ballesta ligera</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d8</dd></div>
+<div><dt>Característica</dt><dd>Destreza</dd></div>
+<div><dt>Maestría</dt><dd>Ralentizar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="simple" data-id="12" data-rango="distancia" id="dardo" style="--order-dmg:12; --order-price:1;"><div class="weapon-thumb"><img alt="Dardo" src="armas/12.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Simple a distancia</span><span class="pill cost">0.05 gp</span></div><h3>Dardo</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d6</dd></div>
+<div><dt>Característica</dt><dd>Destreza</dd></div>
+<div><dt>Maestría</dt><dd>Desconcertar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="simple" data-id="13" data-rango="distancia" id="arco-corto" style="--order-dmg:13; --order-price:30;"><div class="weapon-thumb"><img alt="Arco corto" src="armas/13.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Simple a distancia</span><span class="pill cost">25 gp</span></div><h3>Arco corto</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d6</dd></div>
+<div><dt>Característica</dt><dd>Destreza</dd></div>
+<div><dt>Maestría</dt><dd>Desconcertar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="simple" data-id="14" data-rango="distancia" id="honda" style="--order-dmg:2; --order-price:3;"><div class="weapon-thumb"><img alt="Honda" src="armas/14.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Simple a distancia</span><span class="pill cost">0.1 gp</span></div><h3>Honda</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d4</dd></div>
+<div><dt>Característica</dt><dd>Destreza</dd></div>
+<div><dt>Maestría</dt><dd>Ralentizar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="15" data-rango="cuerpo" id="hacha-de-guerra" style="--order-dmg:21; --order-price:18;"><div class="weapon-thumb"><img alt="Hacha de guerra" src="armas/15.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial cuerpo a cuerpo</span><span class="pill cost">10 gp</span></div><h3>Hacha de guerra</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d8</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Barrido</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="16" data-rango="cuerpo" id="mangual" style="--order-dmg:22; --order-price:19;"><div class="weapon-thumb"><img alt="Mangual" src="armas/16.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial cuerpo a cuerpo</span><span class="pill cost">10 gp</span></div><h3>Mangual</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d8</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Aturdir</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="17" data-rango="cuerpo" id="alabarda" style="--order-dmg:29; --order-price:27;"><div class="weapon-thumb"><img alt="Alabarda" src="armas/17.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial cuerpo a cuerpo</span><span class="pill cost">20 gp</span></div><h3>Alabarda</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d10</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Empujar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="18" data-rango="cuerpo" id="gran-hacha" style="--order-dmg:33; --order-price:33;"><div class="weapon-thumb"><img alt="Gran hacha" src="armas/18.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial cuerpo a cuerpo</span><span class="pill cost">30 gp</span></div><h3>Gran hacha</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d12</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Barrido</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="19" data-rango="cuerpo" id="espadon" style="--order-dmg:35; --order-price:34;"><div class="weapon-thumb"><img alt="Espadón" src="armas/19.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial cuerpo a cuerpo</span><span class="pill cost">50 gp</span></div><h3>Espadón</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>2d6</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Rozar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="20" data-rango="cuerpo" id="halberd" style="--order-dmg:30; --order-price:28;"><div class="weapon-thumb"><img alt="Halberd" src="armas/20.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial cuerpo a cuerpo</span><span class="pill cost">20 gp</span></div><h3>Halberd</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d10</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Barrido</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="21" data-rango="cuerpo" id="lanza-de-caballeria" style="--order-dmg:34; --order-price:20;"><div class="weapon-thumb"><img alt="Lanza de caballería" src="armas/21.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial cuerpo a cuerpo</span><span class="pill cost">10 gp</span></div><h3>Lanza de caballería</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d12</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Derribar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="22" data-rango="cuerpo" id="espada-larga" style="--order-dmg:23; --order-price:24;"><div class="weapon-thumb"><img alt="Espada larga" src="armas/22.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial cuerpo a cuerpo</span><span class="pill cost">15 gp</span></div><h3>Espada larga</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d8</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Versátil</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="23" data-rango="cuerpo" id="maul" style="--order-dmg:36; --order-price:21;"><div class="weapon-thumb"><img alt="Maul" src="armas/23.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial cuerpo a cuerpo</span><span class="pill cost">10 gp</span></div><h3>Maul</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>2d6</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Derribar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="24" data-rango="cuerpo" id="estrella-matutina" style="--order-dmg:24; --order-price:25;"><div class="weapon-thumb"><img alt="Estrella matutina" src="armas/24.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial cuerpo a cuerpo</span><span class="pill cost">15 gp</span></div><h3>Estrella matutina</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d8</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Aturdir</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="25" data-rango="cuerpo" id="pica" style="--order-dmg:31; --order-price:15;"><div class="weapon-thumb"><img alt="Pica" src="armas/25.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial cuerpo a cuerpo</span><span class="pill cost">5 gp</span></div><h3>Pica</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d10</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Empujar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="26" data-rango="cuerpo" id="rapier" style="--order-dmg:25; --order-price:31;"><div class="weapon-thumb"><img alt="Rapier" src="armas/26.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial cuerpo a cuerpo</span><span class="pill cost">25 gp</span></div><h3>Rapier</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d8</dd></div>
+<div><dt>Característica</dt><dd>FUE/DES</dd></div>
+<div><dt>Maestría</dt><dd>Desconcertar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="27" data-rango="cuerpo" id="cimitarra" style="--order-dmg:14; --order-price:32;"><div class="weapon-thumb"><img alt="Cimitarra" src="armas/27.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial cuerpo a cuerpo</span><span class="pill cost">25 gp</span></div><h3>Cimitarra</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d6</dd></div>
+<div><dt>Característica</dt><dd>FUE/DES</dd></div>
+<div><dt>Maestría</dt><dd>Corte rápido</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="28" data-rango="cuerpo" id="espada-corta" style="--order-dmg:15; --order-price:22;"><div class="weapon-thumb"><img alt="Espada corta" src="armas/28.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial cuerpo a cuerpo</span><span class="pill cost">10 gp</span></div><h3>Espada corta</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d6</dd></div>
+<div><dt>Característica</dt><dd>FUE/DES</dd></div>
+<div><dt>Maestría</dt><dd>Corte rápido</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="29" data-rango="cuerpo" id="tridente" style="--order-dmg:16; --order-price:16;"><div class="weapon-thumb"><img alt="Tridente" src="armas/29.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial cuerpo a cuerpo</span><span class="pill cost">5 gp</span></div><h3>Tridente</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d6</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Empujar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="30" data-rango="cuerpo" id="piqueta-de-guerra" style="--order-dmg:26; --order-price:17;"><div class="weapon-thumb"><img alt="Piqueta de guerra" src="armas/30.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial cuerpo a cuerpo</span><span class="pill cost">5 gp</span></div><h3>Piqueta de guerra</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d8</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Aturdir</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="31" data-rango="cuerpo" id="martillo-de-guerra" style="--order-dmg:27; --order-price:26;"><div class="weapon-thumb"><img alt="Martillo de guerra" src="armas/31.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial cuerpo a cuerpo</span><span class="pill cost">15 gp</span></div><h3>Martillo de guerra</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d8</dd></div>
+<div><dt>Característica</dt><dd>Fuerza</dd></div>
+<div><dt>Maestría</dt><dd>Versátil</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="32" data-rango="cuerpo" id="latigo" style="--order-dmg:17; --order-price:12;"><div class="weapon-thumb"><img alt="Látigo" src="armas/32.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial cuerpo a cuerpo</span><span class="pill cost">2 gp</span></div><h3>Látigo</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d6</dd></div>
+<div><dt>Característica</dt><dd>FUE/DES</dd></div>
+<div><dt>Maestría</dt><dd>Ralentizar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="33" data-rango="distancia" id="cerbatana" style="--order-dmg:1; --order-price:23;"><div class="weapon-thumb"><img alt="Cerbatana" src="armas/33.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial a distancia</span><span class="pill cost">10 gp</span></div><h3>Cerbatana</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1</dd></div>
+<div><dt>Característica</dt><dd>Destreza</dd></div>
+<div><dt>Maestría</dt><dd>Ralentizar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="34" data-rango="distancia" id="ballesta-de-mano" style="--order-dmg:18; --order-price:37;"><div class="weapon-thumb"><img alt="Ballesta de mano" src="armas/34.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial a distancia</span><span class="pill cost">75 gp</span></div><h3>Ballesta de mano</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d6</dd></div>
+<div><dt>Característica</dt><dd>Destreza</dd></div>
+<div><dt>Maestría</dt><dd>Desconcertar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="35" data-rango="distancia" id="ballesta-pesada" style="--order-dmg:32; --order-price:35;"><div class="weapon-thumb"><img alt="Ballesta pesada" src="armas/35.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial a distancia</span><span class="pill cost">50 gp</span></div><h3>Ballesta pesada</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d10</dd></div>
+<div><dt>Característica</dt><dd>Destreza</dd></div>
+<div><dt>Maestría</dt><dd>Empujar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="36" data-rango="distancia" id="arco-largo" style="--order-dmg:28; --order-price:36;"><div class="weapon-thumb"><img alt="Arco largo" src="armas/36.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial a distancia</span><span class="pill cost">50 gp</span></div><h3>Arco largo</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>1d8</dd></div>
+<div><dt>Característica</dt><dd>Destreza</dd></div>
+<div><dt>Maestría</dt><dd>Ralentizar</dd></div>
+</dl>
+</div></article>
+<article class="card" data-clase="marcial" data-id="37" data-rango="distancia" id="red" style="--order-dmg:37; --order-price:9;"><div class="weapon-thumb"><img alt="Red" src="armas/37.png"/></div><div class="card-body"><div class="card-info"><div class="card-head"><span class="pill kind">Marcial a distancia</span><span class="pill cost">1 gp</span></div><h3>Red</h3></div>
+
+
+<dl>
+<div><dt>Daño</dt><dd>Especial</dd></div>
+<div><dt>Característica</dt><dd>Destreza</dd></div>
+<div><dt>Maestría</dt><dd>Ralentizar</dd></div>
+</dl>
+</div></article>
+</div></section><footer>Datos cargados desde weapons.csv. Vista 100% estática.</footer></div>
+</body>
+</html>

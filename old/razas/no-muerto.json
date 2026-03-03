@@ -1,0 +1,32 @@
+{
+    "raceName": "🟦 VARIANTE: No Muerto",
+    "raceDescription": "Los No Muertos son restos de vidas pasadas, atrapados entre el mundo de los vivos y el reino de los muertos. Mientras sus cuerpos se descomponen, sus almas persisten, negándose a desvanecerse. Algunos son simples husks sin voluntad, mientras que otros, como los Liches, eligen este estado para perseguir objetivos más allá de las limitaciones mortales. Rechazados por los dioses y temidos por los vivos, los No Muertos caminan una línea tenue entre la existencia y la aniquilación, a menudo impulsados por un propósito insondable.",
+    "bonusRules": "Características de tu raza original.",
+    "movementSpeed": "?",
+    "lifeSpan": "? ",
+    "attributes": {
+            "Constitución": "+2"
+    },
+    "sizes": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+    ],
+    "abilities": [
+        {
+            "name": "Necromancia",
+            "description": "No necesitas comer ni beber para sobrevivir, tu estado no-muerto te sustenta de manera sobrenatural. Lastimosamente, eres vulnerable al daño Radiante y a objetos bendecidos"
+        },
+        {
+            "name": "Cauterización Natural",
+            "description": "Tu sangre, si es que aún tienes, está coagulada y podrida, lo que te hace inmune al sangrado. Además, eres inmune a venenos, daño necrótico y alucinógenos químicos."
+        },
+        {
+            "name": "Beneplácito de Myrkul",
+            "description": "Una vez por descanso largo, si tus puntos de vida caen a 0, recuperas automáticamente 1 punto de vida, manteniéndote funcional en el borde de la muerte."
+        }
+    ]
+}

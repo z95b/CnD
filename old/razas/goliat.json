@@ -1,0 +1,27 @@
+{
+    "raceName": "Goliats",
+    "raceDescription": "Los Goliats son imponentes gigantes que habitan en las montañas más altas y en regiones inhóspitas. Su piel gruesa y áspera, a menudo comparada con la piedra, les otorga una resistencia física impresionante. Esta raza es conocida por su tenacidad y su espíritu competitivo, viéndose a sí mismos como pruebas vivientes de la fuerza y la perseverancia. Con una longevidad que puede extenderse por siglos, los Goliats suelen convertirse en guardianes de sus comunidades o en aventureros que buscan desafíos dignos de su poder.",
+    "bonusRules": "",
+    "movementSpeed": "6",
+    "attributes": {
+        "Constitución": "+3"
+    },
+    "sizes": [
+        3,
+        4
+    ],
+    "abilities": [
+        {
+            "name": "Gran tamaño",
+            "description": "Eres considerado 'Grande' contra los enemigos. Esto implica que no se te puede empujar, levantar ni mover por medio de la fuerza."
+        },
+        {
+            "name": "Piel pétrea",
+            "description": "Como reacción, puedes reducir el daño recibido por un ataque físico en 1d12 + Mod. Const. Puedes usar este rasgo tantas veces como tu Mod. de Constitución"
+        },
+        {
+            "name": "Dureza en la sangre",
+            "description": "No sufres penalizaciones por altas presiones atmosféricas ni por el frio extremo natural"
+        }
+    ]
+}

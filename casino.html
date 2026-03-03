@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ciutadella &amp; Dragons - Casino</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Cinzel:wght@600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="shared-background.css"/>
+<style>
+    :root {
+      --bg: #05070d;
+      --panel: rgba(10, 16, 18, 0.86);
+      --panel-strong: rgba(12, 26, 19, 0.92);
+      --text: #f6f1e3;
+      --muted: #c5bc9f;
+      --accent: #e8c76a;
+      --accent-2: #d84b4b;
+      --felt: #0f2618;
+      --rail: #13271a;
+      --border: rgba(232, 199, 106, 0.28);
+      --glow: 0 20px 80px rgba(232, 199, 106, 0.24);
+
+      --race-total: 52;
+      --variant-total: 5;
+      --casino-shuffle: 0.3s;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Space Grotesk', 'Helvetica Neue', sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(232, 199, 106, 0.05), transparent 35%), radial-gradient(circle at 80% 35%, rgba(216, 75, 75, 0.04), transparent 35%), var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Cinzel', 'Space Grotesk', serif;
+      letter-spacing: 0.02em;
+      color: #fffaee;
+      margin: 0 0 0.4em;
+    }
+
+    p {
+      margin: 0 0 1em;
+      color: var(--muted);
+    }
+
+    .page {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bg-ornament {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 25% 25%, rgba(232, 199, 106, 0.18), transparent 36%), radial-gradient(circle at 70% 20%, rgba(216, 75, 75, 0.14), transparent 38%), radial-gradient(circle at 50% 85%, rgba(15, 38, 24, 0.4), transparent 50%), linear-gradient(120deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+      filter: blur(70px);
+      opacity: 0.9;
+      animation: drift 30s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes drift {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate3d(0, -10px, 0) scale(1.03);
+      }
+
+      100% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+    }
+
+    header.hero {
+      position: relative;
+      padding: 48px 24px 36px;
+      max-width: 1200px;
+      margin: 0 auto;
+      z-index: 1;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 3;
+      background: linear-gradient(90deg, rgba(5, 8, 12, 0.94), rgba(8, 18, 12, 0.86));
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .nav ul {
+      list-style: none;
+      display: flex;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+      letter-spacing: 0.05em;
+      transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.2s ease;
+    }
+
+    .nav a:hover {
+      border-color: var(--accent);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, rgba(232, 199, 106, 0.10), rgba(12, 18, 25, 0.9));
+      padding: 26px;
+      border-radius: 18px;
+      border: 1px solid rgba(232, 199, 106, 0.25);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      font-size: 12px;
+      margin: 0 0 12px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .stat {
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: linear-gradient(120deg, rgba(232, 199, 106, 0.08), rgba(15, 38, 24, 0.8));
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 32px;
+      color: var(--accent);
+      text-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    }
+
+    .panel {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .resources {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .resource-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+      transition: transform 0.25s ease, border-color 0.3s ease;
+    }
+
+    .resource-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-2);
+    }
+
+    .resource-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .resource-card a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--accent-2);
+      background: linear-gradient(120deg, rgba(159, 224, 194, 0.14), rgba(247, 197, 216, 0.16));
+      color: #fff;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .resource-card a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      border-color: var(--accent);
+    }
+
+    /* D20 chip */
+    .d20 {
+      --face: #111822;
+      --edge: #223041;
+      --text: #fdf8ec;
+      display: inline-grid;
+      place-items: center;
+      width: 64px;
+      height: 64px;
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--text);
+      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.12)), var(--face);
+      clip-path: polygon(50% 0%, 78% 8%, 94% 26%, 100% 50%, 94% 74%, 78% 92%, 50% 100%, 22% 92%, 6% 74%, 0% 50%, 6% 26%, 22% 8%);
+      border: 2px solid var(--edge);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.55);
+      letter-spacing: 0.04em;
+    }
+
+    .d20::after {
+      content: "d20";
+      position: absolute;
+      bottom: 6px;
+      right: 8px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.08em;
+    }
+
+    .tagline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-start;
+    }
+
+    .guide {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .parchment {
+      background: radial-gradient(circle at 20% 20%, rgba(159, 224, 194, 0.12), transparent 40%), rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+
+    .table th,
+    .table td {
+      border: 1px solid var(--border);
+      padding: 8px;
+      text-align: left;
+    }
+
+    .table th {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .casino-banner {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .casino-banner p {
+      max-width: 720px;
+      margin: 0 auto 10px;
+    }
+
+    .casino-marquee {
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px dashed var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .casino-floor {
+      position: relative;
+      padding: 22px;
+      background: #0b1017;
+      border-radius: 20px;
+      border: 1px solid rgba(232, 199, 106, 0.18);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
+      animation: casino-shake 0.6s ease-out 1;
+    }
+
+    .casino-roulette {
+      position: relative;
+      display: grid;
+      grid-template-areas: "stack";
+    }
+
+    .casino-variant {
+      grid-area: stack;
+      opacity: 0;
+      transform: translateY(10px);
+      animation-duration: var(--casino-shuffle);
+      animation-timing-function: ease-out;
+      animation-iteration-count: 1;
+      animation-fill-mode: both;
+      animation-delay: var(--delay);
+      will-change: opacity, transform;
+    }
+
+    .casino-variant.is-flash {
+      animation-name: casino-flash;
+    }
+
+    .casino-variant.is-final {
+      animation-name: casino-final;
+    }
+
+    @keyframes casino-flash {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      80% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-6px) scale(0.98);
+      }
+    }
+
+    @keyframes casino-final {
+      0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+      }
+
+      60% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes casino-shake {
+      0% {
+        transform: translateY(0);
+      }
+
+      25% {
+        transform: translateY(-2px);
+      }
+
+      50% {
+        transform: translateY(2px);
+      }
+
+      75% {
+        transform: translateY(-1px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .casino-variant {
+        animation: none;
+        opacity: 0;
+        transform: none;
+      }
+
+      .casino-variant.is-final {
+        opacity: 1;
+      }
+
+      .casino-floor {
+        animation: none;
+      }
+    }
+
+    .casino {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      z-index: 1;
+    }
+
+    .casino-set {
+      position: relative;
+      background: linear-gradient(160deg, rgba(18, 24, 32, 0.92), rgba(12, 16, 22, 0.96));
+      border: 1px solid rgba(232, 199, 106, 0.25);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+    }
+
+    .casino-set h4 {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      margin: 0;
+      font-size: 13px;
+    }
+
+    .casino-set__title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .set-total {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: #1b1205;
+      background: linear-gradient(140deg, #ffebb0, #f2c15b 45%, #d99a2b);
+      clip-path: polygon(50% 0%, 96% 35%, 78% 100%, 22% 100%, 4% 35%);
+      border: 2px solid rgba(255, 233, 164, 0.9);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+      letter-spacing: 0.04em;
+    }
+
+    .casino-set ol {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 8px;
+      counter-reset: roll;
+    }
+
+    .casino-set li {
+      counter-increment: roll;
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0.02), rgba(55, 167, 130, 0.08));
+      border: 1px solid rgba(232, 199, 106, 0.16);
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .casino-set li::before {
+      content: "Tiro " counter(roll);
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      font-size: 12px;
+    }
+
+    .dice-row {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .die {
+      --die-face: #132130;
+      --die-edge: #3bdab0;
+      position: relative;
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: #fdfdf9;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0)) , var(--die-face);
+      border: 1.5px solid var(--die-edge);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+    }
+
+    .die.drop {
+      opacity: 0.72;
+    }
+
+    .die.drop::after {
+      content: "✕";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: #ffb1b1;
+      font-size: 18px;
+      font-weight: 900;
+      text-shadow: 0 0 10px rgba(255, 0, 76, 0.55);
+    }
+
+    .equals {
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      font-size: 16px;
+      text-shadow: 0 0 10px rgba(232, 199, 106, 0.3);
+    }
+
+    .hex {
+      --hx-a: #5b8cff;
+      --hx-b: #52f3c0;
+      width: 68px;
+      height: 40px;
+      clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: #0c0f17;
+      background: linear-gradient(135deg, var(--hx-a), var(--hx-b));
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+      border: 2px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .tone-amber {
+      --die-face: #2f1b07;
+      --die-edge: #ffb347;
+    }
+
+    .tone-rose {
+      --die-face: #2b0f1d;
+      --die-edge: #ff6fb7;
+    }
+
+    .tone-cyan {
+      --die-face: #0c1f2d;
+      --die-edge: #5fe4ff;
+    }
+
+    .tone-lime {
+      --die-face: #112010;
+      --die-edge: #b6ff6b;
+    }
+
+    .tone-violet {
+      --die-face: #1a1330;
+      --die-edge: #c39bff;
+    }
+
+    /* Color por número (todos los iguales comparten color) */
+    .die.n1 {
+      --die-face: #2b1218;
+      --die-edge: #ff8e8e;
+    }
+
+    .die.n2 {
+      --die-face: #112010;
+      --die-edge: #b6ff6b;
+    }
+
+    .die.n3 {
+      --die-face: #1a1330;
+      --die-edge: #c39bff;
+    }
+
+    .die.n4 {
+      --die-face: #0c1f2d;
+      --die-edge: #5fe4ff;
+    }
+
+    .die.n5 {
+      --die-face: #2f1b07;
+      --die-edge: #ffb347;
+    }
+
+    .die.n6 {
+      --die-face: #0f2622;
+      --die-edge: #52f3c0;
+    }
+
+    .dealer-note {
+      margin-top: 18px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(232, 199, 106, 0.25);
+      border-radius: 12px;
+      padding: 10px 14px;
+      color: #fff;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+    }
+
+    .race-index {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 8px;
+      margin: 18px 0;
+    }
+
+    .race-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      color: #fff;
+      font-weight: 600;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .race-chip:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .race-card {
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+      overflow: hidden;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      transition: border-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .race-card:hover {
+      border-color: var(--accent-2);
+      transform: translateY(-1px);
+    }
+
+    .race-card summary {
+      list-style: none;
+      padding: 16px;
+      cursor: pointer;
+    }
+
+    .race-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .summary-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .race-title {
+      margin: 0;
+      color: #fff;
+    }
+
+    .race-snippet {
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    .race-body {
+      border-top: 1px solid var(--border);
+      padding: 16px;
+      background: radial-gradient(circle at 20% 20%, rgba(159, 224, 194, 0.08), transparent 55%), rgba(255, 255, 255, 0.03);
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 280px 1fr;
+      align-items: start;
+    }
+
+    .race-figure img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      object-fit: cover;
+      max-height: 320px;
+    }
+
+    .race-meta {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .meta-block {
+      background: rgba(7, 11, 23, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .attr-list,
+    .abilities,
+    .plain {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .attr-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 10px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 8px;
+    }
+
+    .attr-name {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .abilities p {
+      margin: 4px 0 0;
+    }
+
+    .subsection {
+      margin-top: 12px;
+      padding: 12px;
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .sizes {
+      margin-top: 6px;
+    }
+
+    .size-bars {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px;
+      align-items: end;
+    }
+
+    .size-bar {
+      position: relative;
+      height: 130px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      overflow: hidden;
+    }
+
+    .size-bar .fill {
+      position: absolute;
+      left: 3px;
+      right: 3px;
+      bottom: 3px;
+      height: 0;
+      background: linear-gradient(180deg, rgba(159, 224, 194, 0.9), rgba(247, 197, 216, 0.9));
+      border-radius: 8px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .size-bar .size-label {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      width: max-content;
+      max-width: 160px;
+    }
+
+    .size-bar.active .fill {
+      height: calc(var(--h));
+      opacity: 1;
+    }
+
+    .size-bar.active .size-label {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .callout {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(159, 224, 194, 0.4);
+      background: rgba(159, 224, 194, 0.08);
+      color: #fff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 32px;
+      color: var(--muted);
+    }
+
+    section {
+      scroll-margin-top: 76px;
+    }
+
+    @media (max-width: 900px) {
+      .race-body {
+        grid-template-columns: 1fr;
+      }
+
+      .race-figure img {
+        max-height: none;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .summary-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero-card,
+      .panel {
+        padding: 24px 18px;
+      }
+
+      .nav {
+        padding: 10px 16px;
+      }
+
+      .race-index {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      }
+
+      .tagline {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .nav a {
+        padding: 8px 12px;
+        font-size: 12px;
+      }
+
+      .casino-banner h2 {
+        font-size: 26px;
+      }
+
+      .casino-banner p {
+        font-size: 14px;
+      }
+
+      .casino-marquee {
+        font-size: 11px;
+        padding: 8px 12px;
+        letter-spacing: 0.1em;
+      }
+
+      .casino-floor {
+        padding: 16px;
+      }
+
+      .casino {
+        gap: 12px;
+      }
+
+      .casino-set {
+        padding: 12px;
+      }
+
+      .casino-set h4 {
+        font-size: 12px;
+      }
+
+      .set-total {
+        width: 44px;
+        height: 44px;
+        font-size: 13px;
+      }
+
+      .casino-set ol {
+        gap: 10px;
+      }
+
+      .casino-set li {
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+          "label label"
+          "dice dice"
+          "equals total";
+        white-space: normal;
+        overflow: visible;
+        gap: 6px;
+      }
+
+      .casino-set li::before {
+        grid-area: label;
+      }
+
+      .casino-set .dice-row {
+        grid-area: dice;
+        flex-wrap: wrap;
+      }
+
+      .casino-set .equals {
+        grid-area: equals;
+        justify-self: start;
+      }
+
+      .casino-set .hex {
+        grid-area: total;
+        justify-self: end;
+        width: 56px;
+        height: 36px;
+        font-size: 14px;
+      }
+
+      .die {
+        width: 34px;
+        height: 34px;
+        font-size: 14px;
+      }
+
+      .dealer-note {
+        font-size: 13px;
+      }
+    }
+
+    /* Contadores de razas (sin scripts) */
+    .race-count,
+    .variant-count {
+      position: relative;
+      display: inline-block;
+      min-width: 1.5ch;
+    }
+
+    .race-count::after {
+      content: var(--race-total, attr(data-fallback));
+    }
+
+    .variant-count::after {
+      content: var(--variant-total, attr(data-fallback));
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+<div class="bg-carousel" aria-hidden="true"></div>
+    <div class="bg-ornament"></div>
+    <div class="nav">
+      <div class="nav-inner">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="resources.html">Recursos</a></li>
+          <li><a href="guide.html">Guía</a></li>
+          <li><a href="casino.html">Casino</a></li>
+          <li><a href="weapons.html">Armas</a></li>
+          <li><a href="razas.html">Razas (<span class="race-count" data-fallback="52"></span>)</a></li><li><a href="clases/index.html">Clases</a></li>
+        </ul>
+      </div>
+    </div>
+ 
+    <section class="panel" id="casino">
+      <div class="casino-banner">
+        <h2>Casa de stats</h2>
+        <p>4d6, descarta el menor y suma; repite 6 veces para un set. Dos sets listos para jugar.</p>
+        <div class="casino-marquee">High rollers | 4d6 | drop lowest | tirada rapida | sin scripts</div>
+      </div>
+      <div class="casino-floor">
+        <div class="casino-roulette">
+          <div class="casino-variant is-flash" style="--delay: 0s;">
+            <div class="casino">
+          <div class="casino-set">
+            <div class="casino-set__title">
+              <h4>Set 1</h4>
+              <span class="set-total" aria-label="Total del set 1">72</span>
+            </div>
+            <ol>
+              <li>
+                <div class="dice-row">
+                  <span class="die tone-amber n5">5</span>
+                  <span class="die tone-rose n5">5</span>
+                  <span class="die tone-cyan n4">4</span>
+                  <span class="die drop tone-lime n3">3</span>
+                </div>
+                <span class="equals">=</span>
+                <span class="hex">14</span>
+              </li>
+              <li>
+                <div class="dice-row">
+                  <span class="die tone-cyan n6">6</span>
+                  <span class="die tone-amber n4">4</span>
+                  <span class="die tone-violet n3">3</span>
+                  <span class="die drop tone-rose n1">1</span>
+                </div>
+                <span class="equals">=</span>
+                <span class="hex">13</span>
+              </li>
+              <li>
+                <div class="dice-row">
+                  <span class="die tone-amber n5">5</span>
+                  <span class="die tone-cyan n2">2</span>
+                  <span class="die tone-lime n2">2</span>
+                  <span class="die drop tone-violet n1">1</span>
+                </div>
+                <span class="equals">=</span>
+                <span class="hex">9</span>
+              </li>
+              <li>
+                <div class="dice-row">
+                  <span class="die tone-cyan n6">6</span>
+                  <span class="die tone-amber n4">4</span>
+                  <span class="die tone-lime n3">3</span>
+                  <span class="die drop tone-rose n2">2</span>
+                </div>
+                <span class="equals">=</span>
+                <span class="hex">13</span>
+              </li>
+              <li>
+                <div class="dice-row">
+                  <span class="die tone-violet n6">6</span>
+                  <span class="die tone-cyan n3">3</span>
+                  <span class="die tone-amber n2">2</span>
+                  <span class="die drop tone-rose n1">1</span>
+                </div>
+                <span class="equals">=</span>
+                <span class="hex">11</span>
+              </li>
+              <li>
+                <div class="dice-row">
+                  <span class="die tone-amber n5">5</span>
+                  <span class="die tone-rose n5">5</span>
+                  <span class="die tone-cyan n2">2</span>
+                  <span class="die drop tone-violet n1">1</span>
+                </div>
+                <span class="equals">=</span>
+                <span class="hex">12</span>
+              </li>
+            </ol>
+          </div>
+          <div class="casino-set">
+            <div class="casino-set__title">
+              <h4>Set 2</h4>
+              <span class="set-total" aria-label="Total del set 2">75</span>
+            </div>
+            <ol>
+              <li>
+                <div class="dice-row">
+                  <span class="die tone-amber n5">5</span>
+                  <span class="die tone-cyan n4">4</span>
+                  <span class="die tone-violet n3">3</span>
+                  <span class="die drop tone-rose n1">1</span>
+                </div>
+                <span class="equals">=</span>
+                <span class="hex">12</span>
+              </li>
+              <li>
+                <div class="dice-row">
+                  <span class="die tone-cyan n6">6</span>
+                  <span class="die tone-amber n5">5</span>
+                  <span class="die tone-lime n2">2</span>
+                  <span class="die drop tone-rose n2">2</span>
+                </div>
+                <span class="equals">=</span>
+                <span class="hex">13</span>
+              </li>
+              <li>
+                <div class="dice-row">
+                  <span class="die tone-amber n5">5</span>
+                  <span class="die tone-cyan n4">4</span>
+                  <span class="die tone-violet n4">4</span>
+                  <span class="die drop tone-lime n1">1</span>
+                </div>
+                <span class="equals">=</span>
+                <span class="hex">13</span>
+              </li>
+              <li>
+                <div class="dice-row">
+                  <span class="die tone-cyan n6">6</span>
+                  <span class="die tone-amber n4">4</span>
+                  <span class="die tone-violet n2">2</span>
+                  <span class="die drop tone-lime n2">2</span>
+                </div>
+                <span class="equals">=</span>
+                <span class="hex">12</span>
+              </li>
+              <li>
+                <div class="dice-row">
+                  <span class="die tone-amber n5">5</span>
+                  <span class="die tone-rose n5">5</span>
+                  <span class="die tone-cyan n4">4</span>
+                  <span class="die drop tone-violet n3">3</span>
+                </div>
+                <span class="equals">=</span>
+                <span class="hex">14</span>
+              </li>
+              <li>
+                <div class="dice-row">
+                  <span class="die tone-cyan n4">4</span>
+                  <span class="die tone-amber n4">4</span>
+                  <span class="die tone-violet n3">3</span>
+                  <span class="die drop tone-rose n1">1</span>
+                </div>
+                <span class="equals">=</span>
+                <span class="hex">11</span>
+              </li>
+            </ol>
+          </div>
+            </div>
+          </div>
+          <div class="casino-variant is-flash" style="--delay: 0.3s;">
+            <div class="casino">
+              <div class="casino-set">
+                <div class="casino-set__title">
+                  <h4>Set 1</h4>
+                  <span class="set-total" aria-label="Total del set 1">70</span>
+                </div>
+                <ol>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n5">5</span>
+                      <span class="die drop tone-rose n3">3</span>
+                      <span class="die tone-cyan n6">6</span>
+                      <span class="die tone-lime n4">4</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">15</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n5">5</span>
+                      <span class="die tone-rose n6">6</span>
+                      <span class="die drop tone-cyan n1">1</span>
+                      <span class="die tone-lime n5">5</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">16</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n2">2</span>
+                      <span class="die tone-rose n4">4</span>
+                      <span class="die tone-cyan n2">2</span>
+                      <span class="die drop tone-lime n1">1</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">8</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n2">2</span>
+                      <span class="die tone-rose n6">6</span>
+                      <span class="die tone-cyan n2">2</span>
+                      <span class="die drop tone-lime n1">1</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">10</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n6">6</span>
+                      <span class="die drop tone-rose n3">3</span>
+                      <span class="die tone-cyan n5">5</span>
+                      <span class="die tone-lime n3">3</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">14</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die drop tone-amber n2">2</span>
+                      <span class="die tone-rose n3">3</span>
+                      <span class="die tone-cyan n2">2</span>
+                      <span class="die tone-lime n2">2</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">7</span>
+                  </li>
+                </ol>
+              </div>
+              <div class="casino-set">
+                <div class="casino-set__title">
+                  <h4>Set 2</h4>
+                  <span class="set-total" aria-label="Total del set 2">73</span>
+                </div>
+                <ol>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n2">2</span>
+                      <span class="die tone-rose n2">2</span>
+                      <span class="die tone-cyan n2">2</span>
+                      <span class="die drop tone-lime n1">1</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">6</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die drop tone-amber n2">2</span>
+                      <span class="die tone-rose n5">5</span>
+                      <span class="die tone-cyan n4">4</span>
+                      <span class="die tone-lime n5">5</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">14</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n3">3</span>
+                      <span class="die drop tone-rose n1">1</span>
+                      <span class="die tone-cyan n4">4</span>
+                      <span class="die tone-lime n6">6</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">13</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die drop tone-amber n1">1</span>
+                      <span class="die tone-rose n5">5</span>
+                      <span class="die tone-cyan n2">2</span>
+                      <span class="die tone-lime n6">6</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">13</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n2">2</span>
+                      <span class="die tone-rose n6">6</span>
+                      <span class="die tone-cyan n5">5</span>
+                      <span class="die drop tone-lime n1">1</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">13</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die drop tone-amber n4">4</span>
+                      <span class="die tone-rose n5">5</span>
+                      <span class="die tone-cyan n5">5</span>
+                      <span class="die tone-lime n4">4</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">14</span>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+          <div class="casino-variant is-flash" style="--delay: 0.6s;">
+            <div class="casino">
+              <div class="casino-set">
+                <div class="casino-set__title">
+                  <h4>Set 1</h4>
+                  <span class="set-total" aria-label="Total del set 1">67</span>
+                </div>
+                <ol>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n4">4</span>
+                      <span class="die tone-rose n3">3</span>
+                      <span class="die drop tone-cyan n1">1</span>
+                      <span class="die tone-lime n3">3</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">10</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n3">3</span>
+                      <span class="die tone-rose n6">6</span>
+                      <span class="die tone-cyan n3">3</span>
+                      <span class="die drop tone-lime n2">2</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">12</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die drop tone-amber n3">3</span>
+                      <span class="die tone-rose n6">6</span>
+                      <span class="die tone-cyan n4">4</span>
+                      <span class="die tone-lime n4">4</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">14</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n6">6</span>
+                      <span class="die tone-rose n4">4</span>
+                      <span class="die drop tone-cyan n3">3</span>
+                      <span class="die tone-lime n5">5</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">15</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n4">4</span>
+                      <span class="die drop tone-rose n1">1</span>
+                      <span class="die tone-cyan n1">1</span>
+                      <span class="die tone-lime n1">1</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">6</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n3">3</span>
+                      <span class="die drop tone-rose n2">2</span>
+                      <span class="die tone-cyan n3">3</span>
+                      <span class="die tone-lime n4">4</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">10</span>
+                  </li>
+                </ol>
+              </div>
+              <div class="casino-set">
+                <div class="casino-set__title">
+                  <h4>Set 2</h4>
+                  <span class="set-total" aria-label="Total del set 2">70</span>
+                </div>
+                <ol>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n4">4</span>
+                      <span class="die drop tone-rose n1">1</span>
+                      <span class="die tone-cyan n1">1</span>
+                      <span class="die tone-lime n4">4</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">9</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die drop tone-amber n2">2</span>
+                      <span class="die tone-rose n2">2</span>
+                      <span class="die tone-cyan n2">2</span>
+                      <span class="die tone-lime n3">3</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">7</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n6">6</span>
+                      <span class="die drop tone-rose n2">2</span>
+                      <span class="die tone-cyan n2">2</span>
+                      <span class="die tone-lime n4">4</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">12</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n4">4</span>
+                      <span class="die tone-rose n5">5</span>
+                      <span class="die drop tone-cyan n1">1</span>
+                      <span class="die tone-lime n5">5</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">14</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die drop tone-amber n1">1</span>
+                      <span class="die tone-rose n6">6</span>
+                      <span class="die tone-cyan n3">3</span>
+                      <span class="die tone-lime n6">6</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">15</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n5">5</span>
+                      <span class="die tone-rose n5">5</span>
+                      <span class="die tone-cyan n3">3</span>
+                      <span class="die drop tone-lime n2">2</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">13</span>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+          <div class="casino-variant is-final" style="--delay: 0.9s;">
+            <div class="casino">
+              <div class="casino-set">
+                <div class="casino-set__title">
+                  <h4>Set 1</h4>
+                  <span class="set-total" aria-label="Total del set 1">68</span>
+                </div>
+                <ol>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n4">4</span>
+                      <span class="die tone-rose n3">3</span>
+                      <span class="die tone-cyan n6">6</span>
+                      <span class="die drop tone-lime n2">2</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">13</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n4">4</span>
+                      <span class="die tone-rose n3">3</span>
+                      <span class="die tone-cyan n3">3</span>
+                      <span class="die drop tone-lime n1">1</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">10</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n2">2</span>
+                      <span class="die drop tone-rose n1">1</span>
+                      <span class="die tone-cyan n1">1</span>
+                      <span class="die tone-lime n3">3</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">6</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n6">6</span>
+                      <span class="die tone-rose n2">2</span>
+                      <span class="die drop tone-cyan n1">1</span>
+                      <span class="die tone-lime n3">3</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">11</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n6">6</span>
+                      <span class="die drop tone-rose n2">2</span>
+                      <span class="die tone-cyan n6">6</span>
+                      <span class="die tone-lime n5">5</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">17</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n2">2</span>
+                      <span class="die drop tone-rose n1">1</span>
+                      <span class="die tone-cyan n5">5</span>
+                      <span class="die tone-lime n4">4</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">11</span>
+                  </li>
+                </ol>
+              </div>
+              <div class="casino-set">
+                <div class="casino-set__title">
+                  <h4>Set 2</h4>
+                  <span class="set-total" aria-label="Total del set 2">73</span>
+                </div>
+                <ol>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n3">3</span>
+                      <span class="die tone-rose n4">4</span>
+                      <span class="die tone-cyan n5">5</span>
+                      <span class="die drop tone-lime n1">1</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">12</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n5">5</span>
+                      <span class="die tone-rose n4">4</span>
+                      <span class="die tone-cyan n6">6</span>
+                      <span class="die drop tone-lime n1">1</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">15</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die drop tone-amber n1">1</span>
+                      <span class="die tone-rose n1">1</span>
+                      <span class="die tone-cyan n4">4</span>
+                      <span class="die tone-lime n2">2</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">7</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n2">2</span>
+                      <span class="die drop tone-rose n1">1</span>
+                      <span class="die tone-cyan n2">2</span>
+                      <span class="die tone-lime n6">6</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">10</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n3">3</span>
+                      <span class="die tone-rose n5">5</span>
+                      <span class="die drop tone-cyan n1">1</span>
+                      <span class="die tone-lime n6">6</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">14</span>
+                  </li>
+                  <li>
+                    <div class="dice-row">
+                      <span class="die tone-amber n4">4</span>
+                      <span class="die tone-rose n5">5</span>
+                      <span class="die drop tone-cyan n2">2</span>
+                      <span class="die tone-lime n6">6</span>
+                    </div>
+                    <span class="equals">=</span>
+                    <span class="hex">15</span>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="dealer-note">Juego limpio de casa: resultados cerrados, asigna y reparte a gusto de la mesa.</p>
+      </div>
+    </section>
+  </div>
+</body>
+
+</html>
