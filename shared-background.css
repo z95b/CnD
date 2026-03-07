@@ -5,7 +5,7 @@
   --bg-carousel-cycle-duration: calc(var(--bg-carousel-step-duration) * 6);
 }
 
-/* Preload images used by the carousel to avoid blank flashes. */
+/* Minimal preload to avoid black frames on first loop. */
 body::before {
   content:
     url("carrusel/horizontal/1.png")
@@ -33,166 +33,60 @@ body::before {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  overflow: hidden;
   opacity: var(--bg-carousel-opacity);
   background-color: #060a12;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  background-image:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay)),
-    url("carrusel/horizontal/1.png");
-  animation:
-    cd-layer-a-images var(--bg-carousel-cycle-duration) steps(1, end) infinite,
-    cd-layer-a-visible var(--bg-carousel-cycle-duration) linear infinite;
+  background-image: url("carrusel/horizontal/1.png");
+  animation: cd-carousel-horizontal var(--bg-carousel-cycle-duration) steps(1, end) infinite;
 }
 
-.bg-carousel::before {
+.bg-carousel::after {
   content: "";
   position: absolute;
   inset: 0;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-image:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay)),
-    url("carrusel/horizontal/3.png");
-  animation:
-    cd-layer-b-images var(--bg-carousel-cycle-duration) steps(1, end) infinite,
-    cd-layer-b-visible var(--bg-carousel-cycle-duration) linear infinite;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.08), transparent 44%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay));
 }
 
 @media (orientation: portrait) {
   .bg-carousel {
-    background-image:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay)),
-      url("carrusel/vertical/1.png");
-    animation-name: cd-layer-a-images-vertical, cd-layer-a-visible;
-    animation-duration: var(--bg-carousel-cycle-duration), var(--bg-carousel-cycle-duration);
-  }
-
-  .bg-carousel::before {
-    background-image:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay)),
-      url("carrusel/vertical/2.png");
-    animation-name: cd-layer-b-images-vertical, cd-layer-b-visible;
-    animation-duration: var(--bg-carousel-cycle-duration), var(--bg-carousel-cycle-duration);
+    background-image: url("carrusel/vertical/1.png");
+    animation-name: cd-carousel-vertical;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .bg-carousel {
     animation: none;
-    background-image:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay)),
-      url("carrusel/horizontal/1.png");
-  }
-
-  .bg-carousel::before {
-    animation: none;
-    opacity: 0;
-    background-image: none;
+    background-image: url("carrusel/horizontal/1.png");
   }
 }
 
 @media (prefers-reduced-motion: reduce) and (orientation: portrait) {
   .bg-carousel {
-    background-image:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay)),
-      url("carrusel/vertical/1.png");
+    background-image: url("carrusel/vertical/1.png");
   }
 }
 
-@keyframes cd-layer-a-visible {
-  0%, 13.333% { opacity: 1; }
-  16.666%, 30% { opacity: 0; }
-  33.333%, 46.666% { opacity: 1; }
-  50%, 63.333% { opacity: 0; }
-  66.666%, 80% { opacity: 1; }
-  83.333%, 96.666% { opacity: 0; }
-  100% { opacity: 1; }
+@keyframes cd-carousel-horizontal {
+  0%, 16.666% { background-image: url("carrusel/horizontal/1.png"); }
+  16.667%, 33.333% { background-image: url("carrusel/horizontal/3.png"); }
+  33.334%, 50% { background-image: url("carrusel/horizontal/4.png"); }
+  50.001%, 66.666% { background-image: url("carrusel/horizontal/9.png"); }
+  66.667%, 83.333% { background-image: url("carrusel/horizontal/10.png"); }
+  83.334%, 100% { background-image: url("carrusel/horizontal/12.png"); }
 }
 
-@keyframes cd-layer-b-visible {
-  0%, 13.333% { opacity: 0; }
-  16.666%, 30% { opacity: 1; }
-  33.333%, 46.666% { opacity: 0; }
-  50%, 63.333% { opacity: 1; }
-  66.666%, 80% { opacity: 0; }
-  83.333%, 96.666% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-@keyframes cd-layer-a-images {
-  0%, 33.333% {
-    background-image:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay)),
-      url("carrusel/horizontal/1.png");
-  }
-  33.334%, 66.666% {
-    background-image:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay)),
-      url("carrusel/horizontal/4.png");
-  }
-  66.667%, 100% {
-    background-image:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay)),
-      url("carrusel/horizontal/10.png");
-  }
-}
-
-@keyframes cd-layer-b-images {
-  0%, 33.333% {
-    background-image:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay)),
-      url("carrusel/horizontal/3.png");
-  }
-  33.334%, 66.666% {
-    background-image:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay)),
-      url("carrusel/horizontal/9.png");
-  }
-  66.667%, 100% {
-    background-image:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay)),
-      url("carrusel/horizontal/12.png");
-  }
-}
-
-@keyframes cd-layer-a-images-vertical {
-  0%, 33.333% {
-    background-image:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay)),
-      url("carrusel/vertical/1.png");
-  }
-  33.334%, 66.666% {
-    background-image:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay)),
-      url("carrusel/vertical/4.png");
-  }
-  66.667%, 100% {
-    background-image:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay)),
-      url("carrusel/vertical/7.png");
-  }
-}
-
-@keyframes cd-layer-b-images-vertical {
-  0%, 33.333% {
-    background-image:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay)),
-      url("carrusel/vertical/2.png");
-  }
-  33.334%, 66.666% {
-    background-image:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay)),
-      url("carrusel/vertical/5.png");
-  }
-  66.667%, 100% {
-    background-image:
-      linear-gradient(180deg, rgba(0, 0, 0, 0.2), var(--bg-carousel-overlay)),
-      url("carrusel/vertical/9.png");
-  }
+@keyframes cd-carousel-vertical {
+  0%, 16.666% { background-image: url("carrusel/vertical/1.png"); }
+  16.667%, 33.333% { background-image: url("carrusel/vertical/2.png"); }
+  33.334%, 50% { background-image: url("carrusel/vertical/4.png"); }
+  50.001%, 66.666% { background-image: url("carrusel/vertical/5.png"); }
+  66.667%, 83.333% { background-image: url("carrusel/vertical/7.png"); }
+  83.334%, 100% { background-image: url("carrusel/vertical/9.png"); }
 }
 
 /* Reusable nav logo for all pages. */
