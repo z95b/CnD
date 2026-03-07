@@ -169,7 +169,7 @@
             max-width: 1200px;
             margin: 0 auto;
             z-index: 2;
-            min-height: 100vh;
+            min-height: calc(100vh - 72px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -227,8 +227,17 @@
             width: min(90vw, 1100px);
             min-height: 90vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 20px;
+        }
+
+        .hero-brand {
+            margin: 0;
+            text-align: center;
+            font-size: clamp(28px, 4.2vw, 56px);
+            line-height: 1.1;
         }
 
         .hero-links {
@@ -238,7 +247,7 @@
             margin: 0;
             padding: 0;
             width: 100%;
-            height: 100%;
+            height: auto;
             align-content: space-evenly;
             justify-items: stretch;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -254,7 +263,7 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             color: var(--text);
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.08);
             transition: transform 0.2s ease, border-color 0.3s ease;
             display: inline-flex;
             align-items: center;
@@ -279,6 +288,7 @@
 
         .hero-links a:hover {
             border-color: var(--accent-2);
+            background: rgba(255, 255, 255, 0.12);
             transform: translateY(-2px);
         }
 
@@ -686,6 +696,10 @@
                 font-size: 22px;
             }
 
+            .hero-brand {
+                font-size: clamp(24px, 8vw, 38px);
+            }
+
             .summary-top {
                 flex-direction: column;
                 align-items: flex-start;
@@ -738,7 +752,7 @@
                     <li><a href="index.html">&#x1F3E0; Inicio</a></li>
                     <li><a href="resources.html">&#x1F9F0; Recursos</a></li>
                     <li><a href="guide.html">&#x1F4DC; Gu&iacute;a</a></li>
-                    <li><a href="casino.html">&#x1F3B2; Casino</a></li>
+                    <li><a href="casino.html">&#x1F3B2; Estadísticas</a></li>
                     <li><a href="weapons.html">&#x2694;&#xFE0F; Armas</a></li>
                     <li><a href="razas.html">&#x1F9EC; Razas </a>
                     </li>
@@ -748,13 +762,14 @@
         </div>
         <section class="home-buttons">
             <div class="hero-card">
+                <h1 class="hero-brand">Ciutadella &amp; Dragons</h1>
                 <ul class="hero-links">
                     <li><a href="resources.html"><span class="btn-emoji">&#x1F9F0;</span><span
                                 class="btn-text">Recursos</span></a></li>
                     <li><a href="guide.html"><span class="btn-emoji">&#x1F4DC;</span><span
                                 class="btn-text">Gu&iacute;a</span></a></li>
                     <li><a href="casino.html"><span class="btn-emoji">&#x1F3B2;</span><span
-                                class="btn-text">Casino</span></a></li>
+                                class="btn-text">Estadísticas</span></a></li>
                     <li><a href="weapons.html"><span class="btn-emoji">&#x2694;&#xFE0F;</span><span
                                 class="btn-text">Armas</span></a></li>
                     <li><a href="razas.html"><span class="btn-emoji">&#x1F9EC;</span><span class="btn-text">Razas </span></a></li>
@@ -764,6 +779,7 @@
             </div>
         </section>
     </div>
+<footer class="site-footer" style="margin: 28px auto 0; padding: 16px 20px; text-align: center; color: #d9e2dc; background: rgba(7, 11, 23, 0.82); border-top: 1px solid rgba(255, 255, 255, 0.14); font-family: 'Space Grotesk', 'Helvetica Neue', sans-serif; letter-spacing: 0.03em;">Copyright &copy; 2026 - 3026</footer>
 </body>
 
 </html>
