@@ -28,6 +28,16 @@ body::before {
   overflow: hidden;
 }
 
+/* Keep page content above the fixed carousel in every page layout. */
+body {
+  position: relative;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
 .bg-carousel {
   position: fixed;
   inset: 0;
