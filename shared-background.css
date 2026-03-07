@@ -195,3 +195,35 @@ body::before {
   89.474%, 94.736% { background-image: url("carrusel/vertical/17.png"), url("carrusel/vertical/18.png"), url("carrusel/vertical/1.png"); }
   94.737%, 100% { background-image: url("carrusel/vertical/19.png"), url("carrusel/vertical/1.png"), url("carrusel/vertical/1.png"); }
 }
+
+/* Reusable nav logo for all pages. */
+.nav-inner .site-logo-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  line-height: 0;
+}
+
+.nav-inner .site-logo-link:hover {
+  border-color: transparent !important;
+  transform: none !important;
+  box-shadow: none !important;
+  opacity: 0.92;
+}
+
+.nav-inner .site-logo {
+  display: block;
+  width: clamp(44px, 5vw, 58px);
+  height: auto;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
+}
+
+@media (max-width: 700px) {
+  .nav-inner .site-logo {
+    width: 42px;
+  }
+}

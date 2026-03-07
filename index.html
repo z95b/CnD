@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ciutadella &amp; Dragons - Inicio</title>
+    <title>Ciutadella &amp; Dragons &copy; - Inicio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Cinzel:wght@600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Cinzel:wght@600&family=Cinzel+Decorative:wght@700;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="shared-background.css"/>
+    <link rel="icon" type="image/png" href="logo.png"/>
 <style>
         :root {
             --bg: #080c14;
@@ -236,8 +237,34 @@
         .hero-brand {
             margin: 0;
             text-align: center;
-            font-size: clamp(28px, 4.2vw, 56px);
-            line-height: 1.1;
+            font-family: 'Cinzel Decorative', 'Cinzel', 'Times New Roman', serif;
+            font-size: clamp(34px, 5.6vw, 78px);
+            line-height: 1;
+            letter-spacing: 0.05em;
+            color: #fff7df;
+            text-shadow: 0 2px 0 rgba(255, 255, 255, 0.2), 0 10px 22px rgba(0, 0, 0, 0.5), 0 0 26px rgba(159, 224, 194, 0.28);
+            -webkit-text-stroke: 1px rgba(247, 197, 216, 0.25);
+        }
+
+        .hero-brand .brand-copy {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 0.32em;
+            width: 1.38em;
+            height: 1.38em;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 50%;
+            font-family: 'Space Grotesk', 'Helvetica Neue', sans-serif;
+            font-size: 0.28em;
+            font-weight: 700;
+            color: var(--accent);
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.25), rgba(7, 11, 23, 0.7));
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(159, 224, 194, 0.25);
+            vertical-align: top;
+            transform: translateY(-0.78em);
+            text-shadow: none;
+            -webkit-text-stroke: 0;
         }
 
         .hero-links {
@@ -697,7 +724,15 @@
             }
 
             .hero-brand {
-                font-size: clamp(24px, 8vw, 38px);
+                font-size: clamp(25px, 9vw, 44px);
+                letter-spacing: 0.03em;
+                -webkit-text-stroke: 0.5px rgba(247, 197, 216, 0.2);
+            }
+
+            .hero-brand .brand-copy {
+                width: 1.32em;
+                height: 1.32em;
+                transform: translateY(-0.64em);
             }
 
             .summary-top {
@@ -748,6 +783,9 @@
                 class="geo diamond d2"></span><span class="geo ring r1"></span><span class="geo hex h1"></span></div>
         <div class="nav">
             <div class="nav-inner">
+                <a class="site-logo-link" href="index.html" aria-label="Inicio">
+                    <img class="site-logo" src="logo.png" alt="Ciutadella &amp; Dragons"/>
+                </a>
                 <ul>
                     <li><a href="index.html">&#x1F3E0; Inicio</a></li>
                     <li><a href="resources.html">&#x1F9F0; Recursos</a></li>
@@ -762,7 +800,7 @@
         </div>
         <section class="home-buttons">
             <div class="hero-card">
-                <h1 class="hero-brand">Ciutadella &amp; Dragons</h1>
+                <h1 class="hero-brand">Ciutadella &amp; Dragons <span class="brand-copy" aria-label="Copyright">&copy;</span></h1>
                 <ul class="hero-links">
                     <li><a href="resources.html"><span class="btn-emoji">&#x1F9F0;</span><span
                                 class="btn-text">Recursos</span></a></li>
