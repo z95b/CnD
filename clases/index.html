@@ -133,6 +133,7 @@ layout: null
       border-radius: 18px;
       background: var(--panel);
       overflow: hidden;
+      scroll-margin-top: 96px;
     }
     .class-grid {
       width: 96%;
@@ -361,10 +362,10 @@ layout: null
       <ul>
         <li><a href="../index.html">Inicio</a></li>
         <li><a href="../resources.html">Recursos</a></li>
-        <li><a href="../guide.html">Guia</a></li>
-        <li><a href="../stats.html">Estadísticas</a></li>
+        <li><a href="../guide.html">Gu&iacute;a</a></li>
+        <li><a href="../stats.html">Estad&iacute;sticas</a></li>
         <li><a href="../weapons.html">Armas</a></li>
-        <li><a href="../razas.html">Razas (52)</a></li>
+        <li><a href="../razas.html">Razas</a></li>
         <li><a href="index.html">Clases</a></li>
       </ul>
     </div>
@@ -461,10 +462,41 @@ layout: null
         </details>
       {% endif %}
     {% endfor %}
-    {% unless has_classes %}
+  {% unless has_classes %}
       <div class="empty-state">No hay carpetas de clases disponibles.</div>
     {% endunless %}
   </main>
+  <script>
+    (function () {
+      var classCards = document.querySelectorAll('details.class-group');
+      var stickyNav = document.querySelector('.nav');
+      var reducedMotion = typeof window.matchMedia === 'function' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function scrollToClass(card) {
+        var navHeight = stickyNav ? stickyNav.offsetHeight : 0;
+        var top = card.getBoundingClientRect().top + window.scrollY - navHeight - 10;
+        window.scrollTo({
+          top: Math.max(0, top),
+          behavior: reducedMotion ? 'auto' : 'smooth'
+        });
+      }
+
+      classCards.forEach(function (card) {
+        card.addEventListener('toggle', function () {
+          if (!card.open) {
+            return;
+          }
+
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              scrollToClass(card);
+            });
+          });
+        });
+      });
+    })();
+  </script>
 <footer class="site-footer" style="margin: 28px auto 0; padding: 16px 20px; text-align: center; color: #d9e2dc; background: rgba(7, 11, 23, 0.82); border-top: 1px solid rgba(255, 255, 255, 0.14); font-family: 'Space Grotesk', 'Helvetica Neue', sans-serif; letter-spacing: 0.03em;">Copyright &copy; 2026 - 3026</footer>
 </body>
 </html>
