@@ -1,39 +1,39 @@
-id,Arma,Tipo,Precio_gp,Daño,Caracteristica,Maestria
-1,Clava,Simple cuerpo a cuerpo,0.1,1d6,Fuerza,Ralentizar
-2,Daga,Simple cuerpo a cuerpo,2,1d6,FUE/DES,Corte rápido
-3,Gran clava,Simple cuerpo a cuerpo,0.2,1d8,Fuerza,Empujar
-4,Hacha de mano,Simple cuerpo a cuerpo,5,1d6,Fuerza,Desconcertar
-5,Jabalina,Simple cuerpo a cuerpo,0.5,1d6,Fuerza,Ralentizar
-6,Martillo ligero,Simple cuerpo a cuerpo,2,1d6,Fuerza,Corte rápido
-7,Maza,Simple cuerpo a cuerpo,5,1d6,Fuerza,Aturdir
-8,Bastón,Simple cuerpo a cuerpo,0.2,1d6,Fuerza,Derribar
-9,Hoz,Simple cuerpo a cuerpo,1,1d6,FUE/DES,Corte rápido
-10,Lanza,Simple cuerpo a cuerpo,1,1d6,Fuerza,Versátil
-11,Ballesta ligera,Simple a distancia,25,1d8,Destreza,Ralentizar
-12,Dardo,Simple a distancia,0.05,1d6,Destreza,Desconcertar
-13,Arco corto,Simple a distancia,25,1d6,Destreza,Desconcertar
-14,Honda,Simple a distancia,0.1,1d4,Destreza,Ralentizar
-15,Hacha de guerra,Marcial cuerpo a cuerpo,10,1d8,Fuerza,Barrido
-16,Mangual,Marcial cuerpo a cuerpo,10,1d8,Fuerza,Aturdir
-17,Alabarda,Marcial cuerpo a cuerpo,20,1d10,Fuerza,Empujar
-18,Gran hacha,Marcial cuerpo a cuerpo,30,1d12,Fuerza,Barrido
-19,Espadón,Marcial cuerpo a cuerpo,50,2d6,Fuerza,Rozar
-20,Halberd,Marcial cuerpo a cuerpo,20,1d10,Fuerza,Barrido
-21,Lanza de caballería,Marcial cuerpo a cuerpo,10,1d12,Fuerza,Derribar
-22,Espada larga,Marcial cuerpo a cuerpo,15,1d8,Fuerza,Versátil
-23,Maul,Marcial cuerpo a cuerpo,10,2d6,Fuerza,Derribar
-24,Estrella matutina,Marcial cuerpo a cuerpo,15,1d8,Fuerza,Aturdir
-25,Pica,Marcial cuerpo a cuerpo,5,1d10,Fuerza,Empujar
-26,Rapier,Marcial cuerpo a cuerpo,25,1d8,FUE/DES,Desconcertar
-27,Cimitarra,Marcial cuerpo a cuerpo,25,1d6,FUE/DES,Corte rápido
-28,Espada corta,Marcial cuerpo a cuerpo,10,1d6,FUE/DES,Corte rápido
-29,Tridente,Marcial cuerpo a cuerpo,5,1d6,Fuerza,Empujar
-30,Piqueta de guerra,Marcial cuerpo a cuerpo,5,1d8,Fuerza,Aturdir
-31,Martillo de guerra,Marcial cuerpo a cuerpo,15,1d8,Fuerza,Versátil
-32,Látigo,Marcial cuerpo a cuerpo,2,1d6,FUE/DES,Ralentizar
-33,Cerbatana,Marcial a distancia,10,1,Destreza,Ralentizar
-34,Ballesta de mano,Marcial a distancia,75,1d6,Destreza,Desconcertar
-35,Ballesta pesada,Marcial a distancia,50,1d10,Destreza,Empujar
-36,Arco largo,Marcial a distancia,50,1d8,Destreza,Ralentizar
-37,Red,Marcial a distancia,1,Especial,Destreza,Ralentizar
-,,,,,,
+id,Arma,Tipo,Precio_gp,Daño,Tipo,Caracteristica,Maestria
+1,Clava,Simple cuerpo a cuerpo,0.1,1d6,Contundente,Fuerza,Ralentizar
+2,Daga,Simple cuerpo a cuerpo,2,1d6,Cortante,FUE/DES,Corte rápido
+3,Gran clava,Simple cuerpo a cuerpo,0.2,1d8,Contundente,Fuerza,Empujar
+4,Hacha de mano,Simple cuerpo a cuerpo,5,1d6,Cortante,Fuerza,Desconcertar
+5,Jabalina,Simple cuerpo a cuerpo,0.5,1d6,Perforante,Fuerza,Ralentizar
+6,Martillo ligero,Simple cuerpo a cuerpo,2,1d6,Contundente,Fuerza,Corte rápido
+7,Maza,Simple cuerpo a cuerpo,5,1d6,Contundente,Fuerza,Aturdir
+8,Bastón,Simple cuerpo a cuerpo,0.2,1d6,Contundente,Fuerza,Derribar
+9,Hoz,Simple cuerpo a cuerpo,1,1d6,Cortante,FUE/DES,Corte rápido
+10,Lanza,Simple cuerpo a cuerpo,1,1d6,Perforante,Fuerza,Versátil
+11,Ballesta ligera,Simple a distancia,25,1d8,Perforante,Destreza,Ralentizar
+12,Dardo,Simple a distancia,0.05,1d6,Perforante,Destreza,Desconcertar
+13,Arco corto,Simple a distancia,25,1d6,Perforante,Destreza,Desconcertar
+14,Honda,Simple a distancia,0.1,1d4,Contundente,Destreza,Ralentizar
+15,Hacha de guerra,Marcial cuerpo a cuerpo,10,1d8,Cortante,Fuerza,Barrido
+16,Mangual,Marcial cuerpo a cuerpo,10,1d8,Cortante,Fuerza,Aturdir
+17,Alabarda,Marcial cuerpo a cuerpo,20,1d10,Todos,Fuerza,Empujar
+18,Gran hacha,Marcial cuerpo a cuerpo,30,1d12,Cortante,Fuerza,Barrido
+19,Espadón,Marcial cuerpo a cuerpo,50,2d6,Cortante,Fuerza,Rozar
+20,Guadaña,Marcial cuerpo a cuerpo,20,1d10,Cortante,Fuerza,Barrido
+21,Lanza de caballería,Marcial cuerpo a cuerpo,10,1d12,Perforante,Fuerza,Derribar
+22,Espada larga,Marcial cuerpo a cuerpo,15,1d8,Perforante,Fuerza,Versátil
+23,Almadena,Marcial cuerpo a cuerpo,10,2d6,Contundente,Fuerza,Derribar
+24,Lucero del Alba,Marcial cuerpo a cuerpo,15,1d8,Contundente,Fuerza,Aturdir
+25,Pica,Marcial cuerpo a cuerpo,5,1d10,Perforante,Fuerza,Empujar
+26,Ropera,Marcial cuerpo a cuerpo,25,1d8,Perforante,FUE/DES,Desconcertar
+27,Cimitarra,Marcial cuerpo a cuerpo,25,1d6,Cortante,FUE/DES,Corte rápido
+28,Espada corta,Marcial cuerpo a cuerpo,10,1d6,Cortante,FUE/DES,Corte rápido
+29,Tridente,Marcial cuerpo a cuerpo,5,1d6,Perforante,Fuerza,Empujar
+30,Piqueta de guerra,Marcial cuerpo a cuerpo,5,1d8,Perforante,Fuerza,Aturdir
+31,Martillo de guerra,Marcial cuerpo a cuerpo,15,1d8,Contundente,Fuerza,Versátil
+32,Látigo,Marcial cuerpo a cuerpo,2,1d6,Cortante,FUE/DES,Ralentizar
+33,Cerbatana,Marcial a distancia,10,1,Perforante,Destreza,Ralentizar
+34,Ballesta de mano,Marcial a distancia,75,1d6,Perforante,Destreza,Desconcertar
+35,Ballesta pesada,Marcial a distancia,50,1d10,Perforante,Destreza,Empujar
+36,Arco largo,Marcial a distancia,50,1d8,Perforante,Destreza,Ralentizar
+37,Red,Marcial a distancia,1,Especial,-,Destreza,Ralentizar
+,,,,,,,
