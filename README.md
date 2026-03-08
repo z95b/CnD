@@ -1,6 +1,6 @@
 # Ciutadella & Dragons · Atlas
 
-Sitio estático en modo oscuro (verde/rosa pastel) dividido en varias páginas ligeras: `index.html` (inicio), `resources.html`, `guide.html`, `casino.html`, `weapons.html`, `razas.html` y `clases/index.html`.
+Sitio estático en modo oscuro (verde/rosa pastel) dividido en varias páginas ligeras: `index.html` (inicio), `resources.html`, `guide.html`, `stats.html`, `weapons.html`, `razas.html` y `clases/index.html`.
 
 ## Cómo usar
 - Abre `index.html` en local o publícalo en GitHub Pages; el menú enlaza al resto de secciones.

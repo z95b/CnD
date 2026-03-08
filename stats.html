@@ -341,26 +341,89 @@
       justify-items: center;
     }
 
-    .btn-roll {
+    .slot-lever {
       border: 1px solid var(--accent);
       border-radius: 999px;
-      padding: 10px 18px;
-      background: linear-gradient(120deg, rgba(232, 199, 106, 0.22), rgba(216, 75, 75, 0.2));
+      padding: 8px 14px 8px 10px;
+      background: linear-gradient(120deg, rgba(232, 199, 106, 0.24), rgba(216, 75, 75, 0.2));
       color: #fff;
       font-weight: 700;
       letter-spacing: 0.04em;
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
       transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
     }
 
-    .btn-roll:hover {
+    .slot-lever:hover {
       transform: translateY(-2px);
       border-color: #fff1c0;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.42);
     }
 
-    .btn-roll:active {
+    .slot-lever:focus-visible {
+      outline: 2px solid #fff1c0;
+      outline-offset: 2px;
+    }
+
+    .slot-lever:active {
       transform: translateY(0);
+    }
+
+    .slot-lever__machine {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(8, 16, 26, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      box-shadow: inset 0 0 0 1px rgba(232, 199, 106, 0.28);
+      overflow: visible;
+    }
+
+    .slot-lever__shaft {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      width: 5px;
+      height: 24px;
+      margin-left: -2.5px;
+      transform-origin: bottom center;
+      transform: rotate(0deg);
+      border-radius: 999px;
+      background: linear-gradient(180deg, #e8eaef, #7c8493);
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45);
+    }
+
+    .slot-lever__knob {
+      position: absolute;
+      top: -7px;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      margin-left: -8px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #ffd5d5, #cf3f3f 60%, #7f1f1f);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.22), 0 6px 12px rgba(0, 0, 0, 0.45);
+    }
+
+    .slot-lever__label {
+      text-transform: uppercase;
+      font-size: 13px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .slot-lever.is-pulled .slot-lever__shaft {
+      animation: lever-pull 560ms cubic-bezier(0.35, 0.03, 0.18, 1);
+    }
+
+    .slot-lever.is-pulled .slot-lever__machine {
+      animation: lever-base-bounce 560ms ease-out;
     }
 
     .roll-meta {
@@ -368,6 +431,38 @@
       font-size: 13px;
       color: var(--muted);
       letter-spacing: 0.03em;
+    }
+
+    @keyframes lever-pull {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      38% {
+        transform: rotate(34deg);
+      }
+
+      62% {
+        transform: rotate(30deg);
+      }
+
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+
+    @keyframes lever-base-bounce {
+      0% {
+        transform: translateY(0);
+      }
+
+      38% {
+        transform: translateY(1px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
     }
 
     .casino-floor {
@@ -476,6 +571,10 @@
       .casino-floor {
         animation: none;
       }
+
+      .set-total.is-stopped {
+        animation: none;
+      }
     }
 
     .casino {
@@ -512,18 +611,52 @@
     }
 
     .set-total {
-      width: 50px;
-      height: 50px;
+      width: 58px;
+      height: 58px;
       display: grid;
       place-items: center;
-      font-weight: 800;
-      color: #1b1205;
-      background: linear-gradient(140deg, #ffebb0, #f2c15b 45%, #d99a2b);
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1;
+      color: #140a02;
+      background: conic-gradient(from 210deg, #fff3bf 0deg, #ffc95c 120deg, #ffe08a 230deg, #d98e2c 360deg);
       clip-path: polygon(50% 0%, 96% 35%, 78% 100%, 22% 100%, 4% 35%);
       border: 2px solid rgba(255, 233, 164, 0.9);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
-      letter-spacing: 0.04em;
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.35),
+        0 0 0 1px rgba(214, 147, 45, 0.55),
+        0 0 24px rgba(255, 197, 85, 0.45),
+        0 12px 26px rgba(0, 0, 0, 0.45);
+      text-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.75),
+        0 0 10px rgba(255, 240, 170, 0.65);
+      letter-spacing: 0.01em;
+      font-variant-numeric: tabular-nums;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+
+    .set-total.is-stopped {
+      animation: set-total-pop 380ms cubic-bezier(0.22, 1.2, 0.38, 1);
+      filter: saturate(1.2) brightness(1.06);
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.42),
+        0 0 0 1px rgba(255, 226, 140, 0.65),
+        0 0 36px rgba(255, 210, 90, 0.72),
+        0 14px 28px rgba(0, 0, 0, 0.52);
+    }
+
+    @keyframes set-total-pop {
+      0% {
+        transform: scale(0.82) rotate(-5deg);
+      }
+
+      58% {
+        transform: scale(1.15) rotate(2deg);
+      }
+
+      100% {
+        transform: scale(1) rotate(0deg);
+      }
     }
 
     .casino-set ol {
@@ -580,6 +713,20 @@
       box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
     }
 
+    .reel-cell {
+      will-change: transform, filter;
+    }
+
+    .reel-cell.is-spinning {
+      animation: reel-flicker 90ms linear infinite;
+      filter: saturate(1.12);
+    }
+
+    .reel-cell.is-stopped {
+      animation: none;
+      filter: none;
+    }
+
     .die.drop {
       opacity: 0.72;
     }
@@ -594,6 +741,10 @@
       font-size: 18px;
       font-weight: 900;
       text-shadow: 0 0 10px rgba(255, 0, 76, 0.55);
+    }
+
+    .reel-cell.is-spinning.drop::after {
+      opacity: 0;
     }
 
     .equals {
@@ -618,6 +769,20 @@
       background: linear-gradient(135deg, var(--hx-a), var(--hx-b));
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
       border: 2px solid rgba(255, 255, 255, 0.25);
+    }
+
+    @keyframes reel-flicker {
+      0% {
+        transform: translateY(-1px);
+      }
+
+      50% {
+        transform: translateY(1px);
+      }
+
+      100% {
+        transform: translateY(-1px);
+      }
     }
 
     .tone-amber {
@@ -967,9 +1132,9 @@
       }
 
       .set-total {
-        width: 44px;
-        height: 44px;
-        font-size: 13px;
+        width: 50px;
+        height: 50px;
+        font-size: 16px;
       }
 
       .casino-set ol {
@@ -1050,7 +1215,7 @@
           <li><a href="index.html">Inicio</a></li>
           <li><a href="resources.html">Recursos</a></li>
           <li><a href="guide.html">Guía</a></li>
-          <li><a href="casino.html">Estadísticas</a></li>
+          <li><a href="stats.html">Estadísticas</a></li>
           <li><a href="weapons.html">Armas</a></li>
           <li><a href="razas.html">Razas (52)</a></li><li><a href="clases/index.html">Clases</a></li>
         </ul>
@@ -1060,10 +1225,17 @@
         <section class="panel" id="casino">
       <div class="casino-banner">
         <h2>Casa de stats</h2>
-        <p>4d6, descarta el menor y suma; repite 6 veces para un set. Dos sets listos para jugar.</p>
-        <div class="casino-marquee">High rollers | 4d6 | drop lowest | tirada real</div>
+        <p>Se hacen 6 tiradas de 4d6 por set: en cada tirada se descarta el dado más bajo y se suman los otros 3. Recibes 2 sets, eliges cuál usar y asignas cada resultado a la estadística que prefieras. El número dorado es la suma total del set. Recomendamos que el DM entregue los resultados.</p>
+        <div class="casino-marquee">High rollers | drop lowest  | 4d6 </div>
         <div class="casino-controls">
-          <button class="btn-roll" id="roll-btn" type="button">Tirar de nuevo</button>
+          <button class="slot-lever" id="roll-btn" type="button" aria-label="Tirar de nuevo">
+            <span class="slot-lever__machine" aria-hidden="true">
+              <span class="slot-lever__shaft">
+                <span class="slot-lever__knob"></span>
+              </span>
+            </span>
+            <span class="slot-lever__label">Tirar</span>
+          </button>
           <p class="roll-meta" id="roll-meta" aria-live="polite"></p>
         </div>
       </div>
@@ -1086,11 +1258,13 @@
         }
 
         var TONES = ['tone-amber', 'tone-rose', 'tone-cyan', 'tone-lime'];
-        var FLASH_STEPS = 3;
-        var VARIANT_DELAY = 0.24;
+        var FRUIT_SYMBOLS = ['🍒', '🍋', '🍇', '🍉', '🍓', '🍍', '🍎', '🍊'];
         var SET_COUNT = 2;
         var ROLLS_PER_SET = 6;
+        var spinToken = 0;
         var hasCrypto = typeof crypto !== 'undefined' && typeof crypto.getRandomValues === 'function';
+        var reducedMotion = typeof window.matchMedia === 'function' &&
+          window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         function randomInt(maxExclusive) {
           if (!hasCrypto) {
@@ -1148,39 +1322,140 @@
           };
         }
 
+        function setReelValue(cell, value) {
+          if (!cell) {
+            return;
+          }
+
+          cell.textContent = value;
+
+          if (cell.classList.contains('die')) {
+            cell.classList.remove('n1', 'n2', 'n3', 'n4', 'n5', 'n6');
+            cell.classList.add('n' + value);
+          }
+        }
+
+        function randomFruit() {
+          return FRUIT_SYMBOLS[randomInt(FRUIT_SYMBOLS.length)];
+        }
+
+        function setReelPlaceholder(cell) {
+          var dieFace;
+
+          if (!cell) {
+            return;
+          }
+
+          if (cell.classList.contains('set-total')) {
+            cell.textContent = '\uD83D\uDD25';
+          } else {
+            cell.textContent = randomFruit();
+          }
+
+          if (cell.classList.contains('die')) {
+            dieFace = randomInt(6) + 1;
+            cell.classList.remove('n1', 'n2', 'n3', 'n4', 'n5', 'n6');
+            cell.classList.add('n' + dieFace);
+          }
+        }
+
+        function animateReelCell(cell, token, delay, duration) {
+          var finalValue = parseInt(cell.getAttribute('data-final'), 10);
+          var elapsed = 0;
+          var step = 70;
+          var timer;
+
+          if (reducedMotion) {
+            setReelValue(cell, finalValue);
+            cell.classList.remove('is-spinning');
+            cell.classList.add('is-stopped');
+            return;
+          }
+
+          setTimeout(function () {
+            if (token !== spinToken || !cell.isConnected) {
+              return;
+            }
+
+            cell.classList.add('is-spinning');
+            cell.classList.remove('is-stopped');
+            setReelPlaceholder(cell);
+
+            timer = setInterval(function () {
+              if (token !== spinToken || !cell.isConnected) {
+                clearInterval(timer);
+                return;
+              }
+
+              setReelPlaceholder(cell);
+              elapsed += step;
+
+              if (elapsed >= duration) {
+                clearInterval(timer);
+                setReelValue(cell, finalValue);
+                cell.classList.remove('is-spinning');
+                cell.classList.add('is-stopped');
+              }
+            }, step);
+          }, delay);
+        }
+
+        function animateReels(token) {
+          var regularReels = rouletteEl.querySelectorAll('.reel-cell:not(.set-total)');
+          var totalReels = rouletteEl.querySelectorAll('.reel-cell.set-total');
+          var regularSpacing = 34;
+          var totalsStartDelay = regularReels.length * regularSpacing + 220;
+          var longestFinish = 0;
+
+          regularReels.forEach(function (cell, index) {
+            var delay = index * regularSpacing;
+            var duration = 500 + randomInt(260);
+            animateReelCell(cell, token, delay, duration);
+            longestFinish = Math.max(longestFinish, delay + duration);
+          });
+
+          totalReels.forEach(function (cell, index) {
+            var delay = totalsStartDelay + index * 120;
+            var duration = 640 + index * 90;
+            animateReelCell(cell, token, delay, duration);
+            longestFinish = Math.max(longestFinish, delay + duration);
+          });
+
+          return reducedMotion ? 0 : longestFinish;
+        }
+
         function buildSetMarkup(setData, setNumber) {
           var rows = setData.rolls.map(function (roll) {
             var diceMarkup = roll.dice.map(function (dieValue, index) {
               var dropClass = index === roll.dropIndex ? ' drop' : '';
               var toneClass = TONES[index % TONES.length];
-              return '<span class="die' + dropClass + ' ' + toneClass + ' n' + dieValue + '">' + dieValue + '</span>';
+              return '<span class="die reel-cell' + dropClass + ' ' + toneClass +
+                '" data-final="' + dieValue + '">' + randomFruit() + '</span>';
             }).join('');
 
             return '<li>' +
               '<div class="dice-row">' + diceMarkup + '</div>' +
               '<span class="equals">=</span>' +
-              '<span class="hex">' + roll.total + '</span>' +
+              '<span class="hex reel-cell" data-final="' + roll.total + '">' + randomFruit() + '</span>' +
             '</li>';
           }).join('');
 
           return '<div class="casino-set">' +
             '<div class="casino-set__title">' +
               '<h4>Set ' + setNumber + '</h4>' +
-              '<span class="set-total" aria-label="Total del set ' + setNumber + '">' + setData.total + '</span>' +
+              '<span class="set-total reel-cell" data-final="' + setData.total +
+                '" aria-label="Total del set ' + setNumber + '">&#x1F525;</span>' +
             '</div>' +
             '<ol>' + rows + '</ol>' +
           '</div>';
         }
 
-        function buildVariantMarkup(sets, delay, isFinal) {
-          var variantClass = isFinal ? 'casino-variant is-final' : 'casino-variant is-flash';
+        function buildResultMarkup(sets) {
           var setsMarkup = sets.map(function (setData, idx) {
             return buildSetMarkup(setData, idx + 1);
           }).join('');
 
-          return '<div class="' + variantClass + '" style="--delay: ' + delay + 's;">' +
-            '<div class="casino">' + setsMarkup + '</div>' +
-          '</div>';
+          return '<div class="casino-variant is-final" style="--delay: 0s;"><div class="casino">' + setsMarkup + '</div></div>';
         }
 
         function rollSets() {
@@ -1193,24 +1468,34 @@
         }
 
         function renderRoll() {
-          var variantsMarkup = '';
-          var i;
           var finalSets;
+          var token;
+          var finishInMs;
 
-          for (i = 0; i < FLASH_STEPS; i += 1) {
-            variantsMarkup += buildVariantMarkup(rollSets(), i * VARIANT_DELAY, false);
-          }
-
+          spinToken += 1;
+          token = spinToken;
           finalSets = rollSets();
-          variantsMarkup += buildVariantMarkup(finalSets, FLASH_STEPS * VARIANT_DELAY, true);
-          rouletteEl.innerHTML = variantsMarkup;
+          rouletteEl.innerHTML = buildResultMarkup(finalSets);
+          metaEl.textContent = 'Girando frutas...';
+          finishInMs = animateReels(token);
 
-          metaEl.textContent = 'Ultima tirada: ' + new Date().toLocaleTimeString('es-ES') +
-            ' | Set 1: ' + finalSets[0].total +
-            ' | Set 2: ' + finalSets[1].total;
+          setTimeout(function () {
+            if (token !== spinToken) {
+              return;
+            }
+
+            metaEl.textContent = 'Ultima tirada: ' + new Date().toLocaleTimeString('es-ES') +
+              ' | Set 1: ' + finalSets[0].total +
+              ' | Set 2: ' + finalSets[1].total;
+          }, finishInMs + 60);
         }
 
-        rollBtn.addEventListener('click', renderRoll);
+        rollBtn.addEventListener('click', function () {
+          rollBtn.classList.remove('is-pulled');
+          void rollBtn.offsetWidth;
+          rollBtn.classList.add('is-pulled');
+          renderRoll();
+        });
         renderRoll();
       })();
     </script>
