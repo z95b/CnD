@@ -19,11 +19,11 @@
         },
         {
             "name": "Correr como el Viento",
-            "description": "Tu velocidad de movimiento es mucho mayor en términos narrativos."
+            "description": "Si empleas tu acción de Correr dos veces seguidas, obtienes el estado de Galope, en el cual correras a entre 40 y 50kmh"
         },
         {
             "name": "Puntería Certera",
-            "description": "Obtienes competencia con Arcos y +3 en tiradas de Ataque con Arcos"
+            "description": "Obtienes competencia con Arcos y +3 en tiradas de Ataque y daño con Arcos"
         },
         {
             "name": "Competencias",

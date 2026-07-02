@@ -16,22 +16,20 @@
             "name": "Agilidad natural",
             "description": "+1 a la CA. Pueden moverse a través de espacios ocupados por una o varias criaturas usando la reacción de esa ronda."
         },
-  
         {
             "name": "Furia acorralada",
             "description": "Con la mitad o menos de los PG y sin aliados conscientes a 4C, obtiene +2 a ataques cuerpo a cuerpo y a la CA."
         },
         {
-            "name": "Remendón",
-            "description": "Bonificador racial +2 en Artesanía (alquimia) y Usar objeto mágico."
+            "name": "Apañado",
+            "description": "Bonificador +2 en cualquier Kit de herramientas y en Usar un objeto mágico."
         },
         {
             "name": "Esconderse",
-            "description": "Bonificador racial +2 en Sigilo. "
+            "description": "Bonificador +2 en tiradas de Sigilo. "
         },
         {
-            "name": "Olfato",
-            "description": "Obtiene la competencia en Olfato y Oído, pero penalizador -3 en Percepción basada en vista."
+            
         }
     ],
     "relations": {

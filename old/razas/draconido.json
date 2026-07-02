@@ -19,7 +19,7 @@
         },
         {
             "name": "Herencia del Padre",
-            "description": "Obtienes una de estas habilidades para usar como acción (Descanso Corto). Estas habilidades aumentan en 1 su dado de daño a los niveles 5, 11 y 17:\n- Fuego (Manos Ardientes): 3d6.\n- Hielo (Ataque en Cono): 3d6.\n- Veneno (Nube Tóxica): 2d6 x 2T.\n- Eléctrico (Ola Atronadora): 2d8.\n- Ácido (Salpicadura Ácida): 1d8 x 2 Objetivos."
+            "description": "Obtienes una de estas habilidades para usar como acción (Descanso Corto). Estas habilidades aumentan en 1 su dado de daño a los niveles 5, 11 y 17:\n- Fuego (Manos Ardientes): 3d6.\n- Hielo (Ataque en Cono): 3d6.\n- Veneno (Nube Tóxica): 2d6 x 2T en área 3x3m3.\n- Eléctrico (Ola Atronadora): 2d8.trueno \n- Ácido (Salpicadura Ácida): 1d8 x 2 Objetivos y reduce en 2 el CA del objetivo golpeado si lleva armadura."
         },
         {
             "name": "Mordisco Sanador",

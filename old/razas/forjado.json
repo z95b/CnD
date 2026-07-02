@@ -22,7 +22,7 @@
         },
         {
             "name": "Finalidad Última",
-            "description": "Obtienes habilidades específicas según el propósito para el que fuiste creado."
+            "description": "Obtienes habilidades específicas según el propósito para el que fuiste creado. Debes elegir uno de estos 6 arquetipos"
         },
         {
             "name": "Propósito: Destreza (Movilidad)",
@@ -42,7 +42,7 @@
         },
         {
             "name": "Propósito: Sabiduría (Percepción y Juicio)",
-            "description": "Tu velocidad base pasa a ser 6c. Te vuelves experto en cualquier habilidad relacionada a la Sabiduría y tienes ventaja en sus pruebas. Además, obtienes una reserva arcana curativa en tu Núcleo central representada en 5 \"Descargas de Vitalidad\" que se recuperan en un descanso Largo. Cada carga restaura 1'5 PG x Nivel al objetivo y pueden usarse varias a la vez como parte de la misma acción "
+            "description": "Tu velocidad base pasa a ser 6c. Te vuelves experto en cualquier habilidad relacionada a la Sabiduría y tienes ventaja en sus pruebas. Además, obtienes una reserva arcana curativa en tu Núcleo central representada en 5 \"Descargas de Vitalidad\" que se recuperan en un descanso Largo. Cada carga restaura 1'5 PG x tu Nivel al objetivo y pueden usarse varias a la vez como parte de la misma acción "
         },
         {
             "name": "Propósito: Carisma (Diplomacia y Persuasión)",

@@ -24,7 +24,7 @@
         },
         {
             "name": "Furia Primal",
-            "description": "Obtienes una carga de Furia Primitiva. Al consumirla, puedes intercambiar temporalmente tu característica más alta por Fuerza (por ejemplo, si tienes 20 de Inteligencia, pasas a tener 20 de Fuerza). Tu trompa se endurece y cuenta como un arma contundente (2d6 + Modificador de Fuerza)."
+            "description": "Obtienes una carga de Furia Primitiva. Al consumirla, puedes intercambiar temporalmente tu característica más alta por Fuerza (por ejemplo, si tienes 20 de Inteligencia, pasas a tener 20 de Fuerza a cambio sustituirlo por la otra característica). Tu trompa se endurece y cuenta como un arma contundente (2d6 + Modificador de Fuerza)."
         },
         {
             "name": "Segundo Ataque con Furia",

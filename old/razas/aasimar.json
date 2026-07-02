@@ -18,11 +18,11 @@
     "abilities": [
         {
             "name": "Infusión Celestial",
-            "description": "Eres resistente al daño Radiante o Necrótico (dependiendo de tu progenitor)."
+            "description": "Eres resistente al daño Radiante o Necrótico (dependiendo de tu progenitor y de su naturaleza Bondadosa o Malvada. En caso de ser neutral, se inclinará por tu personalidad)."
         },
         {
             "name": "Toque Sanador",
-            "description": "Como acción, puedes curar a una criatura de una enfermedad, veneno o curarle una cantidad de puntos de vida igual a tu nivel x 5. Se recupera tras un descanso corto."
+            "description": "Como acción, puedes curar a una criatura de una enfermedad, veneno de rango medio o inferior o curarle una cantidad de puntos de vida igual a tu nivel x 5. Se recupera tras un descanso corto."
         },
         {
             "name": "Obsequios divinos",

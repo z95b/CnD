@@ -17,11 +17,11 @@
     "abilities": [
         {
             "name": "El Arcanum Dentro de Mí",
-            "description": "Obtienes competencia en la habilidad Arcano."
+            "description": "Obtienes competencia en la habilidad Arcano y Dependiendo de tu tipo de Elemento, obtienes habilidades distintas."
         },
         {
           "name": "Deseo Concedido",
-            "description": "Como Conjuro de nivel 9, puedes emplear Deseo 1 sola vez en toda tu vida. Debes ser mínimo un aventuraro nivel 8 en total para llevar a cabo esta acción"
+            "description": "Como Conjuro de nivel 9, puedes emplear Deseo 1 sola vez en toda tu vida. Debes ser mínimo un aventuraro nivel 6 en total para llevar a cabo esta acción. El poder de este conjuro estará reducido"
         },
         {
             "name": "Fuego (Tipo de Genasi)",

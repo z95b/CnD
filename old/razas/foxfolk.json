@@ -15,7 +15,7 @@
     "abilities": [
         {
             "name": "Semejanzas al Monarca",
-            "description": "Obtienes competencia en las habilidades Perspicacia y Juego de Manos."
+            "description": "Obtienes competencia en 2 de estas habilidades: Perspicacia, Engaño, Persuasión y Juego de Manos. Si ya eres competente en una de estas habilidades, puedes volverte Experto (x2 a tu competencia)"
         },
         {
             "name": "Maestro de Mentirosos",
@@ -23,7 +23,7 @@
         },
         {
             "name": "Encanto Feérico",
-            "description": "Puedes emplear Hechizar persona como acción sin necesidad de un espacio de conjuro 1 vez por Descanso Corto. Si posees 4 o más de Carisma, puedes usarlo como conjuro de nivel 4"
+            "description": "Puedes emplear Hechizar persona como acción sin necesidad de un espacio de conjuro 1 vez por Descanso Corto. Si posees 16 de carisma o más, puedes usarlo tantas veces como tu Mod. de Carisma. Si tienes 20 de carisma o más, el afectado no sabrá que ha sido hechizado cuando finalice su duración"
         }
     ]
 }

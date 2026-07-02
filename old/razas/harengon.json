@@ -15,7 +15,7 @@
     "abilities": [
         {
             "name": "Sentidos Agudizados",
-            "description": "Obtienes competencia en Percepción, enfocada en estímulos acústicosAdemás, los ataques sorpresa no toman ventaja contra ti."
+            "description": "Obtienes competencia en Percepción, enfocada en estímulos acústicos. Además, puedes realizar una tirada de Iniciativa frente a su CD de destreza (8 + Comp + Dest.). Si la superas, no obtienen ventaja en ataques contra ti por sorprenderte."
         },
         {
             "name": "Suerte Feérica",

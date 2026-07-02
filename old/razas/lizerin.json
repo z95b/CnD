@@ -19,7 +19,7 @@
         },
         {
             "name": "Sangre Venenosa",
-            "description": "Tu sangre está impregnada de toxinas naturales. Eres inmune al daño de veneno y, si recibes este tipo de daño, te curas un 50% de lo recibido."
+            "description": "Tu sangre está impregnada de toxinas naturales y puede servir como un veneno comun. Eres inmune al daño de veneno y, si recibes este tipo de daño, te curas un 30% del daño recibido."
         },
         {
             "name": "Instinto Salvaje",

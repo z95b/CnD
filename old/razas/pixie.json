@@ -13,11 +13,11 @@
     "abilities": [
         {
             "name": "Volar",
-            "description": "Tu movimiento base se representa volando."
+            "description": "Tu movimiento base puede representarse volando."
         },
         {
             "name": "Naturalmente competente",
-            "description": "Duplicas tu Bonus por Competencia a tus tiradas de ataque o tus Salvadas de hechizos."
+            "description": "Duplicas tu Bonus por Competencia a tus tiradas de ataques mágicos o tus Salvadas de hechizos."
         },
         {
             "name": "Reservas arcanas",
