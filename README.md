@@ -6,13 +6,14 @@ Sitio estático en modo oscuro (verde/rosa pastel) dividido en varias páginas l
 - Abre `index.html` en local o publícalo en GitHub Pages; el menú enlaza al resto de secciones.
 - `razas.html` incluye el bestiario completo; el resto de páginas están separadas para cargar más rápido.
 
-## Datos y regeneración
+## Datos y generación
 - Los datos de armas parten de `weapons.csv`.
 - Los datos canónicos de las razas están en `razas/index.json` y en los JSON individuales de `razas/`.
 - `razas/index.json` tiene dos listas: `variantes` y `razas`. El orden de los archivos dentro de cada lista define el orden editorial de `razas.html`.
 - Cada JSON contiene los datos de una raza y la ruta de su imagen. Las capacidades, atributos, idiomas y demás colecciones usan arrays para conservar su orden y evitar perder valores repetidos.
-- `razas.html` es la instantánea estática publicable. GitHub Pages no puede leer y convertir los JSON en HTML sin scripting, por lo que hay que mantener esa instantánea sincronizada antes de publicar.
-- El selector «Orden editorial» muestra el orden definido por el índice; los demás selectores siguen aplicando ordenaciones visuales mediante CSS.
+- `_config.yml` configura `razas/` como directorio de datos de Jekyll. GitHub Pages procesa `razas.html` con Liquid durante la compilación y genera todas las fichas desde esos JSON, sin JavaScript en el navegador.
+- `razas.html` no contiene datos de razas hardcodeados. Para cambiar una ficha se edita su JSON; para añadir, retirar o reordenar fichas se edita `razas/index.json`.
+- Al abrir directamente el archivo fuente `razas.html` no se ejecuta Liquid. Para previsualizar esta página en local hay que servir el proyecto con Jekyll; GitHub Pages realiza esta compilación automáticamente al publicar.
 - Enlaces externos (fichas, clases, items, conjuros, guía) apuntan al material original de C&D.
 
 ## Origen en los JSON de razas

@@ -1,0 +1,102 @@
+{% assign race = include.race %}
+{% assign race_key = include.race_key %}
+{% assign image_url = race.image | relative_url %}
+<details class="race-card{% if include.is_variant %} variant{% endif %}" name="race-accordion" data-variant="{{ include.is_variant }}" id="{{ race_key | escape }}" style="--portrait:url('{{ image_url | escape }}');">
+  <summary>
+    <div class="summary-top">
+      <div>
+        <p class="eyebrow">{% if include.is_variant %}Variante{% else %}Raza{% endif %}</p>
+        <h3 class="race-title">{% if include.is_variant %}&#x1F7E6; VARIANTE: {% endif %}{{ race.raceName | escape }}</h3>
+        <p class="race-origin">Origen: {{ race.origin | escape }}</p>
+      </div>
+      <div class="tagline"><span class="pill">Vel. {{ race.movementSpeed | escape }}</span></div>
+    </div>
+    {% if race.attributes and race.attributes.size > 0 %}
+      <div class="summary-bonuses">
+        {% for attribute in race.attributes %}<span class="pill">{{ attribute.name | escape }} {{ attribute.bonus | escape }}</span>{% endfor %}
+      </div>
+    {% endif %}
+    <p class="race-snippet">{{ race.raceDescription | truncate: 180, "…" | escape }}</p>
+  </summary>
+
+  <div class="race-body">
+    <figure class="race-figure" id="figure-{{ race_key | escape }}">
+      <a aria-label="Ampliar imagen de {{ race.raceName | escape }}" class="zoom-link" href="#zoom-{{ race_key | escape }}">
+        <img alt="{{ race.raceName | escape }}" src="{{ image_url | escape }}"/>
+      </a>
+    </figure>
+
+    <div class="race-meta">
+      <div class="meta-block">
+        <h4>Retrato</h4>
+        <p>{{ race.raceDescription | escape }}</p>
+        {% if race.bonusRules %}<div class="callout">{{ race.bonusRules | escape }}</div>{% endif %}
+      </div>
+
+      <div class="meta-block">
+        <h4>Atributos base</h4>
+        {% if race.attributes and race.attributes.size > 0 %}
+          <ul class="attr-list">
+            {% for attribute in race.attributes %}
+              <li><span class="attr-name">{{ attribute.name | escape }}</span><span class="pill">{{ attribute.bonus | escape }}</span></li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>Sin modificaciones de atributos.</p>
+        {% endif %}
+
+        <h4>Tamaños posibles</h4>
+        <div class="size-bars">
+          {% for size in (1..6) %}
+            {% case size %}
+              {% when 1 %}{% assign size_height = 32 %}{% assign size_label = "Diminuto (0.05 - 0.49 m)" %}
+              {% when 2 %}{% assign size_height = 48 %}{% assign size_label = "Pequeño (0.50 - 1.39 m)" %}
+              {% when 3 %}{% assign size_height = 64 %}{% assign size_label = "Mediano (1.40 - 1.89 m)" %}
+              {% when 4 %}{% assign size_height = 82 %}{% assign size_label = "Grande (1.90 - 2.30 m)" %}
+              {% when 5 %}{% assign size_height = 96 %}{% assign size_label = "Enorme (2.30 - 3.49 m)" %}
+              {% when 6 %}{% assign size_height = 120 %}{% assign size_label = "Gigantesco (>3.50 m)" %}
+            {% endcase %}
+            <div class="size-bar{% if race.sizes contains size %} active{% endif %}" style="--h:{{ size_height }}px"><div class="fill"></div><span class="size-label">{{ size_label }}</span></div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="meta-block">
+        <h4>Talentos y rasgos</h4>
+        <ul class="abilities">
+          {% for ability in race.abilities %}
+            <li><strong>{{ ability.name | escape }}</strong><p>{{ ability.description | escape }}</p></li>
+          {% endfor %}
+        </ul>
+
+        <h4>Información adicional</h4>
+        <ul class="abilities">
+          {% if race.lifeSpan %}<li><strong>Esperanza de vida</strong><p>{{ race.lifeSpan | escape }}</p></li>{% endif %}
+          {% if race.longevity %}<li><strong>Longevidad</strong><p>{{ race.longevity | escape }}</p></li>{% endif %}
+          <li><strong>Visión nocturna</strong><p>{% if race.nightVision %}Sí{% else %}No{% endif %}</p></li>
+          {% if race.languages and race.languages.size > 0 %}<li><strong>Idiomas</strong><p>{{ race.languages | join: ", " | escape }}</p></li>{% endif %}
+        </ul>
+
+        {% if race.relations and race.relations.size > 0 %}
+          <h4>Relaciones</h4>
+          <ul class="abilities">{% for relation in race.relations %}<li><strong>{{ relation.race | escape }}</strong><p>{{ relation.description | escape }}</p></li>{% endfor %}</ul>
+        {% endif %}
+
+        {% if race.culture and race.culture.size > 0 %}
+          <h4>Cultura</h4>
+          <ul class="abilities">{% for item in race.culture %}<li><strong>{{ item.aspect | escape }}</strong><p>{{ item.description | escape }}</p></li>{% endfor %}</ul>
+        {% endif %}
+
+        {% if race.subtypes and race.subtypes.size > 0 %}
+          <h4>Subtipos</h4>
+          <ul class="abilities">{% for subtype in race.subtypes %}<li><strong>{{ subtype.name | escape }}</strong><p>{{ subtype.description | escape }}</p></li>{% endfor %}</ul>
+        {% endif %}
+
+        {% if race.referenceLink %}<p><a href="{{ race.referenceLink | escape }}" rel="noopener noreferrer" target="_blank">Consultar referencia</a></p>{% endif %}
+      </div>
+    </div>
+  </div>
+</details>
+<a class="img-modal" href="#{{ include.section_id | escape }}" id="zoom-{{ race_key | escape }}">
+  <img alt="{{ race.raceName | escape }}" src="{{ image_url | escape }}"/>
+</a>
