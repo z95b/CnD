@@ -1,0 +1,59 @@
+{
+    "raceName":  "Tieflings",
+    "origin":  "Nueve Infiernos",
+    "raceDescription":  "Los conocidos como \u0027Sin tierra\u0027 no proceden de este plano terrenal. Su verdadero origen está en el infierno, lugar del que sus gentes escaparon hace mucho y poblaron las tierras habitadas en búsqueda de un nuevo lugar al que llamar hogar, pero pocos han conseguido realmente ese objetivo. Debido a ello, muchos no destacan por su poder adquisitivo y se ven tentados por la delincuencia, razón por la que son mal vistos en algunos lugares.",
+    "bonusRules":  null,
+    "movementSpeed":  "6",
+    "lifeSpan":  "100-120",
+    "longevity":  null,
+    "attributes":  [
+                       {
+                           "name":  "Destreza",
+                           "bonus":  "+2"
+                       },
+                       {
+                           "name":  "Carisma",
+                           "bonus":  "+1"
+                       }
+                   ],
+    "sizes":  [
+                  2,
+                  3,
+                  4
+              ],
+    "abilities":  [
+                      {
+                          "name":  "Taumaturgia",
+                          "description":  "Obtienes el truco \u0027Taumaturgia\u0027 a nivel 1."
+                      },
+                      {
+                          "name":  "Represión Infernal",
+                          "description":  "A nivel 3 puedes usar \u0027Represión Infernal\u0027 como conjuro de nivel 2, una vez por descanso largo."
+                      },
+                      {
+                          "name":  "Oscuridad",
+                          "description":  "A nivel 5 puedes usar \u0027Oscuridad\u0027 una vez por descanso largo."
+                      },
+                      {
+                          "name":  "Resistencia Ígnea",
+                          "description":  "El daño de fuego se reduce en un 50%."
+                      }
+                  ],
+    "languages":  [
+
+                  ],
+    "nightVision":  false,
+    "relations":  [
+
+                  ],
+    "culture":  [
+
+                ],
+    "subtypes":  [
+
+                 ],
+    "referenceLink":  null,
+    "image":  "razas/tiefling.png",
+    "isVariant":  false
+}
+

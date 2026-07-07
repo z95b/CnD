@@ -1,0 +1,57 @@
+{
+    "raceName":  "Aasimar",
+    "origin":  "Planos Superiores",
+    "raceDescription":  "Los Aasimar son seres muy poco comunes. Son semi deidades enviadas por los dioses del cosmos para cumplir con su voluntad en la tierra. Estos usualmente esgrimen la justicia y la bondad como sus mayores armas, otorgando el perdón a quien lo pida y actuando con un gran sentido inquebrantable de la moral… Aunque siempre hay ovejas descarriadas.",
+    "bonusRules":  null,
+    "movementSpeed":  "6",
+    "lifeSpan":  "200-300",
+    "longevity":  null,
+    "attributes":  [
+                       {
+                           "name":  "INT",
+                           "bonus":  "+1"
+                       },
+                       {
+                           "name":  "Carisma",
+                           "bonus":  "+2"
+                       }
+                   ],
+    "sizes":  [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+              ],
+    "abilities":  [
+                      {
+                          "name":  "Infusión Celestial",
+                          "description":  "Eres resistente al daño Radiante o Necrótico (dependiendo de tu progenitor y de su naturaleza Bondadosa o Malvada. En caso de ser neutral, se inclinará por tu personalidad)."
+                      },
+                      {
+                          "name":  "Toque Sanador",
+                          "description":  "Como acción, puedes curar a una criatura de una enfermedad, veneno de rango medio o inferior o curarle una cantidad de puntos de vida igual a tu nivel x 5. Se recupera tras un descanso corto."
+                      },
+                      {
+                          "name":  "Obsequios divinos",
+                          "description":  "Puedes elegir entre unas alas, un arma especial o una montura. Todas pueden ser invocadas y desconvocadas a través de una Acción Adicional"
+                      }
+                  ],
+    "languages":  [
+
+                  ],
+    "nightVision":  false,
+    "relations":  [
+
+                  ],
+    "culture":  [
+
+                ],
+    "subtypes":  [
+
+                 ],
+    "referenceLink":  null,
+    "image":  "razas/aasimar.png",
+    "isVariant":  false
+}
+

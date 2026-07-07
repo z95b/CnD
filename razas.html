@@ -138,6 +138,7 @@
 .sort-option { padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255,255,255,0.04); color: #fff; font-weight: 600; letter-spacing: 0.02em; cursor: pointer; display: flex; align-items: center; gap: 8px; }
 .sort-option:hover { border-color: var(--accent); color: var(--accent); box-shadow: 0 8px 18px rgba(0,0,0,0.35); transform: translateY(-1px); }
 .sort-hint { margin: 0; font-size: 12px; color: var(--muted); }
+#sort-editorial:checked ~ #filtros label[for="sort-editorial"],
 #sort-name:checked ~ #filtros label[for="sort-name"],
 #sort-str:checked ~ #filtros label[for="sort-str"],
 #sort-dex:checked ~ #filtros label[for="sort-dex"],
@@ -242,7 +243,8 @@
 <li><a href="weapons.html">Armas</a></li>
 <li><a href="razas.html">Razas</a></li><li><a href="clases/index.html">Clases</a></li>
 </ul></div></div>
-<input class="race-sort-input" id="sort-name" name="race-sort" type="radio" checked=""/>
+<input class="race-sort-input" id="sort-editorial" name="race-sort" type="radio" checked=""/>
+<input class="race-sort-input" id="sort-name" name="race-sort" type="radio"/>
 <input class="race-sort-input" id="sort-str" name="race-sort" type="radio"/>
 <input class="race-sort-input" id="sort-dex" name="race-sort" type="radio"/>
 <input class="race-sort-input" id="sort-con" name="race-sort" type="radio"/>
@@ -256,6 +258,7 @@
   <div class="sort-box">
     <p class="sort-title">Ordenar por</p>
     <div class="sort-options">
+      <label class="sort-option" for="sort-editorial">Orden editorial</label>
       <label class="sort-option" for="sort-name">Nombre (A-Z)</label>
       <label class="sort-option" for="sort-str">Fuerza</label>
       <label class="sort-option" for="sort-dex">Destreza</label>
@@ -271,7 +274,11 @@
 </div>
 </section>
 
-<div id="race-wrap">
+<!--
+  Fuente editorial: razas/index.json y los archivos JSON que enumera.
+  Este contenido es una instantánea HTML estática para GitHub Pages.
+-->
+<div id="race-wrap" data-source-index="razas/index.json">
 <section class="panel" id="variantes">
 <h2 class="block-title">Variantes</h2>
 <div class="race-grid variants-grid">
@@ -2357,35 +2364,6 @@
 <a class="img-modal" href="#razas" id="zoom-kenku">
 <img alt="Kenkus" src="razas/kenku.png"/>
 </a>
-<script>
-  (function () {
-    var raceCards = document.querySelectorAll('details.race-card');
-    var stickyNav = document.querySelector('.nav');
-    var reducedMotion = typeof window.matchMedia === 'function' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    function scrollToOpenedCard(card) {
-      var navHeight = stickyNav ? stickyNav.offsetHeight : 0;
-      var top = card.getBoundingClientRect().top + window.scrollY - navHeight - 10;
-      window.scrollTo({
-        top: Math.max(0, top),
-        behavior: reducedMotion ? 'auto' : 'smooth'
-      });
-    }
-
-    raceCards.forEach(function (card) {
-      card.addEventListener('toggle', function () {
-        if (!card.open) {
-          return;
-        }
-
-        requestAnimationFrame(function () {
-          scrollToOpenedCard(card);
-        });
-      });
-    });
-  })();
-</script>
 <footer class="site-footer" style="margin: 28px auto 0; padding: 16px 20px; text-align: center; color: #d9e2dc; background: rgba(7, 11, 23, 0.82); border-top: 1px solid rgba(255, 255, 255, 0.14); font-family: 'Space Grotesk', 'Helvetica Neue', sans-serif; letter-spacing: 0.03em;">Copyright &copy; 2026 - 3026</footer>
 </div>
 </body>

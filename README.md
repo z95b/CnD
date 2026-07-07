@@ -7,11 +7,15 @@ Sitio estático en modo oscuro (verde/rosa pastel) dividido en varias páginas l
 - `razas.html` incluye el bestiario completo; el resto de páginas están separadas para cargar más rápido.
 
 ## Datos y regeneración
-- Los datos de armas y razas parten de `weapons.csv` y `razas.csv`.
-- Si cambian los datos, regenera las páginas estáticas antes de publicar.
+- Los datos de armas parten de `weapons.csv`.
+- Los datos canónicos de las razas están en `razas/index.json` y en los JSON individuales de `razas/`.
+- `razas/index.json` tiene dos listas: `variantes` y `razas`. El orden de los archivos dentro de cada lista define el orden editorial de `razas.html`.
+- Cada JSON contiene los datos de una raza y la ruta de su imagen. Las capacidades, atributos, idiomas y demás colecciones usan arrays para conservar su orden y evitar perder valores repetidos.
+- `razas.html` es la instantánea estática publicable. GitHub Pages no puede leer y convertir los JSON en HTML sin scripting, por lo que hay que mantener esa instantánea sincronizada antes de publicar.
+- El selector «Orden editorial» muestra el orden definido por el índice; los demás selectores siguen aplicando ordenaciones visuales mediante CSS.
 - Enlaces externos (fichas, clases, items, conjuros, guía) apuntan al material original de C&D.
 
-## Origen en `razas.csv`
+## Origen en los JSON de razas
 - Se completó la columna `origen` con planos/escenarios (por ejemplo: Feywild, Plano Astral, Planos Elementales, Ravnica, Eberron).
 - Marcadas como origen variable o desconocido: SELLADOS (variable por raza original), SHURA, Sonares, Dol-Haras, Efteros y Throthogas.
 - Owlers se asignó a Arcavios (Strixhaven) y Foxfolks a Feywild según el lore público (ajustable según canon de mesa).

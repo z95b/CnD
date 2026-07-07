@@ -1,0 +1,59 @@
+{
+    "raceName":  "Efteros",
+    "origin":  "Plano Material (origen desconocido)",
+    "raceDescription":  "Los Éfteros son humanoides aviares que incluyen a una gran variedad de pájaros, desde majestuosos halcones hasta gallinas. Su naturaleza les otorga habilidades únicas relacionadas con su plumaje y su estilo de vida ágil y práctico.",
+    "bonusRules":  "+1 en Inteligencia, +1 en Destreza, +1 en Sabiduría.",
+    "movementSpeed":  "6",
+    "lifeSpan":  "60-100",
+    "longevity":  null,
+    "attributes":  [
+                       {
+                           "name":  "Destreza",
+                           "bonus":  "+1"
+                       },
+                       {
+                           "name":  "Inteligencia",
+                           "bonus":  "+1"
+                       },
+                       {
+                           "name":  "Sabiduría",
+                           "bonus":  "+1"
+                       }
+                   ],
+    "sizes":  [
+                  2,
+                  3,
+                  4
+              ],
+    "abilities":  [
+                      {
+                          "name":  "Morador del Cielo",
+                          "description":  "Como Acción Adicional puedes desplegar tus alas para volar. Recibir un crítico o quedar paralizado a mitad de vuelo te derribará."
+                      },
+                      {
+                          "name":  "Plumaje",
+                          "description":  "Tienes resistencia al daño de frío y ventaja en tiradas de salvación para evitar quedar cubierto de cualquier sustancia."
+                      },
+                      {
+                          "name":  "Picotazo",
+                          "description":  "Puedes usar tu pico para realizar un ataque desarmado. Se considera daño perforante y su probabilidad de crítico baja a 19. (1d6 + Modificador de ataque)."
+                      }
+                  ],
+    "languages":  [
+
+                  ],
+    "nightVision":  false,
+    "relations":  [
+
+                  ],
+    "culture":  [
+
+                ],
+    "subtypes":  [
+
+                 ],
+    "referenceLink":  null,
+    "image":  "razas/eftero.png",
+    "isVariant":  false
+}
+

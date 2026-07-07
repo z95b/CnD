@@ -1,0 +1,53 @@
+{
+    "raceName":  "Enanos",
+    "origin":  "Plano Material",
+    "raceDescription":  "De baja estatura pero con una valentía a la altura de la situación. Los enanos son grandes guerreros, pero en lo que sobresalen es en su gran ingenio para sobresalir de las peores situaciones y crear grandes artilugios adelantados a su tiempo. Provenientes de las frías montañas, su carácter suele ser tosco y fuerte, siempre agradecidos de una buena jarra de sidra o alcohol acompañados de una buena pieza de carne.",
+    "bonusRules":  null,
+    "movementSpeed":  "5",
+    "lifeSpan":  null,
+    "longevity":  null,
+    "attributes":  [
+                       {
+                           "name":  "Fuerza",
+                           "bonus":  "+1"
+                       },
+                       {
+                           "name":  "Constitución",
+                           "bonus":  "+2"
+                       }
+                   ],
+    "sizes":  [
+                  2
+              ],
+    "abilities":  [
+                      {
+                          "name":  "Dureza de Montaña",
+                          "description":  "Eres resistente al daño de veneno (-50%) y tienes ventaja en tiradas de salvación contra ser Envenenado o Drogado."
+                      },
+                      {
+                          "name":  "Valentía",
+                          "description":  "Todas las tiradas de Salvación de Carisma relacionadas a no Asustarte, Aterrarte o Intimidarte tienen ventaja."
+                      },
+                      {
+                          "name":  "Hierro en la Sangre",
+                          "description":  "Obtienes competencia en herramientas de Herrero. Si ya posees esta competencia, la conviertes en \u0027Experto\u0027 (x2)."
+                      }
+                  ],
+    "languages":  [
+
+                  ],
+    "nightVision":  false,
+    "relations":  [
+
+                  ],
+    "culture":  [
+
+                ],
+    "subtypes":  [
+
+                 ],
+    "referenceLink":  null,
+    "image":  "razas/enano.png",
+    "isVariant":  false
+}
+

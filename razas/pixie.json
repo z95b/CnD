@@ -1,0 +1,53 @@
+{
+    "raceName":  "Pixies",
+    "origin":  "Feywild",
+    "raceDescription":  "Las pixies, aunque adorables, son extremadamente peligrosas. Ligadas a la naturaleza misma y a los dioses de esta, su afinidad con la magia es tan natural como respirar o ingerir alimentos para un humano. Las Pixies suelen tener carácteres explosivos, experimentan las emociones de manera muy ferviente y personal. No hay nada más intenso que el odio y el amor de una Pixie.",
+    "bonusRules":  null,
+    "movementSpeed":  "6",
+    "lifeSpan":  null,
+    "longevity":  null,
+    "attributes":  [
+                       {
+                           "name":  "Sabiduría",
+                           "bonus":  "+2"
+                       },
+                       {
+                           "name":  "Carisma",
+                           "bonus":  "+2"
+                       }
+                   ],
+    "sizes":  [
+                  1
+              ],
+    "abilities":  [
+                      {
+                          "name":  "Volar",
+                          "description":  "Tu movimiento base puede representarse volando."
+                      },
+                      {
+                          "name":  "Naturalmente competente",
+                          "description":  "Duplicas tu Bonus por Competencia a tus tiradas de ataques mágicos o tus Salvadas de hechizos."
+                      },
+                      {
+                          "name":  "Reservas arcanas",
+                          "description":  "Podrás recuperar una cantidad de Niveles de Espacios de Conjuro equivalentes a la mitad de tu Nivel. Ej: Nivel 6 → 3 Niveles de Espacios de Conjuro."
+                      }
+                  ],
+    "languages":  [
+
+                  ],
+    "nightVision":  false,
+    "relations":  [
+
+                  ],
+    "culture":  [
+
+                ],
+    "subtypes":  [
+
+                 ],
+    "referenceLink":  null,
+    "image":  "razas/pixie.png",
+    "isVariant":  false
+}
+

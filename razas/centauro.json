@@ -1,0 +1,59 @@
+{
+    "raceName":  "Centauro",
+    "origin":  "Ravnica (Plano Material)",
+    "raceDescription":  "Los centauros son usualmente tribales, alejados de las ciudades y residiendo en comunidades de su propia especie, aunque eso no impide verlos frecuentemente por el mundo. Su robusto cuerpo les permite una gran versatilidad: ávidos guerreros, sabios lógicos o… ambas cosas. Incluso buenos amantes si te gustan las emociones fuertes… y duras.",
+    "bonusRules":  null,
+    "movementSpeed":  "7",
+    "lifeSpan":  "100-150",
+    "longevity":  null,
+    "attributes":  [
+                       {
+                           "name":  "Destreza",
+                           "bonus":  "+2"
+                       },
+                       {
+                           "name":  "Sabiduría",
+                           "bonus":  "+1"
+                       }
+                   ],
+    "sizes":  [
+                  3,
+                  4
+              ],
+    "abilities":  [
+                      {
+                          "name":  "Instintos Equinos",
+                          "description":  "Si un enemigo pasa por tus partes traseras, puedes realizar un golpe de oportunidad incluso si no se sale de tu rango de golpeo, sin usar tu reacción. (2d8 + Modificador de Fuerza)."
+                      },
+                      {
+                          "name":  "Correr como el Viento",
+                          "description":  "Si empleas tu acción de Correr dos veces seguidas, obtienes el estado de Galope, en el cual correras a entre 40 y 50kmh"
+                      },
+                      {
+                          "name":  "Puntería Certera",
+                          "description":  "Obtienes competencia con Arcos y +3 en tiradas de Ataque y al daño con Arcos"
+                      },
+                      {
+                          "name":  "Competencias",
+                          "description":  "Eres competente en las habilidades de Medicina y Atletismo."
+                      }
+                  ],
+    "languages":  [
+                      "Silvano",
+                      "Élfico"
+                  ],
+    "nightVision":  false,
+    "relations":  [
+
+                  ],
+    "culture":  [
+
+                ],
+    "subtypes":  [
+
+                 ],
+    "referenceLink":  "https://www.skullsplitterdice.com/blogs/dnd/centaur-5e#:~:text=Alignment%3A%20Centaurs%20are%20inclined%20toward,slightly%20larger%20than%20Lagonna%20centaurs.",
+    "image":  "razas/centauro.png",
+    "isVariant":  false
+}
+

@@ -1,0 +1,71 @@
+{
+    "raceName":  "Muroideos",
+    "origin":  "Golarion (Plano Material)",
+    "raceDescription":  "Humanoides pequeños, parecidos a roedores, originarios de cavernas y zonas desérticas/subterráneas; ahora suelen vivir en caravanas nómadas o barrios urbanos, expertos en comercio, acumuladores y manipuladores.",
+    "bonusRules":  null,
+    "movementSpeed":  "8c",
+    "lifeSpan":  "60-80",
+    "longevity":  null,
+    "attributes":  [
+                       {
+                           "name":  "Fuerza",
+                           "bonus":  "-2"
+                       },
+                       {
+                           "name":  "Destreza",
+                           "bonus":  "+2"
+                       },
+                       {
+                           "name":  "Inteligencia",
+                           "bonus":  "+2"
+                       }
+                   ],
+    "sizes":  [
+                  2
+              ],
+    "abilities":  [
+                      {
+                          "name":  "Agilidad natural",
+                          "description":  "+1 a la CA. Pueden moverse a través de espacios ocupados por una o varias criaturas usando la reacción de esa ronda."
+                      },
+                      {
+                          "name":  "Furia acorralada",
+                          "description":  "Con la mitad o menos de los PG y sin aliados conscientes a 4C, obtiene +2 a ataques cuerpo a cuerpo y a la CA."
+                      },
+                      {
+                          "name":  "Apañado",
+                          "description":  "Bonificador +2 en cualquier Kit de herramientas y Usar objetos mágicos."
+                      },
+                      {
+                          "name":  "Esconderse",
+                          "description":  "Bonificador +2 en tiradas de Sigilo."
+                      }
+                  ],
+    "languages":  [
+                      "infracomún"
+                  ],
+    "nightVision":  true,
+    "relations":  [
+                      {
+                          "race":  "Humanos",
+                          "description":  "Buena relación; suelen compartir zonas urbanas"
+                      },
+                      {
+                          "race":  "Enanos",
+                          "description":  "Fricción; se sienten criticados y territoriales"
+                      },
+                      {
+                          "race":  "Elfos",
+                          "description":  "Compatibles; atraídos por su cultura y arte"
+                      }
+                  ],
+    "culture":  [
+
+                ],
+    "subtypes":  [
+
+                 ],
+    "referenceLink":  "https://pathfinder-es.fandom.com/es/wiki/R%C3%A1tido_(raza_jugable)",
+    "image":  "razas/muroideo.png",
+    "isVariant":  false
+}

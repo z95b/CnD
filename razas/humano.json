@@ -1,0 +1,67 @@
+{
+    "raceName":  "Humanos",
+    "origin":  "Plano Material",
+    "raceDescription":  "Los humanos son extremadamente comunes en las tierras habitadas gracias a su gran adaptación al entorno, al medio y a la propia genética. No destacan en ningún aspecto pero tampoco se quedan atrás en ninguno, cada uno tiene sus fuerzas y debilidades, ventajas y desventajas.",
+    "bonusRules":  "+2 en cualquier característica (o +1 a dos características).",
+    "movementSpeed":  "6",
+    "lifeSpan":  "70-100",
+    "longevity":  null,
+    "attributes":  [
+                       {
+                           "name":  "Fuerza",
+                           "bonus":  "+2"
+                       },
+                       {
+                           "name":  "Destreza",
+                           "bonus":  "+2"
+                       },
+                       {
+                           "name":  "Constitución",
+                           "bonus":  "+2"
+                       },
+                       {
+                           "name":  "Inteligencia",
+                           "bonus":  "+2"
+                       },
+                       {
+                           "name":  "Sabiduría",
+                           "bonus":  "+2"
+                       },
+                       {
+                           "name":  "Carisma",
+                           "bonus":  "+2"
+                       }
+                   ],
+    "sizes":  [
+                  2,
+                  3,
+                  4
+              ],
+    "abilities":  [
+                      {
+                          "name":  "Versatilidad",
+                          "description":  "Eliges un arma, artefacto, Kit de herramientas o idioma en el que ser competente."
+                      },
+                      {
+                          "name":  "Heroicidad",
+                          "description":  "Cada Descanso Largo obtienes 1 Inspiración que desaparece al realizar un Descanso Largo si no se usa. Esta inspiración te permite repetir una tirada cualquiera aun si el resultado es 1."
+                      }
+                  ],
+    "languages":  [
+
+                  ],
+    "nightVision":  false,
+    "relations":  [
+
+                  ],
+    "culture":  [
+
+                ],
+    "subtypes":  [
+
+                 ],
+    "referenceLink":  null,
+    "image":  "razas/humano.png",
+    "isVariant":  false
+}
+

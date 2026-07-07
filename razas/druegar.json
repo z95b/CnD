@@ -1,0 +1,53 @@
+{
+    "raceName":  "Druegar",
+    "origin":  "Infraoscuridad (Plano Material)",
+    "raceDescription":  "Los Druegar son enanos oscuros que habitan en las profundidades del Underdark. Son conocidos por su fuerza física y su astucia, así como por sus habilidades mágicas y su capacidad para modificar su tamaño y volverse invisibles temporalmente.",
+    "bonusRules":  null,
+    "movementSpeed":  "6",
+    "lifeSpan":  "400-500",
+    "longevity":  null,
+    "attributes":  [
+                       {
+                           "name":  "Fuerza",
+                           "bonus":  "+2"
+                       },
+                       {
+                           "name":  "Inteligencia",
+                           "bonus":  "+1"
+                       }
+                   ],
+    "sizes":  [
+                  3
+              ],
+    "abilities":  [
+                      {
+                          "name":  "Modificación Corporal",
+                          "description":  "Una vez por descanso corto, como acción puedes reducir o aumentar tu tamaño. Al reducir tu tamaño, obtienes ventaja en tiradas de Destreza. Al aumentar tu tamaño, obtienes ventaja en tiradas de Fuerza."
+                      },
+                      {
+                          "name":  "Invisibilidad",
+                          "description":  "Una vez por descanso corto, como acción puedes volverte invisible durante 10 minutos. La invisibilidad se cancela por las mismas razones que una invisibilidad normal."
+                      },
+                      {
+                          "name":  "Visión en la Oscuridad",
+                          "description":  "Puedes ver en la oscuridad hasta 60 pies como si fuera luz tenue."
+                      }
+                  ],
+    "languages":  [
+
+                  ],
+    "nightVision":  false,
+    "relations":  [
+
+                  ],
+    "culture":  [
+
+                ],
+    "subtypes":  [
+
+                 ],
+    "referenceLink":  null,
+    "image":  "razas/druegar.png",
+    "isVariant":  false
+}
+
