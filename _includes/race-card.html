@@ -1,7 +1,28 @@
 {% assign race = include.race %}
 {% assign race_key = include.race_key %}
 {% assign image_url = race.image | relative_url %}
-<details class="race-card{% if include.is_variant %} variant{% endif %}" name="race-accordion" data-variant="{{ include.is_variant }}" id="{{ race_key | escape }}" style="--portrait:url('{{ image_url | escape }}');">
+{% comment %}
+  Clases para los filtros de atributos (razas.html). Solo cuentan las bonificaciones
+  no negativas. Los nombres que no son un atributo concreto ("A elegir", "🔷",
+  "Selección de Propósito"…) se marcan como attr-any.
+{% endcomment %}
+{% assign attr_classes = "" %}
+{% for attribute in race.attributes %}
+  {% assign attr_bonus = attribute.bonus | append: "" | strip %}
+  {% assign attr_sign = attr_bonus | slice: 0 %}
+  {% if attr_sign != "-" %}
+    {% assign attr_name = attribute.name | append: "" | downcase %}
+    {% assign attr_known = false %}
+    {% if attr_name contains "fue" %}{% assign attr_classes = attr_classes | append: " attr-fue" %}{% assign attr_known = true %}{% endif %}
+    {% if attr_name contains "des" %}{% assign attr_classes = attr_classes | append: " attr-des" %}{% assign attr_known = true %}{% endif %}
+    {% if attr_name contains "cons" %}{% assign attr_classes = attr_classes | append: " attr-con" %}{% assign attr_known = true %}{% endif %}
+    {% if attr_name contains "int" %}{% assign attr_classes = attr_classes | append: " attr-int" %}{% assign attr_known = true %}{% endif %}
+    {% if attr_name contains "sab" %}{% assign attr_classes = attr_classes | append: " attr-sab" %}{% assign attr_known = true %}{% endif %}
+    {% if attr_name contains "car" %}{% assign attr_classes = attr_classes | append: " attr-car" %}{% assign attr_known = true %}{% endif %}
+    {% unless attr_known %}{% assign attr_classes = attr_classes | append: " attr-any" %}{% endunless %}
+  {% endif %}
+{% endfor %}
+<details class="race-card{% if include.is_variant %} variant{% endif %}{{ attr_classes }}" name="race-accordion" data-variant="{{ include.is_variant }}" id="{{ race_key | escape }}" style="--portrait:url('{{ image_url | escape }}');">
   <summary>
     <div class="summary-top">
       <div>

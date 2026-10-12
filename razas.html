@@ -136,6 +136,31 @@
 
 .race-origin { margin: 6px 0 0; color: var(--accent-2); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; display: none; }
 .race-card[open] .race-origin { display: block; }
+
+/* Filtros de atributos y buscador (sin scripts: checkboxes + :has()) */
+.race-tools { padding-bottom: 0; }
+.attr-filter { border: 0; margin: 0; padding: 0; display: grid; gap: 10px; }
+.attr-filter legend { font-weight: 700; letter-spacing: 0.06em; font-size: 13px; color: #fff; padding: 0; margin-bottom: 10px; }
+.filter-chips { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.filter-check { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.filter-chip { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border); background: rgba(255,255,255,0.04); color: var(--text); font-weight: 600; letter-spacing: 0.04em; cursor: pointer; user-select: none; transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease; }
+.filter-chip:hover { border-color: var(--accent); }
+.filter-check:checked + .filter-chip { background: rgba(159,224,194,0.18); border-color: var(--accent); color: var(--accent); box-shadow: 0 0 18px rgba(159,224,194,0.25); }
+.filter-check:focus-visible + .filter-chip { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+.filter-chip.soft { font-weight: 500; font-size: 13px; color: var(--muted); }
+.filter-chip.soft::before { content: "\2610\00a0"; }
+.filter-check:checked + .filter-chip.soft::before { content: "\2611\00a0"; }
+.filter-reset { padding: 8px 14px; border-radius: 999px; border: 1px solid rgba(247,197,216,0.5); background: rgba(247,197,216,0.1); color: var(--accent-2); font: inherit; font-weight: 600; letter-spacing: 0.04em; cursor: pointer; }
+.filter-reset:hover { background: rgba(247,197,216,0.2); }
+.race-index > summary { cursor: pointer; font-weight: 700; letter-spacing: 0.06em; font-size: 13px; color: #fff; }
+.race-index[open] > summary { margin-bottom: 10px; }
+.race-results .race-letter { grid-column: 1 / -1; margin: 6px 0 0; color: var(--accent-2); font-family: 'Cinzel','Space Grotesk',serif; font-size: 14px; letter-spacing: 0.12em; }
+.race-results .race-letter:first-child { margin-top: 0; }
+{% assign filter_attrs = "fue:Fuerza,des:Destreza,con:Constitución,int:Inteligencia,sab:Sabiduría,car:Carisma" | split: "," %}
+{% for filter_attr in filter_attrs %}{% assign attr_code = filter_attr | split: ":" | first %}
+body:has(#f-{{ attr_code }}:checked) .race-card:not(.attr-{{ attr_code }}):not(.attr-any):not(:target),
+body:has(#f-{{ attr_code }}:checked):not(:has(#f-any:checked)) .race-card.attr-any:not(.attr-{{ attr_code }}):not(:target) { display: none; }
+{% endfor %}
 </style>
 </head>
 <body class="has-race-cards">
@@ -152,6 +177,52 @@
 </ul></div></div>
 <!-- Generado por Jekyll desde razas/index.json y los JSON que enumera. -->
 {% assign race_index = site.data.index %}
+<section class="panel race-tools" id="buscador">
+  <form class="controls" action="#">
+    <fieldset class="attr-filter">
+      <legend>Filtrar por atributo con bonificación</legend>
+      <div class="filter-chips">
+        {% for filter_attr in filter_attrs %}
+          {% assign attr_parts = filter_attr | split: ":" %}
+          <input class="filter-check" type="checkbox" id="f-{{ attr_parts[0] }}"/><label class="filter-chip" for="f-{{ attr_parts[0] }}">{{ attr_parts[1] }}</label>
+        {% endfor %}
+        <button class="filter-reset" type="reset">Limpiar</button>
+      </div>
+      <div class="filter-chips">
+        <input class="filter-check" type="checkbox" id="f-any" checked/><label class="filter-chip soft" for="f-any">Incluir razas con atributo a elegir</label>
+      </div>
+      <p class="search-hint">Si marcas varios atributos se muestran las razas que bonifican todos ellos.</p>
+    </fieldset>
+
+    <details class="race-index">
+      <summary>Buscar raza por nombre</summary>
+      {% assign all_race_files = race_index.variantes | concat: race_index.razas %}
+      {% assign race_entries = "" %}
+      {% for race_file in all_race_files %}
+        {% assign race_key = race_file | remove: ".json" %}
+        {% assign race = site.data[race_key] %}
+        {% if race %}{% assign race_entries = race_entries | append: race.raceName | append: "::" | append: race_key | append: "~~" %}{% endif %}
+      {% endfor %}
+      {% assign race_entries = race_entries | split: "~~" | sort_natural %}
+      <nav class="race-results" aria-label="Índice de razas">
+        {% assign current_letter = "" %}
+        {% for race_entry in race_entries %}
+          {% assign entry_parts = race_entry | split: "::" %}
+          {% if entry_parts.size == 2 %}
+            {% assign entry_letter = entry_parts[0] | slice: 0 | upcase %}
+            {% if entry_letter != current_letter %}
+              <p class="race-letter">{{ entry_letter }}</p>
+              {% assign current_letter = entry_letter %}
+            {% endif %}
+            <a class="race-option" href="#{{ entry_parts[1] | escape }}">{{ entry_parts[0] | escape }}</a>
+          {% endif %}
+        {% endfor %}
+      </nav>
+      <p class="search-hint">Consejo: también puedes usar Ctrl+F (o «Buscar en la página» en el móvil) para buscar cualquier texto de las fichas.</p>
+    </details>
+  </form>
+</section>
+
 <div id="race-wrap" data-source-index="razas/index.json">
   <section class="panel" id="variantes">
     <h2 class="block-title">Variantes</h2>
