@@ -37,7 +37,8 @@ GitHub Pages es **hosting estático**. Sirve los ficheros tal cual, o después d
 Versiones fijadas por GitHub (ver <https://pages.github.com/versions/>): **Jekyll 3.10**, **Liquid 4.0.4**, **kramdown** como Markdown y **Rouge** para resaltado.
 
 - **Es Jekyll 3, no 4.** No uses filtros exclusivos de Jekyll 4, como `find`, `find_exp` o `number_of_words` con modo `cjk`. Sí puedes usar `where`, `where_exp`, `group_by`, `group_by_exp`, `sort`, `sort_natural`, `map`, `uniq`, `relative_url`, `absolute_url`, `jsonify`, `slugify`, etc.
-- **Liquid solo se procesa en ficheros con front matter** (`---` al principio, aunque esté vacío). Sin front matter, el fichero se copia literalmente y las etiquetas `{{ }}` / `{% %}` aparecen como texto.
+- **En HTML, Liquid solo se procesa en ficheros con front matter** (`---` al principio, aunque esté vacío). Sin front matter, el fichero se copia literalmente y las etiquetas de Liquid aparecen como texto.
+- **Excepción: los `.md` se procesan con Liquid aunque no tengan front matter** (plugin `jekyll-optional-front-matter`, activo en GitHub Pages). Escribir una etiqueta de Liquid literal en un `.md` rompe toda la compilación. Este fichero está excluido en `_config.yml` por ese motivo. En otros `.md` publicados, envuelve los ejemplos en `{% raw %}…{% endraw %}`.
 - **Ficheros y carpetas que empiezan por `_` o `.` no se publican** (salvo que se añadan a `include:` en `_config.yml`). `_includes/` y el `data_dir` se usan al compilar pero no se sirven como URL.
 - **No añadas `.nojekyll`.** Desactivaría Jekyll y romperían `razas.html` y `clases/index.html`.
 - Solo se pueden activar plugins de la lista blanca (p. ej. `jekyll-sitemap`, `jekyll-seo-tag`, `jekyll-feed`, `jekyll-redirect-from`, `jemoji`, `jekyll-relative-links`, `jekyll-optional-front-matter`…) declarándolos en `plugins:` de `_config.yml`.
